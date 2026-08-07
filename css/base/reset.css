@@ -1,0 +1,82 @@
+/**
+ * ==========================================================================
+ * Visium
+ * Arquivo: reset.css
+ * --------------------------------------------------------------------------
+ * Padroniza comportamentos básicos entre navegadores sem interferir
+ * nos componentes do Bootstrap.
+ * ==========================================================================
+ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl,
+dd,
+figure,
+blockquote {
+    margin: 0;
+}
+
+ul,
+ol {
+    padding: 0;
+    list-style: none;
+}
+
+img,
+picture,
+svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+textarea {
+    resize: vertical;
+}
+
+:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+}
