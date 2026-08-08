@@ -1,0 +1,376 @@
+/**
+ * ==========================================================================
+ * Visium
+ * Arquivo: patologias.css
+ * --------------------------------------------------------------------------
+ * Estilos do módulo Patologias Oculares.
+ * ==========================================================================
+ */
+
+
+/* ==========================================================================
+   Hero
+========================================================================== */
+
+
+.module-hero {
+
+    padding: 4rem 0;
+
+    background:
+        linear-gradient(180deg,
+            var(--color-white),
+            var(--color-primary-50));
+
+}
+
+
+
+.module-hero>.container-lg {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    align-items: center;
+
+    gap: 3rem;
+
+}
+
+
+
+.module-tag {
+
+    display: inline-block;
+
+    margin-bottom: var(--spacing-md);
+
+    padding: .4rem .9rem;
+
+    border-radius: 999px;
+
+    background-color: var(--color-primary-100);
+
+    color: var(--color-primary-dark);
+
+    font-weight: var(--font-weight-semibold);
+
+}
+
+
+
+.module-hero h1 {
+
+    margin-bottom: var(--spacing-md);
+
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+
+    font-weight: var(--font-weight-black);
+
+    color: var(--color-primary-dark);
+
+}
+
+
+
+.module-hero p {
+
+    color: var(--color-gray-700);
+
+    font-size: var(--font-size-lg);
+
+    line-height: 1.7;
+
+}
+
+
+
+.module-hero-image img {
+
+    width: 100%;
+
+    border-radius: var(--border-radius-xl);
+
+    box-shadow: var(--shadow-lg);
+
+}
+
+
+
+
+
+/* ==========================================================================
+   Índice
+========================================================================== */
+
+
+.module-index {
+
+    padding: 2rem 0;
+
+}
+
+
+
+.module-index ul {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 1rem;
+
+    padding: 0;
+
+    list-style: none;
+
+}
+
+
+
+.module-index a {
+
+    padding: .6rem 1rem;
+
+    border-radius: var(--border-radius-md);
+
+    background: var(--color-gray-100);
+
+    color: var(--color-primary);
+
+    text-decoration: none;
+
+}
+
+
+
+
+
+/* ==========================================================================
+   Conteúdo
+========================================================================== */
+
+
+.module-content {
+
+    padding: 3rem 0 5rem;
+
+}
+
+
+
+.content-section {
+
+    margin-bottom: 4rem;
+
+}
+
+
+
+.content-section h2 {
+
+    margin-bottom: var(--spacing-lg);
+
+    color: var(--color-primary-dark);
+
+}
+
+
+
+.content-section h3 {
+
+    color: var(--color-primary-dark);
+
+}
+
+
+
+.content-section p {
+
+    color: var(--color-gray-700);
+
+    line-height: 1.8;
+
+}
+
+
+
+.content-image {
+
+    display: block;
+
+    width: 100%;
+
+    max-width: 850px;
+
+    margin: 2rem auto;
+
+    border-radius: var(--border-radius-xl);
+
+    box-shadow: var(--shadow-md);
+
+}
+
+
+
+
+
+/* ==========================================================================
+   Cards de patologias
+========================================================================== */
+
+
+.pathology-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit,
+            minmax(260px, 1fr));
+
+    gap: var(--spacing-xl);
+
+    margin-top: var(--spacing-xl);
+
+}
+
+
+
+.pathology-card {
+
+    overflow: hidden;
+
+    background: var(--color-white);
+
+    border-radius: var(--border-radius-xl);
+
+    border: 1px solid var(--color-gray-200);
+
+    box-shadow: var(--shadow-sm);
+
+}
+
+
+
+.pathology-card img {
+
+    width: 100%;
+
+    height: 220px;
+
+    object-fit: cover;
+
+}
+
+
+
+.pathology-card div {
+
+    padding: var(--spacing-lg);
+
+}
+
+
+
+
+
+/* ==========================================================================
+   Galeria
+========================================================================== */
+
+
+.content-image-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit,
+            minmax(250px, 1fr));
+
+    gap: var(--spacing-lg);
+
+}
+
+
+
+.content-image-grid img {
+
+    width: 100%;
+
+    border-radius: var(--border-radius-xl);
+
+    box-shadow: var(--shadow-sm);
+
+}
+
+
+
+
+
+/* ==========================================================================
+   Resumo
+========================================================================== */
+
+
+.content-summary {
+
+    margin-top: 3rem;
+
+}
+
+
+
+.summary-card {
+
+    padding: var(--spacing-xl);
+
+    background: var(--color-primary-50);
+
+    border-radius: var(--border-radius-xl);
+
+}
+
+
+
+.summary-card h2 {
+
+    color: var(--color-primary-dark);
+
+}
+
+
+
+.summary-card li {
+
+    margin-bottom: .5rem;
+
+    color: var(--color-gray-700);
+
+}
+
+
+
+
+
+/* ==========================================================================
+   Responsivo
+========================================================================== */
+
+
+@media (max-width: 991px) {
+
+
+    .module-hero>.container-lg {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .module-hero-image {
+
+        order: -1;
+
+    }
+
+
+}

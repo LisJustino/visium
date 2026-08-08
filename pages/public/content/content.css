@@ -7,35 +7,36 @@
  * ==========================================================================
  */
 
+
 /* ==========================================================================
    Hero
 ========================================================================== */
 
 .content-hero {
 
-    padding: 4rem 0 2rem;
+    padding: 5rem 0 3rem;
 
-    background: linear-gradient(
-        180deg,
-        #FFFFFF 0%,
-        var(--color-primary-50) 100%
-    );
+    background: linear-gradient(180deg,
+            #FFFFFF 0%,
+            #F1F3F5 100%);
 
     text-align: center;
 
 }
 
+
 .content-hero h1 {
 
-    margin-bottom: 1rem;
+    margin-bottom: var(--spacing-md);
 
-    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
 
     font-weight: var(--font-weight-black);
 
     color: var(--color-primary-dark);
 
 }
+
 
 .content-hero p {
 
@@ -47,29 +48,54 @@
 
     color: var(--color-gray-700);
 
+    line-height: 1.7;
+
 }
 
+
+
 /* ==========================================================================
-   Conteúdos
+   Lista de conteúdos
 ========================================================================== */
+
 
 .content-list {
 
-    padding: 4rem 0 5rem;
+    padding: var(--spacing-section) 0;
 
 }
 
+
+
+.content-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit,
+            minmax(280px, 1fr));
+
+    gap: var(--spacing-xl);
+
+}
+
+
+
 /* ==========================================================================
-   Card
+   Cards
 ========================================================================== */
+
 
 .content-card {
 
-    height: 100%;
+    display: flex;
+
+    flex-direction: column;
 
     overflow: hidden;
 
-    background: var(--color-white);
+    height: 100%;
+
+    background-color: var(--color-white);
 
     border: 1px solid var(--color-gray-200);
 
@@ -81,15 +107,7 @@
 
 }
 
-.content-grid {
 
-    display: grid;
-
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-
-    gap: 2rem;
-
-}
 
 .content-card:hover {
 
@@ -99,9 +117,9 @@
 
 }
 
-.content-card img {
 
-    display: block;
+
+.content-card img {
 
     width: 100%;
 
@@ -111,27 +129,35 @@
 
 }
 
+
+
 .content-card-body {
 
     display: flex;
 
     flex-direction: column;
 
-    height: calc(100% - 220px);
+    flex: 1;
 
     padding: var(--spacing-xl);
 
 }
 
+
+
 .content-card-body h2 {
 
     margin-bottom: var(--spacing-md);
 
-    font-size: 1.35rem;
+    font-size: 1.4rem;
+
+    font-weight: var(--font-weight-bold);
 
     color: var(--color-primary-dark);
 
 }
+
+
 
 .content-card-body p {
 
@@ -145,23 +171,55 @@
 
 }
 
+
+
 .content-card-body .btn {
 
     width: 100%;
 
 }
 
+
+
+/* ==========================================================================
+   Hover do botão
+========================================================================== */
+
+
+.content-card .btn-primary {
+
+    background-color: var(--color-primary);
+
+    border-color: var(--color-primary);
+
+}
+
+
+
+.content-card .btn-primary:hover {
+
+    background-color: var(--color-primary-dark);
+
+    border-color: var(--color-primary-dark);
+
+}
+
+
+
 /* ==========================================================================
    Responsividade
 ========================================================================== */
 
+
 @media (max-width: 991.98px) {
+
 
     .content-list {
 
-        padding: 3rem 0;
+        padding: 4rem 0;
 
     }
+
 
     .content-card img {
 
@@ -169,9 +227,13 @@
 
     }
 
+
 }
 
+
+
 @media (max-width: 767.98px) {
+
 
     .content-hero {
 
@@ -179,11 +241,13 @@
 
     }
 
+
     .content-hero h1 {
 
         font-size: 2.2rem;
 
     }
+
 
     .content-hero p {
 
@@ -191,20 +255,33 @@
 
     }
 
+
     .content-card-body {
 
         padding: var(--spacing-lg);
 
     }
 
+
 }
 
+
+
 @media (max-width: 575.98px) {
+
+
+    .content-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
 
     .content-card img {
 
         height: 200px;
 
     }
+
 
 }

@@ -1,0 +1,92 @@
+/**
+ * ==========================================================================
+ * Visium
+ * Arquivo: footer.css
+ *
+ * Estilos do componente Footer.
+ * ==========================================================================
+ */
+
+.footer-content {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 2rem;
+
+    padding: 2rem 0;
+
+}
+
+
+.footer-brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+
+}
+
+
+.footer-logo {
+
+    width: 48px;
+
+    height: 48px;
+
+    object-fit: contain;
+
+    border-radius: .75rem;
+
+}
+
+
+.footer-content p {
+
+    margin: 0;
+
+    color: var(--color-gray-700);
+
+    line-height: 1.6;
+
+}
+
+
+.footer-copy {
+
+    text-align: right;
+
+}
+
+
+@media (max-width: 767.98px) {
+
+
+    .footer-content {
+
+        flex-direction: column;
+
+        text-align: center;
+
+    }
+
+
+    .footer-brand {
+
+        flex-direction: column;
+
+    }
+
+
+    .footer-copy {
+
+        text-align: center;
+
+    }
+
+}
