@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Leitor de conteúdos educacionais do Visium."
+    >
+
+    <title>Conteúdo | Visium</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/base/reset.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/base/global.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/css/abstracts/variables.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/components/header/header.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/components/sidebar/sidebar.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/pages/app/reader/reader.css"
+    >
+
+</head>
+
+
+<body>
+
+    <div class="app-shell">
+
+        <!-- ==========================================================
+             Sidebar
+        =========================================================== -->
+
+        <div id="appSidebarContainer"></div>
+
+
+        <!-- ==========================================================
+             Área principal
+        =========================================================== -->
+
+        <div class="app-main">
+
+            <!-- Header -->
+
+            <div id="appHeaderContainer"></div>
+
+
+            <!-- ======================================================
+                 Conteúdo
+            ======================================================= -->
+
+            <main class="reader-page">
+
+                <div class="reader-container">
+
+                    <!-- Voltar -->
+
+                    <a
+                        href="/pages/app/contents/contents.html"
+                        class="reader-back"
+                    >
+                        ← Voltar para conteúdos
+                    </a>
+
+
+                    <!-- Cabeçalho -->
+
+                    <header class="reader-header">
+
+                        <div>
+
+                            <span
+                                class="reader-eyebrow"
+                                id="readerCategory"
+                            >
+                                CONTEÚDO
+                            </span>
+
+                            <h1 id="readerTitle">
+                                Carregando conteúdo...
+                            </h1>
+
+                            <p id="readerDescription">
+                                Aguarde enquanto o conteúdo é carregado.
+                            </p>
+
+                        </div>
+
+                    </header>
+
+
+                    <!-- Progresso -->
+
+                    <section class="reader-progress">
+
+                        <div class="reader-progress__top">
+
+                            <span>
+                                Seu progresso
+                            </span>
+
+                            <strong id="readerProgressText">
+                                0%
+                            </strong>
+
+                        </div>
+
+                        <div class="reader-progress__bar">
+
+                            <div
+                                id="readerProgressBar"
+                                class="reader-progress__fill"
+                            ></div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- Layout do leitor -->
+
+                    <div class="reader-layout">
+
+                        <!-- Navegação -->
+
+                        <aside class="reader-navigation">
+
+                            <div class="reader-navigation__header">
+
+                                <span>
+                                    Neste conteúdo
+                                </span>
+
+                            </div>
+
+                            <nav
+                                id="readerSections"
+                                class="reader-sections"
+                            ></nav>
+
+                        </aside>
+
+
+                        <!-- Artigo -->
+
+                        <article
+                            id="readerArticle"
+                            class="reader-article"
+                        ></article>
+
+                    </div>
+
+
+                    <!-- Navegação inferior -->
+
+                    <nav class="reader-footer-navigation">
+
+                        <button
+                            type="button"
+                            id="readerPrevious"
+                            class="reader-navigation-button"
+                            disabled
+                        >
+                            ← Anterior
+                        </button>
+
+                        <button
+                            type="button"
+                            id="readerNext"
+                            class="reader-navigation-button reader-navigation-button--primary"
+                        >
+                            Próximo →
+                        </button>
+
+                    </nav>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+
+    <script
+        src="/pages/app/reader/reader.js"
+    ></script>
+
+</body>
+
+</html>

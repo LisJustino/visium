@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Quiz educacional do Visium.">
+
+    <title>Quiz | Visium</title>
+
+    <link rel="stylesheet" href="/css/base/reset.css">
+
+    <link rel="stylesheet" href="/css/base/global.css">
+
+    <link rel="stylesheet" href="/css/abstracts/variables.css">
+
+    <link rel="stylesheet" href="/components/header/header.css">
+
+    <link rel="stylesheet" href="/components/sidebar/sidebar.css">
+
+    <link rel="stylesheet" href="/pages/app/quizzes/quiz.css">
+
+</head>
+
+
+<body>
+
+    <div class="app-shell">
+
+        <!-- ==========================================================
+             Sidebar
+        =========================================================== -->
+
+        <div id="appSidebarContainer"></div>
+
+
+        <!-- ==========================================================
+             Área principal
+        =========================================================== -->
+
+        <div class="app-main">
+
+            <div id="appHeaderContainer"></div>
+
+
+            <main class="quiz-page">
+
+                <div class="quiz-container">
+
+                    <!-- ==================================================
+                         Cabeçalho
+                    =================================================== -->
+
+                    <header class="quiz-header">
+
+                        <a href="/pages/app/quizzes/quizzes.html" class="quiz-back">
+                            &larr; Voltar para quizzes
+                        </a>
+
+
+                        <div class="quiz-header__content">
+
+                            <span class="quiz-eyebrow" id="quizCategory">
+                                QUIZ
+                            </span>
+
+                            <h1 id="quizTitle">
+                                Carregando quiz...
+                            </h1>
+
+                            <p id="quizDescription">
+                                Aguarde enquanto o quiz é carregado.
+                            </p>
+
+                        </div>
+
+                    </header>
+
+
+                    <!-- ==================================================
+                         Área do quiz
+                    =================================================== -->
+
+                    <section class="quiz-card" id="quizCard">
+
+                        <!-- ==================================================
+                             Topo da questão
+                        =================================================== -->
+
+                        <div class="quiz-card__top">
+
+                            <div>
+
+                                <span class="quiz-question-label">
+                                    QUESTÃO
+                                </span>
+
+                                <strong id="questionNumber">
+                                    1 de 1
+                                </strong>
+
+                            </div>
+
+
+                            <div class="quiz-score">
+
+                                <span>
+                                    Pontuação
+                                </span>
+
+                                <strong id="quizScore">
+                                    0
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ==================================================
+                             Barra de progresso
+                        =================================================== -->
+
+                        <div class="quiz-progress">
+
+                            <div class="quiz-progress__top">
+
+                                <span>
+                                    Progresso
+                                </span>
+
+                                <strong id="quizProgressText">
+                                    0%
+                                </strong>
+
+                            </div>
+
+
+                            <div class="quiz-progress__bar">
+
+                                <div class="quiz-progress__fill" id="quizProgressFill"></div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ==================================================
+                             Questão
+                        =================================================== -->
+
+                        <div class="quiz-question">
+
+                            <h2 id="questionText">
+                                Carregando questão...
+                            </h2>
+
+
+                            <div class="quiz-options" id="quizOptions"></div>
+
+                        </div>
+
+
+                        <!-- ==================================================
+                             Feedback
+                        =================================================== -->
+
+                        <div class="quiz-feedback" id="quizFeedback" hidden>
+
+                            <strong id="feedbackTitle">
+                                Resposta
+                            </strong>
+
+                            <p id="feedbackMessage"></p>
+
+                        </div>
+
+
+                        <!-- ==================================================
+                             Navegação
+                        =================================================== -->
+
+                        <div class="quiz-navigation">
+
+                            <button type="button" class="quiz-button quiz-button--secondary" id="previousQuestion"
+                                disabled>
+                                &larr; Anterior
+                            </button>
+
+
+                            <button type="button" class="quiz-button quiz-button--primary" id="nextQuestion" disabled>
+                                Confirmar resposta
+                            </button>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- ==================================================
+                         Resultado
+                    =================================================== -->
+
+                    <section class="quiz-result" id="quizResult" hidden>
+
+                        <span class="quiz-result__eyebrow">
+                            QUIZ CONCLUÍDO
+                        </span>
+
+                        <h2>
+                            Resultado
+                        </h2>
+
+                        <p class="quiz-result__message" id="resultMessage">
+                            Você concluiu o quiz.
+                        </p>
+
+
+                        <div class="quiz-result__score">
+
+                            <span>
+                                Aproveitamento
+                            </span>
+
+                            <strong id="resultScore">
+                                0%
+                            </strong>
+
+                        </div>
+
+
+                        <div class="quiz-result__details">
+
+                            <div>
+
+                                <strong id="resultCorrect">
+                                    0
+                                </strong>
+
+                                <span>
+                                    acertos
+                                </span>
+
+                            </div>
+
+
+                            <div>
+
+                                <strong id="resultWrong">
+                                    0
+                                </strong>
+
+                                <span>
+                                    erros
+                                </span>
+
+                            </div>
+
+
+                            <div>
+
+                                <strong id="resultTotal">
+                                    0
+                                </strong>
+
+                                <span>
+                                    questões
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="quiz-result__actions">
+
+                            <button type="button" class="quiz-button quiz-button--secondary" id="restartQuiz">
+                                Refazer quiz
+                            </button>
+
+
+                            <a href="/pages/app/quizzes/quizzes.html" class="quiz-button quiz-button--primary">
+                                Voltar para quizzes
+                            </a>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+
+    <script src="/pages/app/quizzes/quiz.js"></script>
+
+</body>
+
+</html>

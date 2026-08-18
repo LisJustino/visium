@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Acompanhe seu progresso de estudos no Visium.">
+
+    <title>Meu Progresso | Visium</title>
+
+    <link rel="stylesheet" href="/css/base/reset.css">
+
+    <link rel="stylesheet" href="/css/base/global.css">
+
+    <link rel="stylesheet" href="/css/abstracts/variables.css">
+
+    <link rel="stylesheet" href="/components/header/header.css">
+
+    <link rel="stylesheet" href="/components/sidebar/sidebar.css">
+
+    <link rel="stylesheet" href="/pages/app/progress/progress.css">
+
+</head>
+
+
+<body>
+
+    <div class="app-shell">
+
+        <!-- ==========================================================
+             Sidebar
+        =========================================================== -->
+
+        <div id="appSidebarContainer"></div>
+
+
+        <!-- ==========================================================
+             Área principal
+        =========================================================== -->
+
+        <div class="app-main">
+
+            <div id="appHeaderContainer"></div>
+
+
+            <main class="progress-page">
+
+                <div class="progress-container">
+
+                    <!-- ==================================================
+                         Cabeçalho
+                    =================================================== -->
+
+                    <header class="progress-header">
+
+                        <span class="progress-eyebrow">
+                            ACOMPANHAMENTO
+                        </span>
+
+                        <h1>
+                            Meu progresso
+                        </h1>
+
+                        <p>
+                            Acompanhe sua evolução nos estudos e veja
+                            seus resultados recentes.
+                        </p>
+
+                    </header>
+
+
+                    <!-- ==================================================
+                         Visão geral
+                    =================================================== -->
+
+                    <section class="progress-overview" aria-label="Resumo do progresso">
+
+                        <div class="progress-overview__main">
+
+                            <span class="progress-card__label">
+                                Aproveitamento médio
+                            </span>
+
+                            <strong id="averageScore" class="progress-overview__score">
+                                0%
+                            </strong>
+
+                            <span id="averageScoreMessage" class="progress-overview__message">
+                                Ainda não há resultados registrados.
+                            </span>
+
+                        </div>
+
+
+                        <div class="progress-overview__bar">
+
+                            <div id="averageScoreFill" class="progress-overview__fill"></div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- ==================================================
+                         Indicadores
+                    =================================================== -->
+
+                    <section class="progress-stats" aria-label="Indicadores de desempenho">
+
+                        <article class="progress-stat-card">
+
+                            <span class="progress-stat-card__label">
+                                Quizzes realizados
+                            </span>
+
+                            <strong id="quizCount" class="progress-stat-card__value">
+                                0
+                            </strong>
+
+                        </article>
+
+
+                        <article class="progress-stat-card">
+
+                            <span class="progress-stat-card__label">
+                                Melhor resultado
+                            </span>
+
+                            <strong id="bestScore" class="progress-stat-card__value">
+                                0%
+                            </strong>
+
+                        </article>
+
+
+                        <article class="progress-stat-card">
+
+                            <span class="progress-stat-card__label">
+                                Questões respondidas
+                            </span>
+
+                            <strong id="questionCount" class="progress-stat-card__value">
+                                0
+                            </strong>
+
+                        </article>
+
+
+                        <article class="progress-stat-card">
+
+                            <span class="progress-stat-card__label">
+                                Conteúdos iniciados
+                            </span>
+
+                            <strong id="contentCount" class="progress-stat-card__value">
+                                0
+                            </strong>
+
+                        </article>
+
+                    </section>
+
+
+                    <!-- ==================================================
+                         Conteúdos
+                    =================================================== -->
+
+                    <section class="progress-section">
+
+                        <div class="progress-section__header">
+
+                            <div>
+
+                                <span class="progress-section__eyebrow">
+                                    ESTUDOS
+                                </span>
+
+                                <h2>
+                                    Conteúdos
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="content-progress-list" id="contentProgressList"></div>
+
+                    </section>
+
+
+                    <!-- ==================================================
+                         Histórico
+                    =================================================== -->
+
+                    <section class="progress-section">
+
+                        <div class="progress-section__header">
+
+                            <div>
+
+                                <span class="progress-section__eyebrow">
+                                    DESEMPENHO
+                                </span>
+
+                                <h2>
+                                    Resultados recentes
+                                </h2>
+
+                            </div>
+
+                            <a href="/pages/app/quizzes/quizzes.html" class="progress-section__link">
+                                Fazer quiz
+                            </a>
+
+                        </div>
+
+
+                        <div class="progress-history" id="progressHistory"></div>
+
+                    </section>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+
+    <script src="/pages/app/progress/progress.js"></script>
+
+</body>
+
+</html>

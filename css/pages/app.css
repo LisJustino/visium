@@ -1,0 +1,195 @@
+/**
+ * ==========================================================================
+ * Visium
+ * Arquivo: app.css
+ *
+ * Estrutura global da área autenticada.
+ * ==========================================================================
+ */
+
+
+/* ==========================================================================
+   Página autenticada
+========================================================================== */
+
+.app-page {
+
+    width:
+        100%;
+
+    min-height:
+        100vh;
+
+    min-height:
+        100dvh;
+
+    overflow:
+        hidden;
+
+}
+
+
+/* ==========================================================================
+   Shell
+========================================================================== */
+
+.app-shell {
+
+    display:
+        flex;
+
+    width:
+        100%;
+
+    height:
+        100vh;
+
+    height:
+        100dvh;
+
+    min-height:
+        0;
+
+}
+
+
+/* ==========================================================================
+   Área principal
+========================================================================== */
+
+.app-main {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    width:
+        calc(100% - var(--sidebar-width));
+
+    height:
+        100%;
+
+    min-width:
+        0;
+
+    min-height:
+        0;
+
+    margin-left:
+        var(--sidebar-width);
+
+}
+
+
+/* ==========================================================================
+   Conteúdo principal
+========================================================================== */
+
+.app-content {
+
+    flex:
+        1;
+
+    min-width:
+        0;
+
+    min-height:
+        0;
+
+    overflow-y:
+        auto;
+
+    overflow-x:
+        hidden;
+
+    background:
+        var(--color-background);
+
+}
+
+
+/* ==========================================================================
+   Container padrão
+========================================================================== */
+
+.app-content__container {
+
+    width:
+        min(
+            calc(100% - 3rem),
+            var(--content-max-width)
+        );
+
+    margin:
+        0 auto;
+
+    padding:
+        var(--space-10) 0 var(--space-16);
+
+}
+
+
+/* ==========================================================================
+   Responsividade
+========================================================================== */
+
+@media (max-width: 900px) {
+
+    .app-page {
+
+        overflow:
+            auto;
+
+    }
+
+
+    .app-shell {
+
+        min-height:
+            100dvh;
+
+    }
+
+
+    .app-main {
+
+        width:
+            100%;
+
+        margin-left:
+            0;
+
+    }
+
+
+    .app-content__container {
+
+        width:
+            min(
+                calc(100% - 2rem),
+                var(--content-max-width)
+            );
+
+        padding:
+            var(--space-8) 0 var(--space-12);
+
+    }
+
+}
+
+
+@media (max-width: 576px) {
+
+    .app-content__container {
+
+        width:
+            calc(100% - 1.5rem);
+
+        padding:
+            var(--space-6) 0 var(--space-10);
+
+    }
+
+}

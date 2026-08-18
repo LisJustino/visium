@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Biblioteca de conteúdos do Visium.">
+
+    <title>Conteúdos | Visium</title>
+
+
+    <!-- ================================================================
+         Base
+    ================================================================= -->
+
+    <link rel="stylesheet" href="/css/abstracts/variables.css">
+
+    <link rel="stylesheet" href="/css/base/reset.css">
+
+    <link rel="stylesheet" href="/css/base/global.css">
+
+
+    <!-- ================================================================
+         Estrutura global da área autenticada
+    ================================================================= -->
+
+    <link rel="stylesheet" href="/css/pages/app.css">
+
+
+    <!-- ================================================================
+         Componentes
+    ================================================================= -->
+
+    <link rel="stylesheet" href="/components/header/header.css">
+
+    <link rel="stylesheet" href="/components/sidebar/sidebar.css">
+
+
+    <!-- ================================================================
+         Página
+    ================================================================= -->
+
+    <link rel="stylesheet" href="/pages/app/contents/contents.css">
+
+</head>
+
+
+<body class="app-page">
+
+
+    <div class="app-shell">
+
+
+        <!-- ============================================================
+             Sidebar
+        ============================================================= -->
+
+        <div id="appSidebarContainer"></div>
+
+
+        <!-- ============================================================
+             Área principal
+        ============================================================= -->
+
+        <div class="app-main">
+
+
+            <!-- ========================================================
+                 Header
+            ========================================================= -->
+
+            <div id="appHeaderContainer"></div>
+
+
+            <!-- ========================================================
+                 Conteúdo
+            ========================================================= -->
+
+            <main class="app-content" id="mainContent">
+
+                <div class="app-content__container">
+
+
+                    <!-- ==================================================
+                         Introdução
+                    =================================================== -->
+
+                    <section
+                        class="contents-intro"
+                        aria-labelledby="contentsPageTitle"
+                    >
+
+                        <span class="contents-intro__eyebrow">
+                            BIBLIOTECA
+                        </span>
+
+                        <h1 id="contentsPageTitle">
+                            Conteúdos
+                        </h1>
+
+                        <p>
+                            Explore os conteúdos do Visium e escolha um
+                            tema para continuar seus estudos.
+                        </p>
+
+                    </section>
+
+
+                    <!-- ==================================================
+                         Ferramentas
+                    =================================================== -->
+
+                    <section
+                        class="contents-toolbar"
+                        aria-label="Ferramentas da biblioteca"
+                    >
+
+                        <div class="contents-search">
+
+                            <label
+                                class="sr-only"
+                                for="contentSearch"
+                            >
+                                Buscar conteúdo
+                            </label>
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                                focusable="false"
+                            >
+
+                                <circle
+                                    cx="11"
+                                    cy="11"
+                                    r="6.5"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                />
+
+                                <path
+                                    d="m16 16 4 4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                />
+
+                            </svg>
+
+
+                            <input
+                                type="search"
+                                id="contentSearch"
+                                name="contentSearch"
+                                placeholder="Buscar conteúdo..."
+                                autocomplete="off"
+                            >
+
+                        </div>
+
+
+                        <div
+                            class="contents-filters"
+                            role="group"
+                            aria-label="Filtrar conteúdos"
+                        >
+
+                            <button
+                                type="button"
+                                class="contents-filter is-active"
+                                data-filter="all"
+                                aria-pressed="true"
+                            >
+                                Todos
+                            </button>
+
+                            <button
+                                type="button"
+                                class="contents-filter"
+                                data-filter="ametropias"
+                                aria-pressed="false"
+                            >
+                                Ametropias
+                            </button>
+
+                            <button
+                                type="button"
+                                class="contents-filter"
+                                data-filter="dp-dnp"
+                                aria-pressed="false"
+                            >
+                                DP e DNP
+                            </button>
+
+                            <button
+                                type="button"
+                                class="contents-filter"
+                                data-filter="montagem"
+                                aria-pressed="false"
+                            >
+                                Montagem
+                            </button>
+
+                            <button
+                                type="button"
+                                class="contents-filter"
+                                data-filter="patologias"
+                                aria-pressed="false"
+                            >
+                                Patologias
+                            </button>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- ==================================================
+                         Lista de conteúdos
+                    =================================================== -->
+
+                    <section
+                        class="contents-section"
+                        aria-labelledby="contentsListTitle"
+                    >
+
+                        <div class="contents-section__header">
+
+                            <div>
+
+                                <span class="section-label">
+                                    DISPONÍVEIS
+                                </span>
+
+                                <h2 id="contentsListTitle">
+                                    Escolha um conteúdo
+                                </h2>
+
+                            </div>
+
+
+                            <span
+                                class="contents-count"
+                                id="contentsCount"
+                            >
+                                4 conteúdos
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="contents-grid"
+                            id="contentsGrid"
+                        >
+
+
+                            <!-- =================================================
+                                 Ametropias
+                            ================================================== -->
+
+                            <article
+                                class="library-card"
+                                data-category="ametropias"
+                                data-title="Ametropias"
+                            >
+
+                                <div class="library-card__top">
+
+                                    <div class="library-card__icon">
+
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            aria-hidden="true"
+                                            focusable="false"
+                                        >
+
+                                            <circle
+                                                cx="12"
+                                                cy="12"
+                                                r="8"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="1.8"
+                                            />
+
+                                            <circle
+                                                cx="12"
+                                                cy="12"
+                                                r="3"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="1.8"
+                                            />
+
+                                        </svg>
+
+                                    </div>
+
+
+                                    <span class="library-card__category">
+                                        REFRAÇÃO
+                                    </span>
+
+                                </div>
+
+
+                                <div class="library-card__body">
+
+                                    <h3>
+                                        Ametropias
+                                    </h3>
+
+                                    <p>
+                                        Estude miopia, hipermetropia,
+                                        astigmatismo e presbiopia.
+                                    </p>
+
+                                </div>
+
+
+                                <div class="library-card__footer">
+
+                                    <span class="library-card__status">
+                                        Conteúdo disponível
+                                    </span>
+
+
+                                    <a
+                                        href="/pages/app/reader/reader.html?content=ametropias"
+                                        class="library-card__action"
+                                        aria-label="Estudar Ametropias"
+                                    >
+
+                                        <span>
+                                            Estudar
+                                        </span>
+
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            aria-hidden="true"
+                                            focusable="false"
+                                        >
+
+                                            <path
+                                                d="M5 12h13M13 6l6 6-6 6"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="1.8"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            />
+
+                                        </svg>
+
+                                    </a>
+
+                                </div>
+
+                            </article>
+
+
+                            <!-- =================================================
+                                 DP e DNP
+                            ================================================== -->
+
+                            <article
+                                class="library-card"
+                                data-category="dp-dnp"
+                                data-title="DP e DNP"
+                            >
+
+                                <div class="library-card__top">
+
+                                    <div class="library-card__icon">
+
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            aria-hidden="true"
+                                            focusable="false"
+                                        >
+
+                                            <circle
+                                                cx="12"
+                                                cy="12"
+                                                r="8"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="1.8"
+                                            />
+
+                                            <path
+                                                d="M4 12h16M12 4v16"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="1.8"
+                                                stroke-linecap="round"
+                                            />
+
+                                        </svg>
+
+                                    </div>
+
+
+                                    <span class="library-card__category">
+                                        MEDIÇÃO
+                                    </span>
+
+                                </div>
+
+
+                                <div class="library-card__body">
+
+                                    <h3>
+                                        DP e DNP
+                                    </h3>
+
+                                    <p>
+                                        Conceitos relacionados à distância
+                                        pupilar e distância naso-pupilar.
+                                    </p>
+
+                                </div>
+
+
+                                <div class="library-card__footer">
+
+                                    <span class="library-card__status">
+                                        Conteúdo disponível
+                                    </span>
+
+
+                                    <a
+                                        href="/pages/app/reader/reader.html?content=dp-dnp"
+                                        class="library-card__action"
+                                        aria-label="Estudar DP e DNP"
+                                    >
+
+                                        <span>
+                                            Estudar
+                                        </span>
+
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            aria-hidden="true"
+                                            focusable="false"
+                                        >
+
+                                            <path
+                                                d="M5 12h13M13 6l6 6-6 6"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="1.8"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            />
+
+                                        </svg>
+
+                                    </a>
+
+                                </div>
+
+                            </article>
+
+
+                            <!-- =================================================
+                                 Montagem
+                            ================================================== -->
+
+                            <article
+                                class="library-card"
+                                data-category="montagem"
+                                data-title="Montagem"
+                            >
+
+                                <div class="library-card__top">
+
+                                    <div class="library-card__icon">
+
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            aria-hidden="true"
+                                            focusable="false"
+                                        >
+
+                                            <path
+                                                d="M5 19 19 5M8 5h11v11"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="1.8"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            />
+
+                                            <path
+                                                d="M5 8v11h11"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="1.8"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            />
+
+                                        </svg>
+
+                                    </div>
+
+
+                                    <span class="library-card__category">
+                                        PROCESSOS
+                                    </span>
+
+                                </div>
+
+
+                                <div class="library-card__body">
+
+                                    <h3>
+                                        Montagem
+                                    </h3>
+
+                                    <p>
+                                        Conheça conceitos e processos
+                                        relacionados à montagem óptica.
+                                    </p>
+
+                                </div>
+
+
+                                <div class="library-card__footer">
+
+                                    <span class="library-card__status">
+                                        Conteúdo disponível
+                                    </span>
+
+
+                                    <a
+                                        href="/pages/app/reader/reader.html?content=montagem"
+                                        class="library-card__action"
+                                        aria-label="Estudar Montagem"
+                                    >
+
+                                        <span>
+                                            Estudar
+                                        </span>
+
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            aria-hidden="true"
+                                            focusable="false"
+                                        >
+
+                                            <path
+                                                d="M5 12h13M13 6l6 6-6 6"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="1.8"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            />
+
+                                        </svg>
+
+                                    </a>
+
+                                </div>
+
+                            </article>
+
+
+                            <!-- =================================================
+                                 Patologias
+                            ================================================== -->
+
+                            <article
+                                class="library-card"
+                                data-category="patologias"
+                                data-title="Patologias"
+                            >
+
+                                <div class="library-card__top">
+
+                                    <div class="library-card__icon">
+
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            aria-hidden="true"
+                                            focusable="false"
+                                        >
+
+                                            <path
+                                                d="M12 20s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 10c0 5.65-7 10-7 10Z"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="1.8"
+                                                stroke-linejoin="round"
+                                            />
+
+                                        </svg>
+
+                                    </div>
+
+
+                                    <span class="library-card__category">
+                                        SAÚDE OCULAR
+                                    </span>
+
+                                </div>
+
+
+                                <div class="library-card__body">
+
+                                    <h3>
+                                        Patologias
+                                    </h3>
+
+                                    <p>
+                                        Conteúdos introdutórios sobre
+                                        patologias relacionadas à visão.
+                                    </p>
+
+                                </div>
+
+
+                                <div class="library-card__footer">
+
+                                    <span class="library-card__status">
+                                        Conteúdo disponível
+                                    </span>
+
+
+                                    <a
+                                        href="/pages/app/reader/reader.html?content=patologias"
+                                        class="library-card__action"
+                                        aria-label="Estudar Patologias"
+                                    >
+
+                                        <span>
+                                            Estudar
+                                        </span>
+
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            aria-hidden="true"
+                                            focusable="false"
+                                        >
+
+                                            <path
+                                                d="M5 12h13M13 6l6 6-6 6"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="1.8"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            />
+
+                                        </svg>
+
+                                    </a>
+
+                                </div>
+
+                            </article>
+
+
+                        </div>
+
+
+                        <!-- ==================================================
+                             Estado vazio
+                        =================================================== -->
+
+                        <div
+                            class="contents-empty"
+                            id="contentsEmpty"
+                            hidden
+                        >
+
+                            <div class="contents-empty__icon">
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    aria-hidden="true"
+                                    focusable="false"
+                                >
+
+                                    <circle
+                                        cx="11"
+                                        cy="11"
+                                        r="6.5"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.8"
+                                    />
+
+                                    <path
+                                        d="m16 16 4 4"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.8"
+                                        stroke-linecap="round"
+                                    />
+
+                                </svg>
+
+                            </div>
+
+
+                            <h3>
+                                Nenhum conteúdo encontrado
+                            </h3>
+
+
+                            <p>
+                                Tente outro termo de busca ou selecione
+                                outra categoria.
+                            </p>
+
+                        </div>
+
+                    </section>
+
+
+                </div>
+
+            </main>
+
+
+        </div>
+
+    </div>
+
+
+    <script src="/pages/app/contents/contents.js"></script>
+
+</body>
+
+</html>

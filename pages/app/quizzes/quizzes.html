@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Quizzes educacionais do Visium.">
+
+    <title>Quizzes | Visium</title>
+
+    <link rel="stylesheet" href="/css/base/reset.css">
+
+    <link rel="stylesheet" href="/css/base/global.css">
+
+    <link rel="stylesheet" href="/css/abstracts/variables.css">
+
+    <link rel="stylesheet" href="/components/header/header.css">
+
+    <link rel="stylesheet" href="/components/sidebar/sidebar.css">
+
+    <link rel="stylesheet" href="/pages/app/quizzes/quizzes.css">
+
+</head>
+
+
+<body>
+
+    <div class="app-shell">
+
+        <!-- ==========================================================
+             Sidebar
+        =========================================================== -->
+
+        <div id="appSidebarContainer"></div>
+
+
+        <!-- ==========================================================
+             Área principal
+        =========================================================== -->
+
+        <div class="app-main">
+
+            <div id="appHeaderContainer"></div>
+
+
+            <!-- ======================================================
+                 Página de quizzes
+            ======================================================= -->
+
+            <main class="quizzes-page">
+
+                <div class="quizzes-container">
+
+                    <!-- ==================================================
+                         Cabeçalho
+                    =================================================== -->
+
+                    <header class="quizzes-header">
+
+                        <div class="quizzes-header__content">
+
+                            <span class="quizzes-eyebrow">
+                                AVALIAÇÃO
+                            </span>
+
+                            <h1>
+                                Quizzes
+                            </h1>
+
+                            <p>
+                                Teste seus conhecimentos e acompanhe
+                                sua evolução nos estudos de Óptica.
+                            </p>
+
+                        </div>
+
+                    </header>
+
+
+                    <!-- ==================================================
+                         Resumo
+                    =================================================== -->
+
+                    <section class="quizzes-summary" aria-label="Resumo dos quizzes">
+
+                        <div class="quizzes-summary__item">
+
+                            <span class="quizzes-summary__value" id="availableQuizzes">
+                                0
+                            </span>
+
+                            <span class="quizzes-summary__label">
+                                quizzes disponíveis
+                            </span>
+
+                        </div>
+
+
+                        <div class="quizzes-summary__item">
+
+                            <span class="quizzes-summary__value" id="completedQuizzes">
+                                0
+                            </span>
+
+                            <span class="quizzes-summary__label">
+                                realizados
+                            </span>
+
+                        </div>
+
+
+                        <div class="quizzes-summary__item">
+
+                            <span class="quizzes-summary__value" id="averageScore">
+                                —
+                            </span>
+
+                            <span class="quizzes-summary__label">
+                                média de aproveitamento
+                            </span>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- ==================================================
+                         Lista
+                    =================================================== -->
+
+                    <section class="quizzes-section">
+
+                        <div class="quizzes-section__header">
+
+                            <div>
+
+                                <span class="quizzes-section__eyebrow">
+                                    DISPONÍVEIS
+                                </span>
+
+                                <h2>
+                                    Escolha um quiz
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="quizzes-grid" id="quizzesGrid"></div>
+
+
+                        <!-- Estado vazio -->
+
+                        <div class="quizzes-empty" id="quizzesEmpty" hidden>
+
+                            <div class="quizzes-empty__icon">
+                                ?
+                            </div>
+
+                            <h3>
+                                Nenhum quiz disponível
+                            </h3>
+
+                            <p>
+                                Novos quizzes serão disponibilizados
+                                conforme a plataforma evoluir.
+                            </p>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+
+    <script src="/pages/app/quizzes/quizzes.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,689 @@
+/**
+ * ==========================================================================
+ * Visium
+ * Arquivo: progress.css
+ *
+ * Estilos da página Meu Progresso.
+ * ==========================================================================
+ */
+
+
+/* ==========================================================================
+   Estrutura principal
+========================================================================== */
+
+.app-main {
+
+    margin-left: 260px;
+
+    width: calc(100% - 260px);
+
+    min-width: 0;
+
+}
+
+
+/* ==========================================================================
+   Página
+========================================================================== */
+
+.progress-page {
+
+    min-height: calc(100vh - 72px);
+
+    padding:
+        2.5rem clamp(1.5rem,
+            4vw,
+            4rem);
+
+    background:
+        var(--color-gray-50);
+
+}
+
+
+.progress-container {
+
+    width: min(100%,
+            1180px);
+
+    margin: 0 auto;
+
+}
+
+
+/* ==========================================================================
+   Cabeçalho
+========================================================================== */
+
+.progress-header {
+
+    margin-bottom: 1.75rem;
+
+}
+
+
+.progress-eyebrow {
+
+    display: inline-block;
+
+    margin-bottom: .45rem;
+
+    color:
+        var(--color-primary);
+
+    font-size: .7rem;
+
+    font-weight: 800;
+
+    letter-spacing: .12em;
+
+}
+
+
+.progress-header h1 {
+
+    margin: 0 0 .55rem;
+
+    color:
+        var(--color-gray-900);
+
+    font-size:
+        clamp(2rem,
+            4vw,
+            2.7rem);
+
+    line-height: 1.1;
+
+}
+
+
+.progress-header p {
+
+    max-width: 700px;
+
+    margin: 0;
+
+    color:
+        var(--color-gray-600);
+
+    font-size: .95rem;
+
+    line-height: 1.65;
+
+}
+
+
+/* ==========================================================================
+   Visão geral
+========================================================================== */
+
+.progress-overview {
+
+    padding:
+        1.5rem 1.6rem;
+
+    margin-bottom: 1.25rem;
+
+    border:
+        1px solid var(--color-gray-200);
+
+    border-radius: 16px;
+
+    background:
+        var(--color-white);
+
+    box-shadow:
+        0 8px 30px rgba(15,
+            23,
+            42,
+            .04);
+
+}
+
+
+.progress-overview__main {
+
+    display: flex;
+
+    align-items: baseline;
+
+    gap: .75rem;
+
+    flex-wrap: wrap;
+
+}
+
+
+.progress-card__label {
+
+    color:
+        var(--color-gray-600);
+
+    font-size: .8rem;
+
+    font-weight: 600;
+
+}
+
+
+.progress-overview__score {
+
+    color:
+        var(--color-primary);
+
+    font-size: 2rem;
+
+    line-height: 1;
+
+}
+
+
+.progress-overview__message {
+
+    color:
+        var(--color-gray-500);
+
+    font-size: .75rem;
+
+}
+
+
+.progress-overview__bar {
+
+    width: 100%;
+
+    height: 8px;
+
+    margin-top: 1rem;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background:
+        var(--color-gray-200);
+
+}
+
+
+.progress-overview__fill {
+
+    width: 0;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        var(--color-primary);
+
+    transition:
+        width .3s ease;
+
+}
+
+
+/* ==========================================================================
+   Estatísticas
+========================================================================== */
+
+.progress-stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,
+            minmax(0, 1fr));
+
+    gap: 1rem;
+
+    margin-bottom: 2rem;
+
+}
+
+
+.progress-stat-card {
+
+    min-width: 0;
+
+    padding:
+        1.15rem;
+
+    border:
+        1px solid var(--color-gray-200);
+
+    border-radius: 14px;
+
+    background:
+        var(--color-white);
+
+}
+
+
+.progress-stat-card__label {
+
+    display: block;
+
+    margin-bottom: .55rem;
+
+    color:
+        var(--color-gray-500);
+
+    font-size: .72rem;
+
+    font-weight: 600;
+
+    line-height: 1.4;
+
+}
+
+
+.progress-stat-card__value {
+
+    display: block;
+
+    color:
+        var(--color-gray-900);
+
+    font-size: 1.45rem;
+
+    line-height: 1;
+
+}
+
+
+/* ==========================================================================
+   Seções
+========================================================================== */
+
+.progress-section {
+
+    margin-bottom: 2rem;
+
+}
+
+
+.progress-section__header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    margin-bottom: .9rem;
+
+}
+
+
+.progress-section__eyebrow {
+
+    display: block;
+
+    margin-bottom: .3rem;
+
+    color:
+        var(--color-gray-500);
+
+    font-size: .65rem;
+
+    font-weight: 800;
+
+    letter-spacing: .1em;
+
+}
+
+
+.progress-section h2 {
+
+    margin: 0;
+
+    color:
+        var(--color-gray-900);
+
+    font-size: 1.25rem;
+
+}
+
+
+.progress-section__link {
+
+    color:
+        var(--color-primary);
+
+    font-size: .78rem;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+}
+
+
+.progress-section__link:hover {
+
+    text-decoration: underline;
+
+}
+
+
+/* ==========================================================================
+   Progresso dos conteúdos
+========================================================================== */
+
+.content-progress-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: .7rem;
+
+}
+
+
+.content-progress-item {
+
+    padding:
+        1rem 1.1rem;
+
+    border:
+        1px solid var(--color-gray-200);
+
+    border-radius: 12px;
+
+    background:
+        var(--color-white);
+
+}
+
+
+.content-progress-item__top {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    margin-bottom: .55rem;
+
+}
+
+
+.content-progress-item__title {
+
+    color:
+        var(--color-gray-800);
+
+    font-size: .82rem;
+
+    font-weight: 700;
+
+}
+
+
+.content-progress-item__percentage {
+
+    color:
+        var(--color-primary);
+
+    font-size: .75rem;
+
+    font-weight: 800;
+
+}
+
+
+.content-progress-item__bar {
+
+    width: 100%;
+
+    height: 6px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background:
+        var(--color-gray-200);
+
+}
+
+
+.content-progress-item__fill {
+
+    width: 0;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        var(--color-primary);
+
+    transition:
+        width .3s ease;
+
+}
+
+
+/* ==========================================================================
+   Histórico
+========================================================================== */
+
+.progress-history {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: .7rem;
+
+}
+
+
+.progress-history-item {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr) auto;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    padding:
+        1rem 1.1rem;
+
+    border:
+        1px solid var(--color-gray-200);
+
+    border-radius: 12px;
+
+    background:
+        var(--color-white);
+
+}
+
+
+.progress-history-item__title {
+
+    margin: 0 0 .25rem;
+
+    color:
+        var(--color-gray-800);
+
+    font-size: .82rem;
+
+    font-weight: 700;
+
+}
+
+
+.progress-history-item__date {
+
+    color:
+        var(--color-gray-500);
+
+    font-size: .7rem;
+
+}
+
+
+.progress-history-item__result {
+
+    text-align: right;
+
+}
+
+
+.progress-history-item__score {
+
+    display: block;
+
+    margin-bottom: .2rem;
+
+    color:
+        var(--color-primary);
+
+    font-size: 1rem;
+
+    font-weight: 800;
+
+}
+
+
+.progress-history-item__details {
+
+    color:
+        var(--color-gray-500);
+
+    font-size: .68rem;
+
+}
+
+
+/* ==========================================================================
+   Estado vazio
+========================================================================== */
+
+.progress-empty {
+
+    padding:
+        1.5rem;
+
+    border:
+        1px dashed var(--color-gray-300);
+
+    border-radius: 12px;
+
+    background:
+        var(--color-white);
+
+    color:
+        var(--color-gray-500);
+
+    font-size: .8rem;
+
+    line-height: 1.6;
+
+    text-align: center;
+
+}
+
+
+/* ==========================================================================
+   Responsividade
+========================================================================== */
+
+@media (max-width: 1000px) {
+
+    .progress-stats {
+
+        grid-template-columns:
+            repeat(2,
+                minmax(0, 1fr));
+
+    }
+
+}
+
+
+@media (max-width: 900px) {
+
+    .app-main {
+
+        margin-left: 0;
+
+        width: 100%;
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .progress-page {
+
+        padding:
+            1.5rem 1rem;
+
+    }
+
+
+    .progress-stats {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .progress-overview {
+
+        padding: 1.25rem;
+
+    }
+
+
+    .progress-overview__main {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: .4rem;
+
+    }
+
+
+    .progress-section__header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+
+    .progress-history-item {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .progress-history-item__result {
+
+        text-align: left;
+
+    }
+
+}

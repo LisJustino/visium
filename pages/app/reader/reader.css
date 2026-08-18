@@ -1,0 +1,695 @@
+/**
+ * ==========================================================================
+ * Visium
+ * Arquivo: reader.css
+ *
+ * Estilos da página de leitura de conteúdos.
+ * ==========================================================================
+ */
+
+
+/* ==========================================================================
+   Estrutura principal da aplicação
+========================================================================== */
+
+.app-main {
+
+    margin-left: 260px;
+
+    width: calc(100% - 260px);
+
+    min-width: 0;
+
+}
+
+
+/* ==========================================================================
+   Página
+========================================================================== */
+
+.reader-page {
+
+    min-height: calc(100vh - 72px);
+
+    padding: 2.5rem clamp(
+        1.5rem,
+        4vw,
+        4rem
+    );
+
+    background:
+        var(--color-gray-50);
+
+}
+
+
+.reader-container {
+
+    width: min(
+        100%,
+        1180px
+    );
+
+    margin: 0 auto;
+
+}
+
+
+/* ==========================================================================
+   Voltar
+========================================================================== */
+
+.reader-back {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    margin-bottom: 1.5rem;
+
+    color:
+        var(--color-gray-600);
+
+    font-size: .88rem;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+        color .2s ease;
+
+}
+
+
+.reader-back:hover {
+
+    color:
+        var(--color-primary);
+
+}
+
+
+/* ==========================================================================
+   Cabeçalho
+========================================================================== */
+
+.reader-header {
+
+    margin-bottom: 1.75rem;
+
+}
+
+
+.reader-eyebrow {
+
+    display: inline-block;
+
+    margin-bottom: .55rem;
+
+    color:
+        var(--color-primary);
+
+    font-size: .72rem;
+
+    font-weight: 700;
+
+    letter-spacing: .12em;
+
+    text-transform: uppercase;
+
+}
+
+
+.reader-header h1 {
+
+    margin: 0 0 .65rem;
+
+    color:
+        var(--color-gray-900);
+
+    font-size: clamp(
+        2rem,
+        4vw,
+        3rem
+    );
+
+    line-height: 1.1;
+
+}
+
+
+.reader-header p {
+
+    max-width: 760px;
+
+    margin: 0;
+
+    color:
+        var(--color-gray-600);
+
+    font-size: 1rem;
+
+    line-height: 1.65;
+
+}
+
+
+/* ==========================================================================
+   Progresso
+========================================================================== */
+
+.reader-progress {
+
+    margin-bottom: 2rem;
+
+    padding: 1rem 1.2rem;
+
+    border:
+        1px solid
+        var(--color-gray-200);
+
+    border-radius: 14px;
+
+    background:
+        var(--color-white);
+
+}
+
+
+.reader-progress__top {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    margin-bottom: .65rem;
+
+    color:
+        var(--color-gray-600);
+
+    font-size: .82rem;
+
+}
+
+
+.reader-progress__top strong {
+
+    color:
+        var(--color-primary);
+
+}
+
+
+.reader-progress__bar {
+
+    width: 100%;
+
+    height: 7px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background:
+        var(--color-gray-200);
+
+}
+
+
+.reader-progress__fill {
+
+    width: 0;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        var(--color-primary);
+
+    transition:
+        width .25s ease;
+
+}
+
+
+/* ==========================================================================
+   Layout do leitor
+========================================================================== */
+
+.reader-layout {
+
+    display: grid;
+
+    grid-template-columns:
+        240px minmax(0, 1fr);
+
+    gap: 1.5rem;
+
+    align-items: start;
+
+}
+
+
+/* ==========================================================================
+   Navegação lateral do conteúdo
+========================================================================== */
+
+.reader-navigation {
+
+    position: sticky;
+
+    top: 1.5rem;
+
+    padding: 1rem;
+
+    border:
+        1px solid
+        var(--color-gray-200);
+
+    border-radius: 14px;
+
+    background:
+        var(--color-white);
+
+}
+
+
+.reader-navigation__header {
+
+    padding:
+        .25rem .5rem .75rem;
+
+    color:
+        var(--color-gray-500);
+
+    font-size: .7rem;
+
+    font-weight: 700;
+
+    letter-spacing: .08em;
+
+    text-transform: uppercase;
+
+}
+
+
+.reader-sections {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: .25rem;
+
+}
+
+
+.reader-section-link {
+
+    width: 100%;
+
+    padding: .7rem .75rem;
+
+    border: 0;
+
+    border-radius: 8px;
+
+    background:
+        transparent;
+
+    color:
+        var(--color-gray-700);
+
+    font-family: inherit;
+
+    font-size: .82rem;
+
+    font-weight: 600;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        color .2s ease;
+
+}
+
+
+.reader-section-link:hover {
+
+    background:
+        var(--color-gray-50);
+
+    color:
+        var(--color-primary);
+
+}
+
+
+.reader-section-link.is-active {
+
+    background:
+        var(--color-primary-light);
+
+    color:
+        var(--color-primary);
+
+}
+
+
+/* ==========================================================================
+   Artigo
+========================================================================== */
+
+.reader-article {
+
+    min-width: 0;
+
+    padding: clamp(
+        1.5rem,
+        3vw,
+        2.75rem
+    );
+
+    border:
+        1px solid
+        var(--color-gray-200);
+
+    border-radius: 16px;
+
+    background:
+        var(--color-white);
+
+    box-shadow:
+        0 8px 30px
+        rgba(15, 23, 42, .04);
+
+}
+
+
+.reader-article__section {
+
+    display: none;
+
+}
+
+
+.reader-article__section.is-active {
+
+    display: block;
+
+}
+
+
+.reader-article__section h2 {
+
+    margin: 0 0 1rem;
+
+    color:
+        var(--color-gray-900);
+
+    font-size: clamp(
+        1.4rem,
+        2.5vw,
+        2rem
+    );
+
+    line-height: 1.2;
+
+}
+
+
+.reader-article__section h3 {
+
+    margin:
+        1.75rem 0 .75rem;
+
+    color:
+        var(--color-gray-900);
+
+    font-size: 1.1rem;
+
+}
+
+
+.reader-article__section p {
+
+    margin: 0 0 1rem;
+
+    color:
+        var(--color-gray-700);
+
+    font-size: .98rem;
+
+    line-height: 1.8;
+
+}
+
+
+.reader-article__section ul {
+
+    margin:
+        0 0 1.25rem;
+
+    padding-left: 1.25rem;
+
+}
+
+
+.reader-article__section li {
+
+    margin-bottom: .55rem;
+
+    color:
+        var(--color-gray-700);
+
+    line-height: 1.7;
+
+}
+
+
+.reader-highlight {
+
+    margin: 1.5rem 0;
+
+    padding: 1rem 1.15rem;
+
+    border-left:
+        4px solid
+        var(--color-primary);
+
+    border-radius: 0 10px 10px 0;
+
+    background:
+        var(--color-primary-light);
+
+}
+
+
+.reader-highlight p {
+
+    margin: 0;
+
+    font-size: .92rem;
+
+}
+
+
+/* ==========================================================================
+   Navegação inferior
+========================================================================== */
+
+.reader-footer-navigation {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    margin-top: 1.5rem;
+
+}
+
+
+.reader-navigation-button {
+
+    min-height: 42px;
+
+    padding:
+        .65rem 1rem;
+
+    border:
+        1px solid
+        var(--color-gray-300);
+
+    border-radius: 9px;
+
+    background:
+        var(--color-white);
+
+    color:
+        var(--color-gray-700);
+
+    font-family: inherit;
+
+    font-size: .85rem;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        border-color .2s ease,
+        color .2s ease;
+
+}
+
+
+.reader-navigation-button:hover:not(:disabled) {
+
+    border-color:
+        var(--color-primary);
+
+    color:
+        var(--color-primary);
+
+}
+
+
+.reader-navigation-button:disabled {
+
+    opacity: .45;
+
+    cursor: not-allowed;
+
+}
+
+
+.reader-navigation-button--primary {
+
+    border-color:
+        var(--color-primary);
+
+    background:
+        var(--color-primary);
+
+    color:
+        var(--color-white);
+
+}
+
+
+.reader-navigation-button--primary:hover:not(:disabled) {
+
+    background:
+        var(--color-primary-dark);
+
+    color:
+        var(--color-white);
+
+}
+
+
+/* ==========================================================================
+   Responsividade
+========================================================================== */
+
+@media (max-width: 900px) {
+
+    .app-main {
+
+        margin-left: 0;
+
+        width: 100%;
+
+    }
+
+
+    .reader-layout {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .reader-navigation {
+
+        position: static;
+
+    }
+
+
+    .reader-sections {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .reader-page {
+
+        padding:
+            1.5rem 1rem;
+
+    }
+
+
+    .reader-header h1 {
+
+        font-size: 2rem;
+
+    }
+
+
+    .reader-article {
+
+        padding: 1.25rem;
+
+    }
+
+
+    .reader-sections {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .reader-footer-navigation {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+
+    .reader-navigation-button {
+
+        width: 100%;
+
+    }
+
+}
