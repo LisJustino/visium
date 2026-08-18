@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Perfil do usuário no Visium.">
+
+    <title>Meu Perfil | Visium</title>
+
+
+    <!-- ==========================================================
+         Base
+    =========================================================== -->
+
+    <link rel="stylesheet" href="/css/base/reset.css">
+
+    <link rel="stylesheet" href="/css/base/global.css">
+
+    <link rel="stylesheet" href="/css/abstracts/variables.css">
+
+
+    <!-- ==========================================================
+         Componentes
+    =========================================================== -->
+
+    <link rel="stylesheet" href="/components/header/header.css">
+
+    <link rel="stylesheet" href="/components/sidebar/sidebar.css">
+
+
+    <!-- ==========================================================
+         Perfil
+    =========================================================== -->
+
+    <link rel="stylesheet" href="/pages/app/profile/profile.css">
+
+</head>
+
+
+<body>
+
+    <div class="app-shell">
+
+
+        <!-- ======================================================
+             Sidebar
+        ======================================================= -->
+
+        <div id="appSidebarContainer"></div>
+
+
+        <!-- ======================================================
+             Área principal
+        ======================================================= -->
+
+        <div class="app-main">
+
+
+            <!-- ==================================================
+                 Header
+            =================================================== -->
+
+            <div id="appHeaderContainer"></div>
+
+
+            <!-- ==================================================
+                 Página de perfil
+            =================================================== -->
+
+            <main class="profile-page">
+
+                <div class="profile-container">
+
+
+                    <!-- ==================================================
+                         Cabeçalho
+                    =================================================== -->
+
+                    <header class="profile-header">
+
+                        <div class="profile-header__content">
+
+                            <span class="profile-eyebrow">
+                                CONTA
+                            </span>
+
+                            <h1>
+                                Meu Perfil
+                            </h1>
+
+                            <p>
+                                Gerencie suas informações pessoais
+                                e acompanhe os dados da sua conta.
+                            </p>
+
+                        </div>
+
+                    </header>
+
+
+                    <!-- ==================================================
+                         Perfil principal
+                    =================================================== -->
+
+                    <section class="profile-card" aria-labelledby="profileTitle">
+
+                        <div class="profile-card__identity">
+
+
+                            <!-- Avatar -->
+
+                            <div class="profile-avatar" id="profileAvatar" aria-hidden="true">
+                                UT
+                            </div>
+
+
+                            <!-- Identidade -->
+
+                            <div class="profile-identity">
+
+                                <h2 id="profileTitle">
+                                    Usuário de Teste
+                                </h2>
+
+                                <p id="profileEmail">
+                                    teste@visium.local
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ==================================================
+                             Informações pessoais
+                        =================================================== -->
+
+                        <div class="profile-section">
+
+                            <div class="profile-section__header">
+
+                                <span class="profile-section__eyebrow">
+                                    INFORMAÇÕES PESSOAIS
+                                </span>
+
+                                <h2>
+                                    Seus dados
+                                </h2>
+
+                                <p>
+                                    Mantenha suas informações atualizadas.
+                                </p>
+
+                            </div>
+
+
+                            <form class="profile-form" id="profileForm" novalidate>
+
+
+                                <!-- Nome -->
+
+                                <div class="profile-field">
+
+                                    <label for="profileName">
+                                        Nome
+                                    </label>
+
+                                    <input type="text" id="profileName" name="name" autocomplete="name" required
+                                        maxlength="120">
+
+                                    <span class="profile-field__error" id="profileNameError" role="alert" hidden></span>
+
+                                </div>
+
+
+                                <!-- E-mail -->
+
+                                <div class="profile-field">
+
+                                    <label for="profileEmailInput">
+                                        E-mail
+                                    </label>
+
+                                    <input type="email" id="profileEmailInput" name="email" autocomplete="email"
+                                        required maxlength="160">
+
+                                    <span class="profile-field__error" id="profileEmailError" role="alert"
+                                        hidden></span>
+
+                                </div>
+
+
+                                <!-- Feedback -->
+
+                                <div class="profile-feedback" id="profileFeedback" role="status" aria-live="polite"
+                                    hidden></div>
+
+
+                                <!-- Ações -->
+
+                                <div class="profile-form__actions">
+
+                                    <button type="submit" class="profile-button profile-button--primary"
+                                        id="saveProfileButton">
+                                        Salvar alterações
+                                    </button>
+
+                                </div>
+
+                            </form>
+
+                        </div>
+
+
+                        <!-- ==================================================
+                             Informações da conta
+                        =================================================== -->
+
+                        <div class="profile-section profile-section--account">
+
+                            <div class="profile-section__header">
+
+                                <span class="profile-section__eyebrow">
+                                    CONTA
+                                </span>
+
+                                <h2>
+                                    Informações da conta
+                                </h2>
+
+                            </div>
+
+
+                            <div class="profile-account">
+
+                                <div class="profile-account__item">
+
+                                    <span>
+                                        ID do usuário
+                                    </span>
+
+                                    <strong id="profileUserId">
+                                        test-user
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </section>
+
+
+                </div>
+
+            </main>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================================
+         JavaScript
+    =========================================================== -->
+
+    <script src="/pages/app/profile/profile.js"></script>
+
+</body>
+
+</html>

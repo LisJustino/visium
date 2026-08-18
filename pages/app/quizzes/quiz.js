@@ -714,7 +714,7 @@ function initializeLogout() {
 
 
             window.location.href =
-                "/index.html";
+                "/pages/public/landing/index.html";
 
         }
     );

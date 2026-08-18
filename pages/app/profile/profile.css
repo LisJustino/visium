@@ -1,0 +1,809 @@
+/**
+ * ==========================================================================
+ * Visium
+ * Arquivo: profile.css
+ *
+ * Estilos da página Meu Perfil.
+ * ==========================================================================
+ */
+/* ==========================================================================
+   Shell
+========================================================================== */
+
+.app-main {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    width:
+        calc(100% - var(--sidebar-width));
+
+    height:
+        100%;
+
+    min-width:
+        0;
+
+    margin-left:
+        var(--sidebar-width);
+
+}
+
+
+/* ==========================================================================
+   Página
+========================================================================== */
+
+.profile-page {
+
+    flex:
+        1;
+
+    min-height:
+        0;
+
+    overflow-y:
+        auto;
+
+    overflow-x:
+        hidden;
+
+    background:
+        var(--color-background);
+
+    padding:
+        48px 32px 64px;
+
+}
+
+/* ==========================================================================
+   Página
+========================================================================== */
+
+.profile-page {
+
+    min-height:
+        calc(100vh - 72px);
+
+    padding:
+        48px 32px 64px;
+
+}
+
+
+.profile-container {
+
+    width:
+        min(100%, 1080px);
+
+    margin:
+        0 auto;
+
+}
+
+
+/* ==========================================================================
+   Cabeçalho
+========================================================================== */
+
+.profile-header {
+
+    margin-bottom:
+        32px;
+
+}
+
+
+.profile-header__content {
+
+    max-width:
+        720px;
+
+}
+
+
+.profile-eyebrow {
+
+    display:
+        inline-block;
+
+    margin-bottom:
+        8px;
+
+    font-size:
+        0.75rem;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.12em;
+
+    color:
+        var(--color-primary);
+
+}
+
+
+.profile-header h1 {
+
+    margin:
+        0 0 12px;
+
+    font-size:
+        clamp(2rem,
+            4vw,
+            2.75rem);
+
+    line-height:
+        1.1;
+
+}
+
+
+.profile-header p {
+
+    margin:
+        0;
+
+    max-width:
+        680px;
+
+    color:
+        var(--color-text-muted);
+
+    line-height:
+        1.7;
+
+}
+
+
+/* ==========================================================================
+   Card principal
+========================================================================== */
+
+.profile-card {
+
+    overflow:
+        hidden;
+
+    background:
+        var(--color-surface);
+
+    border:
+        1px solid var(--color-border);
+
+    border-radius:
+        16px;
+
+    box-shadow:
+        0 8px 30px rgba(0,
+            0,
+            0,
+            0.04);
+
+}
+
+
+/* ==========================================================================
+   Identidade
+========================================================================== */
+
+.profile-card__identity {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        20px;
+
+    padding:
+        32px;
+
+    border-bottom:
+        1px solid var(--color-border);
+
+}
+
+
+.profile-avatar {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    width:
+        72px;
+
+    height:
+        72px;
+
+    flex:
+        0 0 72px;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--color-primary);
+
+    color:
+        #ffffff;
+
+    font-size:
+        1.25rem;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.04em;
+
+}
+
+
+.profile-identity {
+
+    min-width:
+        0;
+
+}
+
+
+.profile-identity h2 {
+
+    margin:
+        0 0 6px;
+
+    font-size:
+        1.35rem;
+
+    line-height:
+        1.3;
+
+}
+
+
+.profile-identity p {
+
+    margin:
+        0;
+
+    color:
+        var(--color-text-muted);
+
+    overflow:
+        hidden;
+
+    text-overflow:
+        ellipsis;
+
+    white-space:
+        nowrap;
+
+}
+
+
+/* ==========================================================================
+   Seções
+========================================================================== */
+
+.profile-section {
+
+    padding:
+        32px;
+
+}
+
+
+.profile-section--account {
+
+    border-top:
+        1px solid var(--color-border);
+
+}
+
+
+.profile-section__header {
+
+    margin-bottom:
+        24px;
+
+}
+
+
+.profile-section__eyebrow {
+
+    display:
+        block;
+
+    margin-bottom:
+        6px;
+
+    font-size:
+        0.7rem;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.1em;
+
+    color:
+        var(--color-text-muted);
+
+}
+
+
+.profile-section__header h2 {
+
+    margin:
+        0 0 6px;
+
+    font-size:
+        1.25rem;
+
+}
+
+
+.profile-section__header p {
+
+    margin:
+        0;
+
+    color:
+        var(--color-text-muted);
+
+    line-height:
+        1.6;
+
+}
+
+
+/* ==========================================================================
+   Formulário
+========================================================================== */
+
+.profile-form {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        20px;
+
+}
+
+
+.profile-field {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        8px;
+
+}
+
+
+.profile-field label {
+
+    font-size:
+        0.9rem;
+
+    font-weight:
+        600;
+
+}
+
+
+.profile-field input {
+
+    width:
+        100%;
+
+    min-height:
+        48px;
+
+    padding:
+        12px 14px;
+
+    border:
+        1px solid var(--color-border);
+
+    border-radius:
+        8px;
+
+    background:
+        var(--color-background);
+
+    color:
+        var(--color-text);
+
+    font:
+        inherit;
+
+    outline:
+        none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.profile-field input:focus {
+
+    border-color:
+        var(--color-primary);
+
+    box-shadow:
+        0 0 0 3px rgba(0,
+            0,
+            0,
+            0.06);
+
+}
+
+
+.profile-field input[aria-invalid="true"] {
+
+    border-color:
+        var(--color-danger);
+
+}
+
+
+.profile-field__error {
+
+    font-size:
+        0.8rem;
+
+    color:
+        var(--color-danger);
+
+}
+
+
+/* ==========================================================================
+   Feedback
+========================================================================== */
+
+.profile-feedback {
+
+    padding:
+        12px 14px;
+
+    border-radius:
+        8px;
+
+    font-size:
+        0.9rem;
+
+    line-height:
+        1.5;
+
+}
+
+
+.profile-feedback.is-success {
+
+    background:
+        rgba(34,
+            197,
+            94,
+            0.1);
+
+    color:
+        var(--color-success);
+
+}
+
+
+.profile-feedback.is-error {
+
+    background:
+        rgba(239,
+            68,
+            68,
+            0.1);
+
+    color:
+        var(--color-danger);
+
+}
+
+
+/* ==========================================================================
+   Ações
+========================================================================== */
+
+.profile-form__actions {
+
+    display:
+        flex;
+
+    justify-content:
+        flex-end;
+
+    margin-top:
+        4px;
+
+}
+
+
+.profile-button {
+
+    min-height:
+        44px;
+
+    padding:
+        10px 20px;
+
+    border:
+        0;
+
+    border-radius:
+        8px;
+
+    font:
+        inherit;
+
+    font-weight:
+        600;
+
+    cursor:
+        pointer;
+
+    transition:
+        transform 0.15s ease,
+        opacity 0.15s ease;
+
+}
+
+
+.profile-button:hover {
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+.profile-button:disabled {
+
+    opacity:
+        0.6;
+
+    cursor:
+        not-allowed;
+
+    transform:
+        none;
+
+}
+
+
+.profile-button--primary {
+
+    background:
+        var(--color-primary);
+
+    color:
+        #ffffff;
+
+}
+
+
+/* ==========================================================================
+   Informações da conta
+========================================================================== */
+
+.profile-account {
+
+    border:
+        1px solid var(--color-border);
+
+    border-radius:
+        10px;
+
+}
+
+
+.profile-account__item {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        24px;
+
+    padding:
+        16px;
+
+}
+
+
+.profile-account__item span {
+
+    color:
+        var(--color-text-muted);
+
+    font-size:
+        0.9rem;
+
+}
+
+
+.profile-account__item strong {
+
+    font-size:
+        0.9rem;
+
+    font-weight:
+        600;
+
+    word-break:
+        break-word;
+
+}
+
+
+/* ==========================================================================
+   Responsividade
+========================================================================== */
+
+@media (max-width: 768px) {
+
+    .profile-page {
+
+        padding:
+            32px 20px 48px;
+
+    }
+
+
+    .profile-card__identity,
+    .profile-section {
+
+        padding:
+            24px;
+
+    }
+
+
+    .profile-avatar {
+
+        width:
+            60px;
+
+        height:
+            60px;
+
+        flex-basis:
+            60px;
+
+        font-size:
+            1rem;
+
+    }
+
+
+    .profile-identity h2 {
+
+        font-size:
+            1.15rem;
+
+    }
+
+
+    .profile-account__item {
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+        gap:
+            6px;
+
+    }
+
+
+    .profile-form__actions {
+
+        justify-content:
+            stretch;
+
+    }
+
+
+    .profile-button {
+
+        width:
+            100%;
+
+    }
+
+}
+
+@media (max-width: 900px) {
+
+    .app-main {
+
+        width:
+            100%;
+
+        margin-left:
+            0;
+
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+    .profile-page {
+
+        padding:
+            32px 20px 48px;
+
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .profile-page {
+
+        padding:
+            24px 16px 40px;
+
+    }
+
+
+    .profile-card__identity {
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+    }
+
+
+    .profile-identity p {
+
+        white-space:
+            normal;
+
+    }
+
+}
