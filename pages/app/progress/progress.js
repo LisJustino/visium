@@ -137,6 +137,70 @@ function requireAuthentication() {
 
 
 /* ==========================================================================
+   Identificação do usuário
+========================================================================== */
+
+function getUserKey(
+    user
+) {
+
+    if (!user) {
+
+        return "anonymous";
+
+    }
+
+
+    return String(
+        user.id ||
+        user.email ||
+        user.username ||
+        user.name ||
+        "anonymous"
+    )
+        .trim()
+        .toLowerCase();
+
+}
+
+
+function getSafeStorageKey(
+    value
+) {
+
+    return encodeURIComponent(
+        String(
+            value
+        )
+    );
+
+}
+
+
+/* ==========================================================================
+   Chaves de armazenamento
+========================================================================== */
+
+function getQuizHistoryStorageKey() {
+
+    return [
+
+        "visium_quiz_history",
+
+        getSafeStorageKey(
+            getUserKey(
+                getCurrentUser()
+            )
+        )
+
+    ].join(
+        "_"
+    );
+
+}
+
+
+/* ==========================================================================
    Component Loader
 ========================================================================== */
 
@@ -407,9 +471,13 @@ function initializeProfileButton() {
 
 function getQuizHistory() {
 
+    const storageKey =
+        getQuizHistoryStorageKey();
+
+
     const stored =
         localStorage.getItem(
-            "visium_quiz_history"
+            storageKey
         );
 
 
@@ -433,6 +501,11 @@ function getQuizHistory() {
                 history
             )
         ) {
+
+            console.warn(
+                "Visium | Histórico de quizzes não é um array."
+            );
+
 
             return [];
 
@@ -640,6 +713,20 @@ function renderStatistics(
         );
 
 
+    if (
+        !quizCount ||
+        !bestScore ||
+        !questionCount ||
+        !averageScore ||
+        !averageScoreFill ||
+        !averageScoreMessage
+    ) {
+
+        return;
+
+    }
+
+
     if (!history.length) {
 
         quizCount.textContent =
@@ -672,9 +759,19 @@ function renderStatistics(
                 item
             ) => {
 
-                return total +
+                const score =
                     Number(
-                        item.score || 0
+                        item?.score || 0
+                    );
+
+
+                return total +
+                    (
+                        Number.isFinite(
+                            score
+                        )
+                            ? score
+                            : 0
                     );
 
             },
@@ -692,10 +789,21 @@ function renderStatistics(
     const best =
         Math.max(
             ...history.map(
-                (item) =>
-                    Number(
-                        item.score || 0
+                (item) => {
+
+                    const score =
+                        Number(
+                            item?.score || 0
+                        );
+
+
+                    return Number.isFinite(
+                        score
                     )
+                        ? score
+                        : 0;
+
+                }
             )
         );
 
@@ -707,9 +815,19 @@ function renderStatistics(
                 item
             ) => {
 
-                return total +
+                const questionTotal =
                     Number(
-                        item.total || 0
+                        item?.total || 0
+                    );
+
+
+                return total +
+                    (
+                        Number.isFinite(
+                            questionTotal
+                        )
+                            ? questionTotal
+                            : 0
                     );
 
             },
@@ -935,19 +1053,19 @@ function renderHistory(
 
             const score =
                 Number(
-                    item.score || 0
+                    item?.score || 0
                 );
 
 
             const correct =
                 Number(
-                    item.correct || 0
+                    item?.correct || 0
                 );
 
 
             const total =
                 Number(
-                    item.total || 0
+                    item?.total || 0
                 );
 
 
@@ -956,11 +1074,15 @@ function renderHistory(
                 <div>
 
                     <p class="progress-history-item__title">
-                        ${getQuizTitle(item.quizId)}
+                        ${getQuizTitle(
+                            item?.quizId
+                        )}
                     </p>
 
                     <span class="progress-history-item__date">
-                        Realizado em ${formatDate(item.date)}
+                        Realizado em ${formatDate(
+                            item?.date
+                        )}
                     </span>
 
                 </div>
@@ -1040,6 +1162,13 @@ async function initializeProgress() {
 
     const history =
         getQuizHistory();
+
+
+    console.log(
+        "Visium | Histórico carregado:",
+        history.length,
+        "tentativas."
+    );
 
 
     renderStatistics(

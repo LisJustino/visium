@@ -26,7 +26,7 @@ const COMPONENTS = {
 
 
 /* ==========================================================================
-   Quizzes demonstrativos
+   Quizzes
 ========================================================================== */
 
 const QUIZZES = [
@@ -48,9 +48,10 @@ const QUIZZES = [
             "Básico",
 
         questions:
-            10
+            3
 
     },
+
 
     {
         id:
@@ -69,9 +70,10 @@ const QUIZZES = [
             "Intermediário",
 
         questions:
-            10
+            2
 
     },
+
 
     {
         id:
@@ -90,9 +92,10 @@ const QUIZZES = [
             "Intermediário",
 
         questions:
-            8
+            1
 
     },
+
 
     {
         id:
@@ -111,7 +114,7 @@ const QUIZZES = [
             "Intermediário",
 
         questions:
-            8
+            1
 
     }
 
@@ -241,6 +244,47 @@ function requireAuthentication() {
 
 
     return user;
+
+}
+
+
+/* ==========================================================================
+   Identificação do usuário
+========================================================================== */
+
+function getUserKey(
+    user
+) {
+
+    if (!user) {
+
+        return "anonymous";
+
+    }
+
+
+    return String(
+        user.id ||
+        user.email ||
+        user.username ||
+        user.name ||
+        "anonymous"
+    )
+        .trim()
+        .toLowerCase();
+
+}
+
+
+function getSafeStorageKey(
+    value
+) {
+
+    return encodeURIComponent(
+        String(
+            value
+        )
+    );
 
 }
 
@@ -421,7 +465,7 @@ function initializeLogout() {
 
 
 /* ==========================================================================
-   Navegação do Header
+   Perfil
 ========================================================================== */
 
 function initializeProfileButton() {
@@ -448,6 +492,319 @@ function initializeProfileButton() {
 
         }
     );
+
+}
+
+
+/* ==========================================================================
+   Armazenamento
+========================================================================== */
+
+function getAttemptStorageKey(
+    quizId
+) {
+
+    return [
+
+        "visium_quiz_attempt",
+
+        getSafeStorageKey(
+            getUserKey(
+                getCurrentUser()
+            )
+        ),
+
+        getSafeStorageKey(
+            quizId
+        )
+
+    ].join(
+        "_"
+    );
+
+}
+
+
+function getHistoryStorageKey() {
+
+    return [
+
+        "visium_quiz_history",
+
+        getSafeStorageKey(
+            getUserKey(
+                getCurrentUser()
+            )
+        )
+
+    ].join(
+        "_"
+    );
+
+}
+
+
+/* ==========================================================================
+   Tentativa
+========================================================================== */
+
+function getQuizAttempt(
+    quizId
+) {
+
+    const stored =
+        localStorage.getItem(
+            getAttemptStorageKey(
+                quizId
+            )
+        );
+
+
+    if (!stored) {
+
+        return null;
+
+    }
+
+
+    try {
+
+        const attempt =
+            JSON.parse(
+                stored
+            );
+
+
+        if (
+            !attempt ||
+            attempt.quizId !== quizId
+        ) {
+
+            return null;
+
+        }
+
+
+        return attempt;
+
+    } catch (error) {
+
+        console.error(
+            "Visium | Tentativa de quiz inválida:",
+            error
+        );
+
+
+        localStorage.removeItem(
+            getAttemptStorageKey(
+                quizId
+            )
+        );
+
+
+        return null;
+
+    }
+
+}
+
+
+/* ==========================================================================
+   Histórico
+========================================================================== */
+
+function getQuizHistory() {
+
+    const stored =
+        localStorage.getItem(
+            getHistoryStorageKey()
+        );
+
+
+    if (!stored) {
+
+        return [];
+
+    }
+
+
+    try {
+
+        const history =
+            JSON.parse(
+                stored
+            );
+
+
+        return Array.isArray(
+            history
+        )
+            ? history
+            : [];
+
+    } catch (error) {
+
+        console.error(
+            "Visium | Histórico de quizzes inválido:",
+            error
+        );
+
+
+        return [];
+
+    }
+
+}
+
+
+/* ==========================================================================
+   Resultado do quiz
+========================================================================== */
+
+function getQuizResult(
+    quizId
+) {
+
+    const history =
+        getQuizHistory();
+
+
+    const results =
+        history.filter(
+            (item) =>
+                item &&
+                item.quizId ===
+                quizId
+        );
+
+
+    if (!results.length) {
+
+        return null;
+
+    }
+
+
+    return results[
+        results.length - 1
+    ];
+
+}
+
+
+/* ==========================================================================
+   Estado do quiz
+========================================================================== */
+
+function getQuizState(
+    quizId
+) {
+
+    const progress =
+        getQuizProgress(
+            quizId
+        );
+
+
+    const result =
+        getQuizResult(
+            quizId
+        );
+
+
+    const attempt =
+        getQuizAttempt(
+            quizId
+        );
+
+
+    /*
+     * Um resultado registrado com score significa
+     * que o quiz já foi concluído anteriormente.
+     */
+
+    if (result) {
+
+        return {
+
+            status:
+                "completed",
+
+            progress:
+                100,
+
+            result,
+
+            attempt
+
+        };
+
+    }
+
+
+    /*
+     * Uma tentativa existente representa um quiz
+     * em andamento.
+     */
+
+    if (attempt) {
+
+        return {
+
+            status:
+                "in_progress",
+
+            progress,
+
+            result:
+                null,
+
+            attempt
+
+        };
+
+    }
+
+
+    /*
+     * Compatibilidade com o progresso legado.
+     */
+
+    if (progress > 0) {
+
+        return {
+
+            status:
+                "in_progress",
+
+            progress,
+
+            result:
+                null,
+
+            attempt:
+                null
+
+        };
+
+    }
+
+
+    return {
+
+        status:
+            "not_started",
+
+        progress:
+            0,
+
+        result:
+            null,
+
+        attempt:
+            null
+
+    };
 
 }
 
@@ -484,7 +841,9 @@ function getQuizProgress(
 
 
     if (
-        Number.isNaN(progress) ||
+        !Number.isFinite(
+            progress
+        ) ||
         progress < 0
     ) {
 
@@ -497,52 +856,6 @@ function getQuizProgress(
         progress,
         100
     );
-
-}
-
-
-/* ==========================================================================
-   Histórico
-========================================================================== */
-
-function getQuizHistory() {
-
-    const stored =
-        localStorage.getItem(
-            "visium_quiz_history"
-        );
-
-
-    if (!stored) {
-
-        return [];
-
-    }
-
-
-    try {
-
-        const history =
-            JSON.parse(
-                stored
-            );
-
-
-        return Array.isArray(history)
-            ? history
-            : [];
-
-    } catch (error) {
-
-        console.error(
-            "Visium | Histórico de quizzes inválido:",
-            error
-        );
-
-
-        return [];
-
-    }
 
 }
 
@@ -573,6 +886,21 @@ function updateSummary() {
         getQuizHistory();
 
 
+    const completedQuizIds =
+        new Set(
+            history
+                .filter(
+                    (item) =>
+                        item &&
+                        item.quizId
+                )
+                .map(
+                    (item) =>
+                        item.quizId
+                )
+        );
+
+
     if (available) {
 
         available.textContent =
@@ -584,7 +912,7 @@ function updateSummary() {
     if (completed) {
 
         completed.textContent =
-            history.length;
+            completedQuizIds.size;
 
     }
 
@@ -611,7 +939,9 @@ function updateSummary() {
                 )
                 .filter(
                     (score) =>
-                        !Number.isNaN(score)
+                        Number.isFinite(
+                            score
+                        )
                 );
 
 
@@ -627,7 +957,10 @@ function updateSummary() {
 
         const total =
             scores.reduce(
-                (sum, score) =>
+                (
+                    sum,
+                    score
+                ) =>
                     sum + score,
                 0
             );
@@ -635,7 +968,8 @@ function updateSummary() {
 
         const result =
             Math.round(
-                total / scores.length
+                total /
+                scores.length
             );
 
 
@@ -655,8 +989,8 @@ function createQuizCard(
     quiz
 ) {
 
-    const progress =
-        getQuizProgress(
+    const state =
+        getQuizState(
             quiz.id
         );
 
@@ -671,10 +1005,37 @@ function createQuizCard(
         "quiz-card";
 
 
-    const actionLabel =
-        progress > 0
-            ? "Continuar quiz"
-            : "Iniciar quiz";
+    let actionLabel =
+        "Iniciar quiz";
+
+
+    if (
+        state.status ===
+        "in_progress"
+    ) {
+
+        actionLabel =
+            "Continuar quiz";
+
+    }
+
+
+    if (
+        state.status ===
+        "completed"
+    ) {
+
+        actionLabel =
+            "Refazer quiz";
+
+    }
+
+
+    const progress =
+        state.status ===
+            "completed"
+            ? 100
+            : state.progress;
 
 
     card.innerHTML = `
@@ -748,6 +1109,7 @@ function createQuizCard(
             href="#"
             class="quiz-card__action"
             data-quiz-id="${quiz.id}"
+            data-quiz-status="${state.status}"
         >
             ${actionLabel}
         </a>
@@ -856,6 +1218,10 @@ function initializeQuizActions() {
                             button.dataset.quizId;
 
 
+                        const status =
+                            button.dataset.quizStatus;
+
+
                         if (!quizId) {
 
                             return;
@@ -864,15 +1230,23 @@ function initializeQuizActions() {
 
 
                         /*
-                         * O motor do quiz será implementado
-                         * na próxima etapa.
+                         * O quiz.js decide como tratar
+                         * uma tentativa existente.
                          *
-                         * Por enquanto, mantemos a navegação
-                         * preparada para a futura rota.
+                         * A página de quizzes apenas
+                         * informa ao motor se o usuário
+                         * está retomando ou refazendo.
                          */
 
+                        const mode =
+                            status ===
+                                "completed"
+                                ? "restart"
+                                : "continue";
+
+
                         window.location.href =
-                            `/pages/app/quizzes/quiz.html?quiz=${encodeURIComponent(quizId)}`;
+                            `/pages/app/quizzes/quiz.html?quiz=${encodeURIComponent(quizId)}&mode=${mode}`;
 
                     }
                 );
