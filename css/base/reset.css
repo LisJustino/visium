@@ -2,81 +2,247 @@
  * ==========================================================================
  * Visium
  * Arquivo: reset.css
- * --------------------------------------------------------------------------
- * Padroniza comportamentos básicos entre navegadores sem interferir
- * nos componentes do Bootstrap.
+ *
+ * Reset e normalização global.
  * ==========================================================================
  */
+
+
+/* ==========================================================================
+   Box sizing
+========================================================================== */
 
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+
+    box-sizing:
+        border-box;
+
 }
+
+
+/* ==========================================================================
+   Documento
+========================================================================== */
 
 html {
-    scroll-behavior: smooth;
+
+    margin:
+        0;
+
+    padding:
+        0;
+
+    font-size:
+        16px;
+
+    -webkit-text-size-adjust:
+        100%;
+
+    text-size-adjust:
+        100%;
+
 }
 
-body,
+
+html,
+body {
+
+    width:
+        100%;
+
+    min-height:
+        100%;
+
+}
+
+
+/* ==========================================================================
+   Corpo
+========================================================================== */
+
+body {
+
+    margin:
+        0;
+
+}
+
+
+/* ==========================================================================
+   Elementos de texto
+========================================================================== */
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6,
-p,
-ul,
-ol,
-dl,
-dd,
-figure,
-blockquote {
-    margin: 0;
+p {
+
+    margin:
+        0;
+
 }
+
 
 ul,
 ol {
-    padding: 0;
-    list-style: none;
+
+    margin:
+        0;
+
+    padding:
+        0;
+
+    list-style:
+        none;
+
 }
+
+
+/* ==========================================================================
+   Links
+========================================================================== */
+
+a {
+
+    color:
+        inherit;
+
+    text-decoration:
+        none;
+
+}
+
+
+/* ==========================================================================
+   Imagens
+========================================================================== */
 
 img,
 picture,
-svg {
-    display: block;
-    max-width: 100%;
-    height: auto;
+svg,
+canvas {
+
+    display:
+        block;
+
+    max-width:
+        100%;
+
 }
 
-a {
-    color: inherit;
-    text-decoration: none;
+
+img {
+
+    height:
+        auto;
+
 }
+
+
+/* ==========================================================================
+   Formulários
+========================================================================== */
 
 button,
 input,
-select,
-textarea {
-    font: inherit;
+textarea,
+select {
+
+    margin:
+        0;
+
+    font:
+        inherit;
+
 }
+
 
 button {
-    cursor: pointer;
-    border: none;
-    background: none;
+
+    border:
+        0;
+
+    padding:
+        0;
+
+    background:
+        none;
+
+    cursor:
+        pointer;
+
 }
 
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
 
 textarea {
-    resize: vertical;
+
+    resize:
+        vertical;
+
 }
 
-:focus-visible {
-    outline: 3px solid var(--color-primary);
-    outline-offset: 2px;
+
+/* ==========================================================================
+   Tabelas
+========================================================================== */
+
+table {
+
+    border-collapse:
+        collapse;
+
+    border-spacing:
+        0;
+
+}
+
+
+/* ==========================================================================
+   Acessibilidade
+========================================================================== */
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+
+    outline:
+        3px solid rgba(37, 99, 235, .25);
+
+    outline-offset:
+        2px;
+
+}
+
+
+/* ==========================================================================
+   Movimento reduzido
+========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        scroll-behavior:
+            auto !important;
+
+        transition-duration:
+            .01ms !important;
+
+        animation-duration:
+            .01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+    }
+
 }
