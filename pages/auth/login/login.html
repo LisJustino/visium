@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Entre na sua conta do Visium.">
+
+    <title>Entrar | Visium</title>
+
+    <link rel="stylesheet" href="/css/base/reset.css">
+
+    <link rel="stylesheet" href="/css/base/global.css">
+
+    <link rel="stylesheet" href="/css/abstracts/variables.css">
+
+    <link rel="stylesheet" href="/pages/auth/login/login.css">
+
+</head>
+
+
+<body>
+
+    <main class="login-page">
+
+        <section class="login-card" aria-labelledby="loginTitle">
+
+            <header class="login-header">
+
+                <a href="/pages/public/landing/index.html" class="login-brand"
+                    aria-label="Voltar para o início do Visium">
+
+                    <span class="login-brand__mark">
+                        V
+                    </span>
+
+                    <span class="login-brand__name">
+                        Visium
+                    </span>
+
+                </a>
+
+
+                <span class="login-eyebrow">
+                    ÁREA DO ALUNO
+                </span>
+
+
+                <h1 id="loginTitle">
+                    Bem-vindo de volta
+                </h1>
+
+
+                <p>
+                    Entre na sua conta para continuar
+                    seus estudos em Óptica.
+                </p>
+
+            </header>
+
+
+            <form class="login-form" id="loginForm" novalidate>
+
+                <div class="login-feedback" id="loginFeedback" role="alert" aria-live="polite" hidden></div>
+
+
+                <div class="login-field">
+
+                    <label for="loginEmail">
+                        E-mail
+                    </label>
+
+                    <input type="email" id="loginEmail" name="email" autocomplete="email" placeholder="seu@email.com"
+                        required>
+
+                    <span class="login-field__error" id="loginEmailError" aria-live="polite"></span>
+
+                </div>
+
+
+                <div class="login-field">
+
+                    <div class="login-field__label">
+
+                        <label for="loginPassword">
+                            Senha
+                        </label>
+
+                        <button type="button" class="login-forgot" id="forgotPasswordButton">
+                            Esqueci minha senha
+                        </button>
+
+                    </div>
+
+
+                    <div class="login-password">
+
+                        <input type="password" id="loginPassword" name="password" autocomplete="current-password"
+                            placeholder="Digite sua senha" required>
+
+                        <button type="button" class="login-password__toggle" id="togglePassword"
+                            aria-label="Mostrar senha" aria-pressed="false">
+                            Mostrar
+                        </button>
+
+                    </div>
+
+
+                    <span class="login-field__error" id="loginPasswordError" aria-live="polite"></span>
+
+                </div>
+
+
+                <button type="submit" class="login-button" id="loginSubmit">
+                    <span id="loginSubmitText">
+                        Entrar
+                    </span>
+
+                    <span class="login-button__loading" id="loginSubmitLoading" hidden>
+                        Entrando...
+                    </span>
+                </button>
+
+            </form>
+
+
+            <div class="login-divider">
+
+                <span>
+                    ou
+                </span>
+
+            </div>
+
+
+            <p class="login-register">
+
+                Ainda não tem uma conta?
+
+                <button type="button" class="login-register__link" id="registerButton">
+                    Criar conta
+                </button>
+
+            </p>
+
+
+            <a href="/pages/public/landing/index.html" class="login-back">
+                &larr; Voltar para a página inicial
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <script src="/js/auth/auth.js"></script>
+
+    <script src="/pages/auth/login/login.js"></script>
+
+</body>
+
+</html>
