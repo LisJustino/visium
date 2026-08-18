@@ -804,10 +804,10 @@ let currentSectionIndex = 0;
 
 
 /* ==========================================================================
-   Persistência do progresso
+   Compatibilidade com progresso anterior
 ========================================================================== */
 
-function getProgressKey() {
+function getLegacyProgressKey() {
 
     const contentKey =
         getContentKey();
@@ -818,7 +818,7 @@ function getProgressKey() {
 }
 
 
-function getContentProgressKey() {
+function getLegacyContentProgressKey() {
 
     const contentKey =
         getContentKey();
@@ -829,36 +829,10 @@ function getContentProgressKey() {
 }
 
 
-function calculateProgressPercentage() {
-
-    const total =
-        currentContent.sections.length;
-
-
-    if (
-        total <= 1
-    ) {
-
-        return 100;
-
-    }
-
-
-    return Math.round(
-        (
-            currentSectionIndex /
-            (total - 1)
-        ) *
-        100
-    );
-
-}
-
-
-function loadSavedProgress() {
+function loadLegacyProgress() {
 
     const key =
-        getProgressKey();
+        getLegacyProgressKey();
 
 
     const saved =
@@ -871,7 +845,7 @@ function loadSavedProgress() {
         saved === null
     ) {
 
-        return 0;
+        return null;
 
     }
 
@@ -888,7 +862,7 @@ function loadSavedProgress() {
         )
     ) {
 
-        return 0;
+        return null;
 
     }
 
@@ -904,43 +878,253 @@ function loadSavedProgress() {
 }
 
 
-function saveProgress() {
+function loadLegacyContentPercentage() {
 
-    const readerKey =
-        getProgressKey();
+    const key =
+        getLegacyContentProgressKey();
+
+
+    const saved =
+        localStorage.getItem(
+            key
+        );
+
+
+    if (
+        saved === null
+    ) {
+
+        return null;
+
+    }
+
+
+    const parsed =
+        Number(
+            saved
+        );
+
+
+    if (
+        Number.isNaN(
+            parsed
+        )
+    ) {
+
+        return null;
+
+    }
+
+
+    return Math.max(
+        0,
+        Math.min(
+            parsed,
+            100
+        )
+    );
+
+}
+
+
+function migrateLegacyProgress() {
+
+    const contentKey =
+        getContentKey();
+
+
+    if (
+        !contentKey ||
+        !window.VisiumProgress
+    ) {
+
+        return null;
+
+    }
+
+
+    const existingProgress =
+        window.VisiumProgress.getContent(
+            contentKey
+        );
+
+
+    if (existingProgress) {
+
+        return existingProgress;
+
+    }
+
+
+    const legacySection =
+        loadLegacyProgress();
+
+
+    const legacyPercentage =
+        loadLegacyContentPercentage();
+
+
+    if (
+        legacySection === null &&
+        legacyPercentage === null
+    ) {
+
+        return null;
+
+    }
+
+
+    const sectionIndex =
+        legacySection !== null
+            ? legacySection
+            : 0;
+
+
+    const percentage =
+        legacyPercentage !== null
+            ? legacyPercentage
+            : calculateProgressPercentage(
+                sectionIndex
+            );
+
+
+    return window.VisiumProgress.update(
+        contentKey,
+        percentage,
+        sectionIndex
+    );
+
+}
+
+
+/* ==========================================================================
+   Cálculo do progresso
+========================================================================== */
+
+function calculateProgressPercentage(
+    sectionIndex = currentSectionIndex
+) {
+
+    const total =
+        currentContent.sections.length;
+
+
+    if (
+        total <= 1
+    ) {
+
+        return 100;
+
+    }
+
+
+    return Math.round(
+        (
+            sectionIndex /
+            (total - 1)
+        ) *
+        100
+    );
+
+}
+
+
+/* ==========================================================================
+   Carregamento do progresso
+========================================================================== */
+
+function loadSavedProgress() {
+
+    if (
+        !window.VisiumProgress
+    ) {
+
+        return 0;
+
+    }
 
 
     const contentKey =
-        getContentProgressKey();
+        getContentKey();
+
+
+    const saved =
+        window.VisiumProgress.getContent(
+            contentKey
+        );
+
+
+    if (saved) {
+
+        return Math.max(
+            0,
+            Math.min(
+                Number(
+                    saved.currentSection
+                ) || 0,
+                currentContent.sections.length - 1
+            )
+        );
+
+    }
+
+
+    const migrated =
+        migrateLegacyProgress();
+
+
+    if (migrated) {
+
+        return Math.max(
+            0,
+            Math.min(
+                Number(
+                    migrated.currentSection
+                ) || 0,
+                currentContent.sections.length - 1
+            )
+        );
+
+    }
+
+
+    return 0;
+
+}
+
+
+/* ==========================================================================
+   Persistência do progresso
+========================================================================== */
+
+function saveProgress() {
+
+    if (
+        !window.VisiumProgress
+    ) {
+
+        console.error(
+            "Visium | Serviço de progresso não disponível."
+        );
+
+
+        return;
+
+    }
+
+
+    const contentKey =
+        getContentKey();
 
 
     const percentage =
         calculateProgressPercentage();
 
 
-    /*
-     * Mantém o índice da seção separado para que a navegação
-     * continue funcionando exatamente como antes.
-     */
-
-    localStorage.setItem(
-        readerKey,
-        String(
-            currentSectionIndex
-        )
-    );
-
-
-    /*
-     * Salva também a porcentagem em uma chave própria.
-     * A página Meu Progresso utiliza esta informação.
-     */
-
-    localStorage.setItem(
+    window.VisiumProgress.update(
         contentKey,
-        String(
-            percentage
-        )
+        percentage,
+        currentSectionIndex
     );
 
 }
@@ -1117,7 +1301,7 @@ function updateActiveSection() {
 
 
 /* ==========================================================================
-   Progresso
+   Progresso visual
 ========================================================================== */
 
 function updateProgress() {
@@ -1539,8 +1723,35 @@ async function initializeReader() {
     renderArticle();
 
 
+    if (
+        !window.VisiumProgress
+    ) {
+
+        console.error(
+            "Visium | Serviço de progresso não carregado."
+        );
+
+
+        return;
+
+    }
+
+
     currentSectionIndex =
         loadSavedProgress();
+
+
+    /*
+     * Abrir o conteúdo já conta como início.
+     *
+     * Se o conteúdo ainda não possuir progresso,
+     * registerAccess cria o registro com status "started".
+     */
+
+    window.VisiumProgress.registerAccess(
+        getContentKey(),
+        currentSectionIndex
+    );
 
 
     updateActiveSection();

@@ -464,59 +464,57 @@ function getContentProgress(
     contentId
 ) {
 
-    const possibleKeys = [
-
-        `visium_content_progress_${contentId}`,
-
-        `visium_reader_progress_${contentId}`,
-
-        `visium_progress_${contentId}`
-
-    ];
-
-
-    for (
-        const key of possibleKeys
+    if (
+        !window.VisiumProgress
     ) {
 
-        const stored =
-            localStorage.getItem(
-                key
-            );
+        console.error(
+            "Visium | Serviço de progresso não carregado."
+        );
 
 
-        if (
-            stored !== null
-        ) {
-
-            const value =
-                Number(
-                    stored
-                );
-
-
-            if (
-                Number.isFinite(
-                    value
-                )
-            ) {
-
-                return Math.max(
-                    0,
-                    Math.min(
-                        100,
-                        value
-                    )
-                );
-
-            }
-
-        }
+        return 0;
 
     }
 
 
-    return 0;
+    const content =
+        window.VisiumProgress.getContent(
+            contentId
+        );
+
+
+    if (!content) {
+
+        return 0;
+
+    }
+
+
+    const progress =
+        Number(
+            content.progress
+        );
+
+
+    if (
+        !Number.isFinite(
+            progress
+        )
+    ) {
+
+        return 0;
+
+    }
+
+
+    return Math.max(
+        0,
+        Math.min(
+            100,
+            progress
+        )
+    );
 
 }
 
