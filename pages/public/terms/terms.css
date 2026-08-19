@@ -1,0 +1,227 @@
+/**
+ * ==========================================================================
+ * Visium
+ * Arquivo: terms.css
+ *
+ * Página pública dos Termos de Uso.
+ * ==========================================================================
+ */
+
+.terms-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    min-height: 72px;
+
+    padding: 0 5%;
+
+    border-bottom: 1px solid var(--color-border);
+
+    background: var(--color-white);
+}
+
+
+.terms-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: .7rem;
+
+    color: var(--color-text);
+
+    text-decoration: none;
+}
+
+
+.terms-brand__logo {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 8px;
+
+    object-fit: cover;
+}
+
+
+.terms-brand__name {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+}
+
+
+.terms-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+
+.terms-nav a {
+    color: var(--color-text);
+    font-size: .85rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+
+.terms-nav a:hover {
+    color: var(--color-primary);
+}
+
+
+.terms-nav__button {
+    padding: .65rem 1rem;
+
+    border-radius: 8px;
+
+    background: var(--color-primary);
+
+    color: var(--color-white) !important;
+}
+
+
+.terms-page {
+    min-height: calc(100vh - 72px);
+
+    padding: 4rem 1rem;
+
+    background: var(--color-background);
+}
+
+
+.terms-content {
+    width: min(100%, 820px);
+
+    margin: 0 auto;
+
+    padding: 3rem;
+
+    border: 1px solid var(--color-border);
+
+    border-radius: 16px;
+
+    background: var(--color-white);
+
+    box-shadow: 0 10px 30px rgba(15, 23, 42, .05);
+}
+
+
+.terms-title {
+    padding-bottom: 2rem;
+
+    border-bottom: 1px solid var(--color-border);
+
+    margin-bottom: 2rem;
+}
+
+
+.terms-title span {
+    color: var(--color-primary);
+
+    font-size: .72rem;
+    font-weight: 700;
+
+    letter-spacing: .1em;
+}
+
+
+.terms-title h1 {
+    margin: .45rem 0 .6rem;
+
+    color: var(--color-text);
+
+    font-size: 2.2rem;
+}
+
+
+.terms-title p {
+    margin: 0;
+
+    color: var(--color-text-muted);
+
+    font-size: .8rem;
+}
+
+
+.terms-section {
+    margin-bottom: 2rem;
+}
+
+
+.terms-section h2 {
+    margin-bottom: .7rem;
+
+    color: var(--color-text);
+
+    font-size: 1.05rem;
+}
+
+
+.terms-section p {
+    margin-bottom: .75rem;
+
+    color: var(--color-text-muted);
+
+    font-size: .9rem;
+
+    line-height: 1.75;
+}
+
+
+.terms-footer {
+    padding-top: 1.5rem;
+
+    border-top: 1px solid var(--color-border);
+
+    text-align: center;
+}
+
+
+.terms-footer a {
+    color: var(--color-primary);
+
+    font-size: .85rem;
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+
+.terms-footer a:hover {
+    text-decoration: underline;
+}
+
+
+@media (max-width: 700px) {
+
+    .terms-header {
+        padding: 0 1rem;
+    }
+
+
+    .terms-nav {
+        gap: .7rem;
+    }
+
+
+    .terms-nav a:not(.terms-nav__button) {
+        display: none;
+    }
+
+
+    .terms-page {
+        padding: 1.5rem .75rem;
+    }
+
+
+    .terms-content {
+        padding: 1.5rem;
+    }
+
+
+    .terms-title h1 {
+        font-size: 1.7rem;
+    }
+
+}
