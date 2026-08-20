@@ -1,9 +1,9 @@
-/**
+﻿/**
  * ==========================================================================
  * Visium
  * Arquivo: contents.js
  *
- * Comportamentos da página de conteúdos da área autenticada.
+ * Comportamentos da pÃ¡gina de conteÃºdos da Ã¡rea autenticada.
  * ==========================================================================
  */
 
@@ -54,7 +54,7 @@ async function loadContentsComponent(
         if (!response.ok) {
 
             throw new Error(
-                `Não foi possível carregar ${path}.`
+                `NÃ£o foi possÃ­vel carregar ${path}.`
             );
 
         }
@@ -82,7 +82,7 @@ async function loadContentsComponent(
 
 
 /* ==========================================================================
-   Sessão
+   SessÃ£o
 ========================================================================== */
 
 function getCurrentUser() {
@@ -109,7 +109,7 @@ function getCurrentUser() {
     } catch (error) {
 
         console.error(
-            "Visium | Sessão inválida:",
+            "Visium | SessÃ£o invÃ¡lida:",
             error
         );
 
@@ -169,299 +169,11 @@ function updateHeaderUser(
 
         headerUserName.textContent =
             user.name ||
-            "Usuário";
+            "UsuÃ¡rio";
 
     }
 
 }
-
-
-/* ==========================================================================
-   Sidebar
-========================================================================== */
-
-function initializeSidebar() {
-
-    const sidebar =
-        document.querySelector(
-            "#appSidebar"
-        );
-
-
-    const toggle =
-        document.querySelector(
-            "#sidebarToggle"
-        );
-
-
-    const overlay =
-        document.querySelector(
-            "#sidebarOverlay"
-        );
-
-
-    if (!sidebar) {
-
-        return;
-
-    }
-
-
-    /*
-     * A página atual é Conteúdos.
-     *
-     * O sidebar possui "Início" marcado
-     * diretamente no HTML do componente.
-     *
-     * Removemos esse estado e marcamos
-     * somente o link correspondente à
-     * página atual.
-     */
-
-    sidebar
-        .querySelectorAll(
-            ".app-sidebar__link"
-        )
-        .forEach(
-            (link) => {
-
-                link.classList.remove(
-                    "is-active"
-                );
-
-
-                link.setAttribute(
-                    "aria-current",
-                    "false"
-                );
-
-            }
-        );
-
-
-    const currentLink =
-        sidebar.querySelector(
-            '[data-page="contents"]'
-        );
-
-
-    if (currentLink) {
-
-        currentLink.classList.add(
-            "is-active"
-        );
-
-
-        currentLink.setAttribute(
-            "aria-current",
-            "page"
-        );
-
-    }
-
-
-    /*
-     * Em desktop não precisamos do
-     * comportamento de abertura.
-     */
-
-    if (
-        !toggle ||
-        !overlay
-    ) {
-
-        return;
-
-    }
-
-
-    function openSidebar() {
-
-        sidebar.classList.add(
-            "is-open"
-        );
-
-
-        overlay.classList.add(
-            "is-visible"
-        );
-
-
-        toggle.setAttribute(
-            "aria-expanded",
-            "true"
-        );
-
-    }
-
-
-    function closeSidebar() {
-
-        sidebar.classList.remove(
-            "is-open"
-        );
-
-
-        overlay.classList.remove(
-            "is-visible"
-        );
-
-
-        toggle.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-
-    }
-
-
-    toggle.addEventListener(
-        "click",
-        () => {
-
-            const isOpen =
-                sidebar.classList.contains(
-                    "is-open"
-                );
-
-
-            if (isOpen) {
-
-                closeSidebar();
-
-            } else {
-
-                openSidebar();
-
-            }
-
-        }
-    );
-
-
-    overlay.addEventListener(
-        "click",
-        closeSidebar
-    );
-
-
-    sidebar
-        .querySelectorAll(
-            ".app-sidebar__link"
-        )
-        .forEach(
-            (link) => {
-
-                link.addEventListener(
-                    "click",
-                    () => {
-
-                        closeSidebar();
-
-                    }
-                );
-
-            }
-        );
-
-
-    document.addEventListener(
-        "keydown",
-        (event) => {
-
-            if (
-                event.key ===
-                "Escape"
-            ) {
-
-                closeSidebar();
-
-            }
-
-        }
-    );
-
-}
-
-
-/* ==========================================================================
-   Logout
-========================================================================== */
-
-function initializeLogout() {
-
-    const logoutButton =
-        document.querySelector(
-            "#logoutButton"
-        );
-
-
-    if (!logoutButton) {
-
-        return;
-
-    }
-
-
-    logoutButton.addEventListener(
-        "click",
-        () => {
-
-            localStorage.removeItem(
-                "visium_user"
-            );
-
-
-            localStorage.removeItem(
-                "visium_logged"
-            );
-
-
-            localStorage.removeItem(
-                "visium_session"
-            );
-
-
-            window.location.href =
-                "/pages/public/landing/index.html";
-
-        }
-    );
-
-}
-
-
-/* ==========================================================================
-   Perfil
-========================================================================== */
-
-function initializeProfileButton() {
-
-    const profileButton =
-        document.querySelector(
-            "#headerProfileButton"
-        );
-
-
-    if (!profileButton) {
-
-        return;
-
-    }
-
-
-    profileButton.addEventListener(
-        "click",
-        () => {
-
-            window.location.href =
-                "/pages/app/profile/profile.html";
-
-        }
-    );
-
-}
-
 
 /* ==========================================================================
    Filtros e busca
@@ -580,8 +292,8 @@ function initializeContentsFilters() {
 
         countElement.textContent =
             visibleCount === 1
-                ? "1 conteúdo"
-                : `${visibleCount} conteúdos`;
+                ? "1 conteÃºdo"
+                : `${visibleCount} conteÃºdos`;
 
     }
 
@@ -665,7 +377,7 @@ function initializeContentsFilters() {
                  * Usamos a propriedade nativa "hidden".
                  *
                  * Isso remove o card visualmente
-                 * e também do layout do CSS Grid.
+                 * e tambÃ©m do layout do CSS Grid.
                  */
 
                 card.hidden =
@@ -737,7 +449,7 @@ function initializeContentsFilters() {
 
 
 /* ==========================================================================
-   Inicialização
+   InicializaÃ§Ã£o
 ========================================================================== */
 
 async function initializeContentsPage() {
@@ -773,7 +485,7 @@ async function initializeContentsPage() {
     ) {
 
         console.error(
-            "Visium | Não foi possível inicializar os componentes da área autenticada."
+            "Visium | NÃ£o foi possÃ­vel inicializar os componentes da Ã¡rea autenticada."
         );
 
 
@@ -785,16 +497,6 @@ async function initializeContentsPage() {
     updateHeaderUser(
         user
     );
-
-
-    initializeSidebar();
-
-
-    initializeLogout();
-
-
-    initializeProfileButton();
-
 
     initializeContentsFilters();
 

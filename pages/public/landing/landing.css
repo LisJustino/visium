@@ -88,31 +88,23 @@
 }
 
 
-.landing-brand__mark {
+.landing-brand__logo {
 
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
+    display: block;
 
     width: 34px;
 
     height: 34px;
 
-    flex-shrink: 0;
+    flex: 0 0 34px;
 
     border-radius: 9px;
 
-    background:
-        var(--color-primary);
+    object-fit: cover;
 
-    color:
-        var(--color-white);
+    object-position: center;
 
-    font-size: 1rem;
-
-    font-weight: 800;
+    overflow: hidden;
 
 }
 
@@ -216,14 +208,28 @@
 
     align-items: center;
 
+    justify-content: flex-end;
+
     gap: .65rem;
 
     flex-shrink: 0;
+
+    min-width: max-content;
 
 }
 
 
 .landing-header__login {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex: 0 0 auto;
+
+    min-height: 38px;
 
     padding:
         .55rem .8rem;
@@ -231,9 +237,14 @@
     color:
         var(--color-gray-700);
 
+    background:
+        transparent;
+
     font-size: .8rem;
 
     font-weight: 700;
+
+    line-height: 1;
 
     text-decoration: none;
 
@@ -266,6 +277,8 @@
     padding:
         .55rem 1rem;
 
+    border: 0;
+
     border-radius: 8px;
 
     background:
@@ -274,13 +287,19 @@
     color:
         var(--color-white);
 
+    font-family: inherit;
+
     font-size: .78rem;
 
     font-weight: 700;
 
+    line-height: 1;
+
     text-decoration: none;
 
     white-space: nowrap;
+
+    cursor: pointer;
 
     transition:
         transform .2s ease,
@@ -293,6 +312,73 @@
 
     background:
         var(--color-primary-dark);
+
+    color:
+        var(--color-white);
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+/*
+ * O HTML atual utiliza .login-register__link nos botões
+ * "Criar conta". Mantemos a classe compatível para evitar
+ * que o botão perca o estilo visual do header/footer.
+ */
+
+.login-register__link {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 38px;
+
+    padding:
+        .55rem 1rem;
+
+    border: 0;
+
+    border-radius: 8px;
+
+    background:
+        var(--color-primary);
+
+    color:
+        var(--color-white);
+
+    font-family: inherit;
+
+    font-size: .78rem;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        background .2s ease;
+
+}
+
+
+.login-register__link:hover {
+
+    background:
+        var(--color-primary-dark);
+
+    color:
+        var(--color-white);
 
     transform:
         translateY(-1px);
@@ -533,6 +619,8 @@
 
     text-decoration: none;
 
+    cursor: pointer;
+
     transition:
         transform .2s ease,
         background .2s ease,
@@ -542,6 +630,8 @@
 
 
 .landing-button--primary {
+
+    border: 0;
 
     background:
         var(--color-primary);
@@ -559,6 +649,9 @@
 
     background:
         var(--color-primary-dark);
+
+    color:
+        var(--color-white);
 
     transform:
         translateY(-2px);
@@ -3465,6 +3558,21 @@
 }
 
 
+.landing-footer__brand .landing-brand__logo {
+
+    width: 34px;
+
+    height: 34px;
+
+    flex: 0 0 34px;
+
+    border-radius: 9px;
+
+    object-fit: cover;
+
+}
+
+
 .landing-footer__brand .landing-brand__name {
 
     color:
@@ -3539,6 +3647,50 @@
 
     color:
         var(--color-white);
+
+}
+
+
+/*
+ * Botões "Criar conta" dentro das colunas do footer.
+ */
+
+.landing-footer__column .login-register__link {
+
+    min-height: auto;
+
+    padding: 0;
+
+    border: 0;
+
+    border-radius: 0;
+
+    background: transparent;
+
+    color: #94a3b8;
+
+    font-family: inherit;
+
+    font-size: .76rem;
+
+    font-weight: 600;
+
+    line-height: 1.4;
+
+    text-align: left;
+
+    transform: none;
+
+}
+
+
+.landing-footer__column .login-register__link:hover {
+
+    background: transparent;
+
+    color: var(--color-white);
+
+    transform: none;
 
 }
 
@@ -3985,6 +4137,7 @@
 
     }
 
+
     .landing-header__actions {
 
         display: flex;
@@ -3996,6 +4149,8 @@
         gap: .35rem;
 
         flex-shrink: 0;
+
+        min-width: max-content;
 
     }
 
@@ -4031,7 +4186,8 @@
     }
 
 
-    .landing-header__register {
+    .landing-header__register,
+    .landing-header__actions .login-register__link {
 
         min-height: 36px;
 
@@ -4050,13 +4206,22 @@
     }
 
 
-    .landing-brand__mark {
+    /*
+     * A logo agora é uma imagem real.
+     * Não utilizar .landing-brand__mark.
+     */
+
+    .landing-brand__logo {
 
         width: 31px;
 
         height: 31px;
 
+        flex: 0 0 31px;
+
         border-radius: 8px;
+
+        object-fit: cover;
 
     }
 
@@ -4542,6 +4707,19 @@
     }
 
 
+    .landing-footer__brand .landing-brand__logo {
+
+        width: 31px;
+
+        height: 31px;
+
+        flex-basis: 31px;
+
+        border-radius: 8px;
+
+    }
+
+
     .landing-footer__brand p {
 
         font-size: .76rem;
@@ -4591,10 +4769,28 @@
     }
 
 
-    .landing-header__register {
+    .landing-header__register,
+    .landing-header__actions .login-register__link {
+
+        min-height: 34px;
 
         padding:
-            .5rem .65rem;
+            .45rem .6rem;
+
+        font-size: .64rem;
+
+    }
+
+
+    .landing-brand__logo {
+
+        width: 30px;
+
+        height: 30px;
+
+        flex-basis: 30px;
+
+        border-radius: 8px;
 
     }
 
@@ -4782,10 +4978,12 @@
 .landing-nav__link:focus-visible,
 .landing-header__login:focus-visible,
 .landing-header__register:focus-visible,
+.login-register__link:focus-visible,
 .landing-button:focus-visible,
 .landing-cta__login:focus-visible,
 .landing-content__link:focus-visible,
 .landing-footer__column a:focus-visible,
+.landing-footer__column .login-register__link:focus-visible,
 .faq-item__question:focus-visible {
 
     outline:
@@ -4793,156 +4991,5 @@
 
     outline-offset:
         3px;
-
-}
-
-
-/* ==========================================================================
-   Correção definitiva — Ação "Entrar" do Header
-========================================================================== */
-
-.landing-header__actions {
-
-    display: flex !important;
-
-    align-items: center;
-
-    justify-content: flex-end;
-
-    gap: .65rem;
-
-    flex-shrink: 0;
-
-    min-width: max-content;
-
-}
-
-
-.landing-header__login {
-
-    display: inline-flex !important;
-
-    align-items: center;
-
-    justify-content: center;
-
-    flex: 0 0 auto;
-
-    width: auto;
-
-    min-width: max-content;
-
-    height: auto;
-
-    min-height: 38px;
-
-    padding: .55rem .8rem;
-
-    margin: 0;
-
-    color: var(--color-gray-700) !important;
-
-    background: transparent;
-
-    font-size: .8rem;
-
-    font-weight: 700;
-
-    line-height: 1;
-
-    text-decoration: none;
-
-    white-space: nowrap;
-
-    visibility: visible !important;
-
-    opacity: 1 !important;
-
-    overflow: visible;
-
-}
-
-
-.landing-header__login:hover {
-
-    color: var(--color-primary) !important;
-
-}
-
-
-@media (max-width: 600px) {
-
-    .landing-header__actions {
-
-        gap: .35rem;
-
-        min-width: max-content;
-
-    }
-
-
-    .landing-header__login {
-
-        display: inline-flex !important;
-
-        flex: 0 0 auto;
-
-        min-height: 36px;
-
-        padding: .5rem .55rem;
-
-        font-size: .72rem;
-
-        visibility: visible !important;
-
-        opacity: 1 !important;
-
-    }
-
-
-    .landing-header__register {
-
-        flex: 0 0 auto;
-
-        min-height: 36px;
-
-        padding: .5rem .75rem;
-
-        font-size: .72rem;
-
-    }
-
-}
-
-
-@media (max-width: 420px) {
-
-    .landing-header__actions {
-
-        gap: .2rem;
-
-    }
-
-
-    .landing-header__login {
-
-        min-height: 34px;
-
-        padding: .45rem .4rem;
-
-        font-size: .64rem;
-
-    }
-
-
-    .landing-header__register {
-
-        min-height: 34px;
-
-        padding: .45rem .6rem;
-
-        font-size: .64rem;
-
-    }
 
 }

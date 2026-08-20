@@ -74,12 +74,32 @@ const togglePassword =
     );
 
 
+const registerButton =
+    document.querySelector(
+        "#registerButton"
+    );
+
+
+const forgotPasswordButton =
+    document.querySelector(
+        "#forgotPasswordButton"
+    );
+
+
 /* ==========================================================================
    Redirecionamento
 ========================================================================== */
 
 const DASHBOARD_URL =
     "/pages/app/dashboard/dashboard.html";
+
+
+const REGISTER_URL =
+    "/pages/auth/register/register.html";
+
+
+const FORGOT_PASSWORD_URL =
+    "/pages/auth/forgot-password/forgot-password.html";
 
 
 /* ==========================================================================
@@ -327,10 +347,52 @@ function initializePasswordToggle() {
 
 
 /* ==========================================================================
+   Navegação
+========================================================================== */
+
+function initializeNavigation() {
+
+    if (
+        registerButton
+    ) {
+
+        registerButton.addEventListener(
+            "click",
+            () => {
+
+                window.location.href =
+                    REGISTER_URL;
+
+            }
+        );
+
+    }
+
+
+    if (
+        forgotPasswordButton
+    ) {
+
+        forgotPasswordButton.addEventListener(
+            "click",
+            () => {
+
+                window.location.href =
+                    FORGOT_PASSWORD_URL;
+
+            }
+        );
+
+    }
+
+}
+
+
+/* ==========================================================================
    Login
 ========================================================================== */
 
-async function handleLogin(
+function handleLogin(
     event
 ) {
 
@@ -376,11 +438,9 @@ async function handleLogin(
     try {
 
         const result =
-            await Promise.resolve(
-                window.VisiumAuth.login(
-                    validation.email,
-                    validation.password
-                )
+            window.VisiumAuth.login(
+                validation.email,
+                validation.password
             );
 
 
@@ -394,6 +454,10 @@ async function handleLogin(
                 "E-mail ou senha inválidos."
             );
 
+            setLoading(
+                false
+            );
+
             return;
 
         }
@@ -405,14 +469,13 @@ async function handleLogin(
         );
 
 
-        window.setTimeout(
-            () => {
+        /*
+         * A sessão já foi criada pelo VisiumAuth.
+         * O redirecionamento é imediato e determinístico.
+         */
 
-                window.location.href =
-                    DASHBOARD_URL;
-
-            },
-            250
+        window.location.assign(
+            DASHBOARD_URL
         );
 
     } catch (error) {
@@ -427,7 +490,6 @@ async function handleLogin(
             "Não foi possível realizar o login. Tente novamente."
         );
 
-    } finally {
 
         setLoading(
             false
@@ -475,7 +537,10 @@ function initializeLogin() {
     if (
         !loginForm ||
         !loginEmail ||
-        !loginPassword
+        !loginPassword ||
+        !loginSubmit ||
+        !loginSubmitText ||
+        !loginSubmitLoading
     ) {
 
         console.error(
@@ -488,6 +553,8 @@ function initializeLogin() {
 
 
     initializePasswordToggle();
+
+    initializeNavigation();
 
 
     loginForm.addEventListener(

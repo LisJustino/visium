@@ -1,0 +1,225 @@
+========================================================================
+VISIUM — INVENTÁRIO DE MATERIAL
+========================================================================
+
+Arquivo: ANATOMIA .pdf
+Páginas: 13
+
+------------------------------------------------------------------------
+
+PÁGINA 001
+----------------------------------------
+Texto: sim
+Imagens incorporadas: 2
+Elementos vetoriais: 3
+Primeiro conteúdo textual:
+  - ANATOMIA
+  - ANATOMIA
+  - Entender a estrutura dos
+  - olhos, incluindo a córnea, a
+  - retina, o cristalino e a íris, é
+
+Detalhes das imagens:
+  Imagem 01: JPEG | 615x322px | 40.1 KB | xref=179
+  Imagem 02: JPEG | 615x322px | 40.7 KB | xref=180
+
+PÁGINA 002
+----------------------------------------
+Texto: sim
+Imagens incorporadas: 3
+Elementos vetoriais: 2
+Primeiro conteúdo textual:
+  - As pálpebras são estruturas móveis responsáveis pela
+  - proteção e conservação da saúde ocular. Elas cobrem os
+  - olhos durante o ato de piscar, ajudando a manter a
+  - superfície ocular sempre protegida e hidratada.
+  - Sua principal função é distribuir a lágrima sobre os olhos,
+
+Detalhes das imagens:
+  Imagem 01: JPEG | 380x132px | 17.2 KB | xref=188
+  Imagem 02: JPEG | 471x496px | 57.7 KB | xref=189
+  Imagem 03: PNG | 225x225px | 7.0 KB | xref=190
+
+PÁGINA 003
+----------------------------------------
+Texto: sim
+Imagens incorporadas: 2
+Elementos vetoriais: 2
+Primeiro conteúdo textual:
+  - CÍLIOS
+  - Os cílios são pequenos pelos localizados na borda das
+  - pálpebras, responsáveis por proteger os olhos contra
+  - poeira, sujeira e outros agentes externos que possam
+  - causar irritações ou lesões.
+
+Detalhes das imagens:
+  Imagem 01: JPEG | 299x168px | 16.2 KB | xref=195
+  Imagem 02: JPEG | 273x185px | 20.8 KB | xref=196
+
+PÁGINA 004
+----------------------------------------
+Texto: sim
+Imagens incorporadas: 2
+Elementos vetoriais: 2
+Primeiro conteúdo textual:
+  - GLÂNDULAS LACRIMAIS
+  - As glândulas lacrimais são estruturas responsáveis
+  - pela produção das lágrimas, fundamentais para a
+  - proteção, hidratação e lubrificação dos olhos. Elas
+  - estão localizadas na região superior externa de cada
+
+Detalhes das imagens:
+  Imagem 01: JPEG | 244x206px | 23.7 KB | xref=201
+  Imagem 02: JPEG | 360x315px | 23.3 KB | xref=202
+
+PÁGINA 005
+----------------------------------------
+Texto: sim
+Imagens incorporadas: 1
+Elementos vetoriais: 2
+Primeiro conteúdo textual:
+  - CONJUNTIVA
+  - A conjuntiva é uma membrana fina, transparente
+  - e delicada que recobre a parte branca dos olhos,
+  - chamada esclera, além da região interna das
+  - pálpebras. Sua principal função é proteger e
+
+Detalhes das imagens:
+  Imagem 01: JPEG | 540x720px | 126.7 KB | xref=207
+
+PÁGINA 006
+----------------------------------------
+Texto: sim
+Imagens incorporadas: 2
+Elementos vetoriais: 2
+Primeiro conteúdo textual:
+  - ESCLERA
+  - A esclera é a parte branca e resistente do olho,
+  - responsável por proteger e dar sustentação ao globo
+  - ocular. Ela é formada por um tecido fibroso bastante
+  - forte, que ajuda a manter o formato do olho e protege
+
+Detalhes das imagens:
+  Imagem 01: JPEG | 225x225px | 20.9 KB | xref=213
+  Imagem 02: PNG | 350x366px | 186.1 KB | xref=214
+
+PÁGINA 007
+----------------------------------------
+Texto: sim
+Imagens incorporadas: 2
+Elementos vetoriais: 2
+Primeiro conteúdo textual:
+  - CÓRNEA
+  - A córnea é a estrutura transparente localizada na
+  - parte frontal do olho. Sua principal função é permitir
+  - a entrada e a refração da luz, ajudando a direcioná-la
+  - corretamente para a retina, onde as imagens serão
+
+Detalhes das imagens:
+  Imagem 01: JPEG | 510x373px | 36.1 KB | xref=219
+  Imagem 02: PNG | 766x432px | 566.7 KB | xref=220
+
+PÁGINA 008
+----------------------------------------
+Texto: sim
+Imagens incorporadas: 2
+Elementos vetoriais: 2
+Primeiro conteúdo textual:
+  - CRISTALINO
+  - O cristalino é uma estrutura transparente
+  - localizada atrás da íris, responsável por auxiliar
+  - na focalização da luz sobre a retina. Sua principal
+  - função é ajustar o foco da visão para objetos
+
+Detalhes das imagens:
+  Imagem 01: JPEG | 232x217px | 14.4 KB | xref=226
+  Imagem 02: JPEG | 336x269px | 37.3 KB | xref=227
+
+PÁGINA 009
+----------------------------------------
+Texto: sim
+Imagens incorporadas: 2
+Elementos vetoriais: 2
+Primeiro conteúdo textual:
+  - RETINA
+  - A retina é a camada interna do olho responsável por
+  - captar a luz que entra pela córnea e transformá-la em
+  - impulsos nervosos, que são enviados ao cérebro para a
+  - formação das imagens.
+
+Detalhes das imagens:
+  Imagem 01: JPEG | 291x173px | 14.4 KB | xref=234
+  Imagem 02: JPEG | 476x476px | 117.1 KB | xref=235
+
+PÁGINA 010
+----------------------------------------
+Texto: sim
+Imagens incorporadas: 3
+Elementos vetoriais: 2
+Primeiro conteúdo textual:
+  - ÍRIS
+  - A íris é a parte colorida do olho e tem como principal função
+  - controlar a quantidade de luz que entra pela pupila, ajudando
+  - na adaptação da visão em diferentes ambientes.
+  - * Em locais muito iluminados, a íris contrai a pupila para
+
+Detalhes das imagens:
+  Imagem 01: JPEG | 318x159px | 28.3 KB | xref=242
+  Imagem 02: JPEG | 318x159px | 22.2 KB | xref=243
+  Imagem 03: JPEG | 368x243px | 41.9 KB | xref=244
+
+PÁGINA 011
+----------------------------------------
+Texto: sim
+Imagens incorporadas: 2
+Elementos vetoriais: 2
+Primeiro conteúdo textual:
+  - PUPILA
+  - A pupila é a abertura localizada no centro da íris,
+  - responsável pela entrada de luz no interior do olho. Seu
+  - tamanho varia conforme a intensidade da luz no ambiente,
+  - sendo controlado pelos músculos da íris.
+
+Detalhes das imagens:
+  Imagem 01: JPEG | 224x224px | 15.2 KB | xref=250
+  Imagem 02: JPEG | 295x171px | 18.4 KB | xref=251
+
+PÁGINA 012
+----------------------------------------
+Texto: sim
+Imagens incorporadas: 1
+Elementos vetoriais: 2
+Primeiro conteúdo textual:
+  - O humor aquoso é um líquido transparente localizado na
+  - parte anterior do olho, entre a córnea e o cristalino. Sua
+  - principal função é nutrir essas estruturas e auxiliar na
+  - manutenção da pressão intraocular, contribuindo para o
+  - formato e o bom funcionamento do olho.
+
+Detalhes das imagens:
+  Imagem 01: PNG | 350x366px | 158.5 KB | xref=257
+
+PÁGINA 013
+----------------------------------------
+Texto: sim
+Imagens incorporadas: 2
+Elementos vetoriais: 2
+Primeiro conteúdo textual:
+  - HUMOR VÍTREO
+  - O humor vítreo é uma substância gelatinosa e
+  - transparente que ocupa a parte interna do olho,
+  - localizada entre o cristalino e a retina. Sua principal
+  - função é manter o formato do globo ocular e auxiliar
+
+Detalhes das imagens:
+  Imagem 01: JPEG | 272x186px | 17.1 KB | xref=262
+  Imagem 02: PNG | 514x537px | 339.7 KB | xref=263
+
+========================================================================
+RESUMO
+========================================================================
+Total de páginas: 13
+Páginas com texto: 13
+Páginas com imagens: 13
+Total de imagens incorporadas: 26
+Total de elementos vetoriais: 27

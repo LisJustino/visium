@@ -5,47 +5,38 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="description"
-        content="Leitor de conteúdos educacionais do Visium."
-    >
+    <meta name="description" content="Leitor de conteÃºdos educacionais do Visium.">
 
-    <title>Conteúdo | Visium</title>
+    <title>ConteÃºdo | Visium</title>
 
-    <link
-        rel="stylesheet"
-        href="/css/base/reset.css"
-    >
 
-    <link
-        rel="stylesheet"
-        href="/css/base/global.css"
-    >
+    <!-- ==========================================================
+         Estilos globais
+    =========================================================== -->
 
-    <link
-        rel="stylesheet"
-        href="/css/abstracts/variables.css"
-    >
+    <link rel="stylesheet" href="/css/base/reset.css">
 
-    <link
-        rel="stylesheet"
-        href="/components/header/header.css"
-    >
+    <link rel="stylesheet" href="/css/base/global.css">
 
-    <link
-        rel="stylesheet"
-        href="/components/sidebar/sidebar.css"
-    >
+    <link rel="stylesheet" href="/css/abstracts/variables.css">
 
-    <link
-        rel="stylesheet"
-        href="/pages/app/reader/reader.css"
-    >
+
+    <!-- ==========================================================
+         Componentes globais
+    =========================================================== -->
+
+    <link rel="stylesheet" href="/components/header/header.css">
+
+    <link rel="stylesheet" href="/components/sidebar/sidebar.css">
+
+
+    <!-- ==========================================================
+         Estilos da pÃ¡gina
+    =========================================================== -->
+
+    <link rel="stylesheet" href="/pages/app/reader/reader.css">
 
 </head>
 
@@ -54,61 +45,66 @@
 
     <div class="app-shell">
 
-        <!-- ==========================================================
+
+        <!-- ======================================================
              Sidebar
-        =========================================================== -->
+        ======================================================= -->
 
-        <div id="appSidebarContainer"></div>
+        <div id="appSidebarContainer" aria-label="NavegaÃ§Ã£o principal"></div>
 
 
-        <!-- ==========================================================
-             Área principal
-        =========================================================== -->
+        <!-- ======================================================
+             Ãrea principal da aplicaÃ§Ã£o
+        ======================================================= -->
 
         <div class="app-main">
 
-            <!-- Header -->
+
+            <!-- ==================================================
+                 Header
+            =================================================== -->
 
             <div id="appHeaderContainer"></div>
 
 
-            <!-- ======================================================
-                 Conteúdo
-            ======================================================= -->
+            <!-- ==================================================
+                 ConteÃºdo principal
+            =================================================== -->
 
-            <main class="reader-page">
+            <main class="reader-page" id="main-content">
 
                 <div class="reader-container">
 
-                    <!-- Voltar -->
 
-                    <a
-                        href="/pages/app/contents/contents.html"
-                        class="reader-back"
-                    >
-                        ← Voltar para conteúdos
+                    <!-- ==========================================
+                         Voltar
+                    =========================================== -->
+
+                    <a href="/pages/app/contents/contents.html" class="reader-back">
+                        â† Voltar para conteÃºdos
                     </a>
 
 
-                    <!-- Cabeçalho -->
+                    <!-- ==========================================
+                         CabeÃ§alho do conteÃºdo
+                    =========================================== -->
 
                     <header class="reader-header">
 
                         <div>
 
-                            <span
-                                class="reader-eyebrow"
-                                id="readerCategory"
-                            >
-                                CONTEÚDO
+                            <span class="reader-eyebrow" id="readerCategory">
+                                CONTEÃšDO
                             </span>
 
+
                             <h1 id="readerTitle">
-                                Carregando conteúdo...
+                                Carregando conteÃºdo...
                             </h1>
 
+
                             <p id="readerDescription">
-                                Aguarde enquanto o conteúdo é carregado.
+                                Aguarde enquanto o conteÃºdo Ã© carregado.
                             </p>
 
                         </div>
@@ -116,15 +112,18 @@
                     </header>
 
 
-                    <!-- Progresso -->
+                    <!-- ==========================================
+                         Progresso
+                    =========================================== -->
 
-                    <section class="reader-progress">
+                    <section class="reader-progress" aria-labelledby="readerProgressLabel">
 
                         <div class="reader-progress__top">
 
-                            <span>
+                            <span id="readerProgressLabel">
                                 Seu progresso
                             </span>
+
 
                             <strong id="readerProgressText">
                                 0%
@@ -132,71 +131,67 @@
 
                         </div>
 
-                        <div class="reader-progress__bar">
 
-                            <div
-                                id="readerProgressBar"
-                                class="reader-progress__fill"
-                            ></div>
+                        <div class="reader-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                            aria-valuenow="0" aria-label="Progresso do conteÃºdo">
+
+                            <div id="readerProgressBar" class="reader-progress__fill"></div>
 
                         </div>
 
                     </section>
 
 
-                    <!-- Layout do leitor -->
+                    <!-- ==========================================
+                         Layout do leitor
+                    =========================================== -->
 
                     <div class="reader-layout">
 
-                        <!-- Navegação -->
 
-                        <aside class="reader-navigation">
+                        <!-- ======================================
+                             NavegaÃ§Ã£o interna do conteÃºdo
+                        ======================================= -->
+
+                        <aside class="reader-navigation" aria-label="SeÃ§Ãµes do conteÃºdo">
 
                             <div class="reader-navigation__header">
 
                                 <span>
-                                    Neste conteúdo
+                                    Neste conteÃºdo
                                 </span>
 
                             </div>
 
-                            <nav
-                                id="readerSections"
-                                class="reader-sections"
-                            ></nav>
+
+                            <nav id="readerSections" class="reader-sections" aria-label="SeÃ§Ãµes"></nav>
 
                         </aside>
 
 
-                        <!-- Artigo -->
+                        <!-- ======================================
+                             Artigo
+                        ======================================= -->
 
-                        <article
-                            id="readerArticle"
-                            class="reader-article"
-                        ></article>
+                        <article id="readerArticle" class="reader-article" aria-live="polite"></article>
 
                     </div>
 
 
-                    <!-- Navegação inferior -->
+                    <!-- ==========================================
+                         NavegaÃ§Ã£o entre seÃ§Ãµes
+                    =========================================== -->
 
-                    <nav class="reader-footer-navigation">
+                    <nav class="reader-footer-navigation" aria-label="NavegaÃ§Ã£o entre seÃ§Ãµes">
 
-                        <button
-                            type="button"
-                            id="readerPrevious"
-                            class="reader-navigation-button"
-                            disabled
-                        >
-                            ← Anterior
+                        <button type="button" id="readerPrevious" class="reader-navigation-button" disabled>
+                            â† Anterior
                         </button>
 
-                        <button
-                            type="button"
-                            id="readerNext"
-                            class="reader-navigation-button reader-navigation-button--primary"
-                        >
-                            Próximo →
+
+                        <button type="button" id="readerNext"
+                            class="reader-navigation-button reader-navigation-button--primary">
+                            PrÃ³ximo â†’
                         </button>
 
                     </nav>
@@ -210,17 +205,25 @@
     </div>
 
 
-    <!-- Serviço compartilhado de progresso.
-         Deve ser carregado antes do Reader. -->
+    <!-- ==========================================================
+         Scripts
+    =========================================================== -->
 
-    <script
-        src="/js/app/progress.js"
-    ></script>
+    <!--
+        ServiÃ§o compartilhado de progresso.
 
-    <script
-        src="/pages/app/reader/reader.js"
-    ></script>
+        Deve ser carregado antes do Reader.
+    -->
 
+    <script src="/js/app/progress.js"></script>
+
+
+    <!--
+        Comportamento da pÃ¡gina de leitura.
+    -->
+
+    <script src="/pages/app/reader/reader.js"></script>
+    <script src="/components/sidebar/sidebar.js"></script>
 </body>
 
 </html>

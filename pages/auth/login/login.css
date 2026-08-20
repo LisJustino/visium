@@ -48,7 +48,7 @@
 .login-card {
 
     width:
-        min(100%, 440px);
+        min(100%, 500px);
 
     padding:
         40px;
@@ -83,12 +83,19 @@
 }
 
 
+/* ==========================================================================
+   Marca
+========================================================================== */
+
 .login-brand {
 
     display:
         inline-flex;
 
     align-items:
+        center;
+
+    justify-content:
         center;
 
     gap:
@@ -100,40 +107,31 @@
     color:
         var(--color-gray-900);
 
+    text-decoration:
+        none;
+
 }
 
 
-.login-brand__mark {
+.login-brand__logo {
 
     display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
+        block;
 
     width:
-        40px;
+        44px;
 
     height:
-        40px;
+        44px;
+
+    flex:
+        0 0 44px;
+
+    object-fit:
+        cover;
 
     border-radius:
         var(--radius-md);
-
-    background:
-        var(--color-primary);
-
-    color:
-        var(--color-white);
-
-    font-size:
-        1.1rem;
-
-    font-weight:
-        800;
 
 }
 
@@ -149,8 +147,15 @@
     letter-spacing:
         .04em;
 
+    line-height:
+        1;
+
 }
 
+
+/* ==========================================================================
+   Eyebrow
+========================================================================== */
 
 .login-eyebrow {
 
@@ -174,6 +179,10 @@
 
 }
 
+
+/* ==========================================================================
+   Título
+========================================================================== */
 
 .login-header h1 {
 
@@ -356,19 +365,41 @@
 }
 
 
+/* ==========================================================================
+   Link "Esqueci minha senha"
+========================================================================== */
+
 .login-forgot {
 
     flex:
         0 0 auto;
 
+    padding:
+        0;
+
+    border:
+        0;
+
+    background:
+        transparent;
+
     color:
         var(--color-primary);
+
+    font:
+        inherit;
 
     font-size:
         .8rem;
 
     font-weight:
         600;
+
+    line-height:
+        1.4;
+
+    cursor:
+        pointer;
 
 }
 
@@ -377,6 +408,20 @@
 
     color:
         var(--color-primary-dark);
+
+}
+
+
+.login-forgot:focus-visible {
+
+    outline:
+        2px solid var(--color-primary);
+
+    outline-offset:
+        3px;
+
+    border-radius:
+        3px;
 
 }
 
@@ -439,6 +484,9 @@
     font-weight:
         600;
 
+    line-height:
+        1;
+
     cursor:
         pointer;
 
@@ -449,6 +497,20 @@
 
     color:
         var(--color-primary-dark);
+
+}
+
+
+.login-password__toggle:focus-visible {
+
+    outline:
+        2px solid var(--color-primary);
+
+    outline-offset:
+        2px;
+
+    border-radius:
+        4px;
 
 }
 
@@ -495,7 +557,7 @@
 
 
 /* ==========================================================================
-   Botão
+   Botão principal
 ========================================================================== */
 
 .login-button {
@@ -535,6 +597,9 @@
 
     font-weight:
         650;
+
+    line-height:
+        1.2;
 
     cursor:
         pointer;
@@ -583,12 +648,19 @@
 }
 
 
+/* ==========================================================================
+   Loading
+========================================================================== */
+
 .login-button__loading {
 
     display:
         inline-flex;
 
     align-items:
+        center;
+
+    justify-content:
         center;
 
     gap:
@@ -608,6 +680,9 @@
     height:
         14px;
 
+    flex:
+        0 0 14px;
+
     border:
         2px solid rgba(255, 255, 255, .35);
 
@@ -619,6 +694,14 @@
 
     animation:
         login-spin .7s linear infinite;
+
+}
+
+
+.login-button__loading[hidden] {
+
+    display:
+        none;
 
 }
 
@@ -704,21 +787,56 @@
 }
 
 
-.login-register a {
+.login-register__link {
+
+    display:
+        inline;
+
+    padding:
+        0;
+
+    border:
+        0;
+
+    background:
+        transparent;
 
     color:
         var(--color-primary);
 
+    font:
+        inherit;
+
     font-weight:
         650;
+
+    line-height:
+        inherit;
+
+    cursor:
+        pointer;
 
 }
 
 
-.login-register a:hover {
+.login-register__link:hover {
 
     color:
         var(--color-primary-dark);
+
+}
+
+
+.login-register__link:focus-visible {
+
+    outline:
+        2px solid var(--color-primary);
+
+    outline-offset:
+        3px;
+
+    border-radius:
+        3px;
 
 }
 
@@ -744,6 +862,9 @@
     text-align:
         center;
 
+    text-decoration:
+        none;
+
 }
 
 
@@ -751,6 +872,20 @@
 
     color:
         var(--color-gray-900);
+
+}
+
+
+.login-back:focus-visible {
+
+    outline:
+        2px solid var(--color-primary);
+
+    outline-offset:
+        3px;
+
+    border-radius:
+        3px;
 
 }
 
@@ -787,6 +922,28 @@
 
         margin-bottom:
             24px;
+
+    }
+
+
+    .login-brand__logo {
+
+        width:
+            40px;
+
+        height:
+            40px;
+
+        flex-basis:
+            40px;
+
+    }
+
+
+    .login-brand__name {
+
+        font-size:
+            1.15rem;
 
     }
 

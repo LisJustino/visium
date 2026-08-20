@@ -1,0 +1,92 @@
+========================================================================
+VISIUM — INVENTÁRIO DE MATERIAL
+========================================================================
+
+Arquivo: Copia de MONTAGENS DE MULTIFOCAIS E BIFOCAIS.pdf
+Páginas: 5
+
+------------------------------------------------------------------------
+
+PÁGINA 001
+----------------------------------------
+Texto: sim
+Imagens incorporadas: 1
+Elementos vetoriais: 3
+Primeiro conteúdo textual:
+  - MONTAGENS DE MULTIFOCAIS E BIFOCAIS
+  - SUPERFÍCIES BIFOCAIS E MULTIFOCAIS
+  - A fabricação de lentes oftálmicas envolve um conjunto de processos técnicos e
+  - tecnológicos destinados a garantir, conforto visual, qualidade estética e correção
+  - refrativa adequada às necessidades individuais de cada usuário.
+
+Detalhes das imagens:
+  Imagem 01: JPEG | 599x586px | 27.9 KB | xref=17
+
+PÁGINA 002
+----------------------------------------
+Texto: sim
+Imagens incorporadas: 0
+Elementos vetoriais: 3
+Primeiro conteúdo textual:
+  - COMO É FEITO?
+  - Durante o processo de surfaçagem, a superfície posterior da lente oftálmica é submetida a
+  - geração e usinagem de precisão, responsáveis pela conformação das curvas necessárias
+  - para atingir a dioptria prescrita.
+  - Na etapa subsequente, a lente passa pelos processos de acabamento, lapidação e
+
+PÁGINA 003
+----------------------------------------
+Texto: sim
+Imagens incorporadas: 4
+Elementos vetoriais: 2
+Primeiro conteúdo textual:
+  - nas quais lentes pré-fabricadas não atenderiam aos requisitos de encaixe e estética. A
+  - correta definição da curvatura é fundamental para garantir estabilidade de montagem,
+  - qualidade visual e conforto ao usuário.
+  - A armação escolhida é um exemplo de situação que demanda personalização por
+  - surfaçagem, devido às suas características geométricas e ao alto grau de curvatura, que
+
+Detalhes das imagens:
+  Imagem 01: PNG | 552x294px | 1.3 KB | xref=22
+  Imagem 02: JPEG | 398x205px | 10.7 KB | xref=24
+  Imagem 03: PNG | 518x323px | 1.5 KB | xref=25
+  Imagem 04: JPEG | 372x226px | 12.1 KB | xref=27
+
+PÁGINA 004
+----------------------------------------
+Texto: sim
+Imagens incorporadas: 1
+Elementos vetoriais: 1
+Primeiro conteúdo textual:
+  - apresentar um desenho da divisão de campos com borda superior reta, proporcionando
+  - uma ampla área útil para atividades de leitura e visão intermediária próxima.
+  - Devido ao seu desenho óptico, oferece uma transição eficiente entre os campos de visão
+  - para longe e para perto, sendo uma das geometrias bifocais mais prescritas para usuários
+  - présbitas.
+
+Detalhes das imagens:
+  Imagem 01: JPEG | 826x891px | 29.7 KB | xref=30
+
+PÁGINA 005
+----------------------------------------
+Texto: sim
+Imagens incorporadas: 1
+Elementos vetoriais: 0
+Primeiro conteúdo textual:
+  - extensas áreas de leitura ou observação em curta distância.
+  - Em algumas raras exceções, podem ser indicada para crianças com necessidades específicas
+  - de correção visual, bem como para profissionais que demandam amplo campo visual para
+  - perto, como desenhistas, arquitetos, projetistas, técnicos e outros usuários que realizam
+  - trabalhos de precisão visual.
+
+Detalhes das imagens:
+  Imagem 01: JPEG | 725x910px | 19.4 KB | xref=34
+
+========================================================================
+RESUMO
+========================================================================
+Total de páginas: 5
+Páginas com texto: 5
+Páginas com imagens: 4
+Total de imagens incorporadas: 7
+Total de elementos vetoriais: 9

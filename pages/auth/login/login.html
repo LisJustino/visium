@@ -30,12 +30,15 @@
 
             <header class="login-header">
 
+                <!--
+                    Marca Visium
+                    A logo oficial é carregada como imagem.
+                -->
+
                 <a href="/pages/public/landing/index.html" class="login-brand"
                     aria-label="Voltar para o início do Visium">
 
-                    <span class="login-brand__mark">
-                        V
-                    </span>
+                    <img src="/assets/img/brand/logo.jpg" alt="Visium" class="login-brand__logo">
 
                     <span class="login-brand__name">
                         Visium
@@ -115,6 +118,7 @@
 
 
                 <button type="submit" class="login-button" id="loginSubmit">
+
                     <span id="loginSubmitText">
                         Entrar
                     </span>
@@ -122,12 +126,13 @@
                     <span class="login-button__loading" id="loginSubmitLoading" hidden>
                         Entrando...
                     </span>
+
                 </button>
 
             </form>
 
 
-            <div class="login-divider">
+            <div class="login-divider" aria-hidden="true">
 
                 <span>
                     ou

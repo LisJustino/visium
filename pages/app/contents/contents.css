@@ -19,8 +19,11 @@
 
 .app-content__container {
     width: min(100%, 1280px);
+
     margin: 0 auto;
-    padding: 2rem 2.25rem 3rem;
+
+    padding:
+        2rem 2.25rem 3rem;
 }
 
 
@@ -29,14 +32,17 @@
 ========================================================================== */
 
 .contents-intro {
-    margin-bottom: 1.75rem;
+    margin-bottom:
+        1.75rem;
 }
 
 
 .contents-intro__eyebrow {
-    display: inline-block;
+    display:
+        inline-block;
 
-    margin-bottom: .45rem;
+    margin-bottom:
+        .45rem;
 
     color:
         var(--color-primary);
@@ -56,7 +62,8 @@
 
 
 .contents-intro h1 {
-    margin: 0;
+    margin:
+        0;
 
     color:
         var(--color-gray-900);
@@ -94,18 +101,30 @@
    Barra de ferramentas
 ========================================================================== */
 
+/*
+ * A barra utiliza duas áreas:
+ *
+ * 1. Busca
+ * 2. Filtros
+ *
+ * Os filtros podem ocupar mais de uma linha sem afetar a busca.
+ */
+
 .contents-toolbar {
     display:
-        flex;
+        grid;
+
+    grid-template-columns:
+        minmax(240px, 300px) minmax(0, 1fr);
 
     align-items:
-        center;
-
-    justify-content:
-        space-between;
+        start;
 
     gap:
-        1rem;
+        1.25rem;
+
+    width:
+        100%;
 
     margin-bottom:
         2rem;
@@ -124,6 +143,9 @@
 
     box-shadow:
         0 4px 14px rgba(15, 23, 42, .04);
+
+    box-sizing:
+        border-box;
 }
 
 
@@ -135,11 +157,11 @@
     position:
         relative;
 
-    flex:
-        1 1 280px;
+    width:
+        100%;
 
-    max-width:
-        420px;
+    min-width:
+        0;
 }
 
 
@@ -201,6 +223,9 @@
     font-size:
         .85rem;
 
+    box-sizing:
+        border-box;
+
     transition:
         border-color .2s ease,
         box-shadow .2s ease,
@@ -238,17 +263,39 @@
         center;
 
     justify-content:
-        flex-end;
+        flex-start;
 
     flex-wrap:
         wrap;
 
     gap:
-        .4rem;
+        .5rem;
+
+    width:
+        100%;
+
+    min-width:
+        0;
 }
 
 
+/* ==========================================================================
+   Botões dos filtros
+========================================================================== */
+
 .contents-filter {
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    flex:
+        0 0 auto;
+
     min-height:
         36px;
 
@@ -276,8 +323,17 @@
     font-weight:
         600;
 
+    line-height:
+        1;
+
+    white-space:
+        nowrap;
+
     cursor:
         pointer;
+
+    box-sizing:
+        border-box;
 
     transition:
         color .2s ease,
@@ -837,7 +893,7 @@
 
 
 /* ==========================================================================
-   Responsividade
+   Responsividade — tablet / largura intermediária
 ========================================================================== */
 
 @media (max-width: 1100px) {
@@ -849,17 +905,17 @@
 
 
     .contents-toolbar {
-        align-items:
-            stretch;
-
-        flex-direction:
-            column;
+        grid-template-columns:
+            1fr;
     }
 
 
     .contents-search {
+        width:
+            100%;
+
         max-width:
-            none;
+            420px;
     }
 
 
@@ -870,6 +926,10 @@
 
 }
 
+
+/* ==========================================================================
+   Responsividade — tablet pequeno
+========================================================================== */
 
 @media (max-width: 760px) {
 
@@ -908,8 +968,18 @@
             230px;
     }
 
+
+    .contents-filters {
+        gap:
+            .45rem;
+    }
+
 }
 
+
+/* ==========================================================================
+   Responsividade — celular
+========================================================================== */
 
 @media (max-width: 480px) {
 
@@ -925,12 +995,24 @@
     }
 
 
+    .contents-search {
+        width:
+            100%;
+
+        max-width:
+            none;
+    }
+
+
     .contents-filters {
         display:
             grid;
 
         grid-template-columns:
             repeat(2, minmax(0, 1fr));
+
+        width:
+            100%;
     }
 
 
@@ -973,6 +1055,16 @@
 
 
 /* ==========================================================================
+   Estado oculto dos cards
+========================================================================== */
+
+.library-card[hidden] {
+    display:
+        none !important;
+}
+
+
+/* ==========================================================================
    Redução de movimento
 ========================================================================== */
 
@@ -986,12 +1078,4 @@
             none;
     }
 
-}
-
-/* ==========================================================================
-   Estado oculto dos cards
-========================================================================== */
-
-.library-card[hidden] {
-    display: none !important;
 }

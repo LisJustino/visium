@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Crie sua conta no Visium e comece seus estudos em Óptica.">
+
+    <title>Criar conta | Visium</title>
+
+
+    <link rel="stylesheet" href="/css/base/reset.css">
+
+    <link rel="stylesheet" href="/css/base/global.css">
+
+    <link rel="stylesheet" href="/css/abstracts/variables.css">
+
+    <link rel="stylesheet" href="/pages/auth/register/register.css">
+
+</head>
+
+
+<body>
+
+    <main class="register-page">
+
+        <section class="register-card" aria-labelledby="registerTitle">
+
+            <header class="register-header">
+
+                <!--
+                    Marca oficial do Visium.
+                -->
+
+                <a href="/pages/public/landing/index.html" class="register-brand"
+                    aria-label="Voltar para o início do Visium">
+
+                    <img src="/assets/img/brand/logo.jpg" alt="Visium" class="register-brand__logo">
+
+                    <span class="register-brand__name">
+                        Visium
+                    </span>
+
+                </a>
+
+
+                <span class="register-eyebrow">
+                    CRIE SUA CONTA
+                </span>
+
+
+                <h1 id="registerTitle">
+                    Comece seus estudos
+                </h1>
+
+
+                <p>
+                    Crie sua conta para acompanhar
+                    seu aprendizado em Óptica.
+                </p>
+
+            </header>
+
+
+            <form class="register-form" id="registerForm" novalidate>
+
+                <div class="register-feedback" id="registerFeedback" role="alert" aria-live="polite" hidden></div>
+
+
+                <!-- ======================================================
+                     Nome
+                ======================================================= -->
+
+                <div class="register-field">
+
+                    <label for="registerName">
+                        Nome
+                    </label>
+
+                    <input type="text" id="registerName" name="name" autocomplete="name" placeholder="Seu nome"
+                        maxlength="100" required>
+
+                    <span class="register-field__error" id="registerNameError" aria-live="polite"></span>
+
+                </div>
+
+
+                <!-- ======================================================
+                     E-mail
+                ======================================================= -->
+
+                <div class="register-field">
+
+                    <label for="registerEmail">
+                        E-mail
+                    </label>
+
+                    <input type="email" id="registerEmail" name="email" autocomplete="email" placeholder="seu@email.com"
+                        maxlength="254" required>
+
+                    <span class="register-field__error" id="registerEmailError" aria-live="polite"></span>
+
+                </div>
+
+
+                <!-- ======================================================
+                     Senha
+                ======================================================= -->
+
+                <div class="register-field">
+
+                    <label for="registerPassword">
+                        Senha
+                    </label>
+
+
+                    <div class="register-password">
+
+                        <input type="password" id="registerPassword" name="password" autocomplete="new-password"
+                            placeholder="Crie uma senha" minlength="8" required>
+
+                        <button type="button" class="register-password__toggle" id="toggleRegisterPassword"
+                            aria-label="Mostrar senha" aria-pressed="false">
+                            Mostrar
+                        </button>
+
+                    </div>
+
+
+                    <div class="register-password__rules" id="registerPasswordRules">
+
+                        <span>
+                            A senha deve conter:
+                        </span>
+
+                        <ul>
+
+                            <li id="ruleLength">
+                                Pelo menos 8 caracteres
+                            </li>
+
+                            <li id="ruleLetter">
+                                Pelo menos uma letra
+                            </li>
+
+                            <li id="ruleNumber">
+                                Pelo menos um número
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+
+                    <span class="register-field__error" id="registerPasswordError" aria-live="polite"></span>
+
+                </div>
+
+
+                <!-- ======================================================
+                     Confirmação da senha
+                ======================================================= -->
+
+                <div class="register-field">
+
+                    <label for="registerPasswordConfirmation">
+                        Confirmar senha
+                    </label>
+
+
+                    <div class="register-password">
+
+                        <input type="password" id="registerPasswordConfirmation" name="passwordConfirmation"
+                            autocomplete="new-password" placeholder="Digite a senha novamente" required>
+
+                        <button type="button" class="register-password__toggle" id="toggleRegisterPasswordConfirmation"
+                            aria-label="Mostrar confirmação da senha" aria-pressed="false">
+                            Mostrar
+                        </button>
+
+                    </div>
+
+
+                    <span class="register-field__error" id="registerPasswordConfirmationError"
+                        aria-live="polite"></span>
+
+                </div>
+
+
+                <!-- ======================================================
+                     Termos de Uso
+                ======================================================= -->
+
+                <div class="register-terms">
+
+                    <label class="register-checkbox">
+
+                        <input type="checkbox" id="registerTerms" name="terms" required>
+
+                        <span class="register-checkbox__control" aria-hidden="true"></span>
+
+                        <span class="register-checkbox__text">
+
+                            Li e concordo com os
+
+                            <button type="button" id="registerTermsButton" class="register-terms__link">
+                                Termos de Uso
+                            </button>
+
+                            do Visium.
+
+                        </span>
+
+                    </label>
+
+
+                    <span class="register-field__error" id="registerTermsError" aria-live="polite"></span>
+
+                </div>
+
+
+                <!-- ======================================================
+                     Botão de cadastro
+                ======================================================= -->
+
+                <button type="submit" class="register-button" id="registerSubmit">
+
+                    <span id="registerSubmitText">
+                        Criar minha conta
+                    </span>
+
+
+                    <span class="register-button__loading" id="registerSubmitLoading" hidden>
+                        Criando conta...
+                    </span>
+
+                </button>
+
+            </form>
+
+
+            <!-- ==========================================================
+                 Login
+            =========================================================== -->
+
+            <div class="register-divider" aria-hidden="true">
+
+                <span>
+                    já possui uma conta?
+                </span>
+
+            </div>
+
+
+            <p class="register-login">
+
+                <a href="/pages/auth/login/login.html">
+                    Entrar na minha conta
+                </a>
+
+            </p>
+
+
+            <!-- ==========================================================
+                 Retorno para Landing Page
+            =========================================================== -->
+
+            <a href="/pages/public/landing/index.html" class="register-back">
+                &larr; Voltar para a página inicial
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================================================================
+         Autenticação
+    ================================================================= -->
+
+    <script src="/js/auth/auth.js"></script>
+
+
+    <!-- ================================================================
+         Lógica da página
+    ================================================================= -->
+
+    <script src="/pages/auth/register/register.js"></script>
+
+</body>
+
+</html>
