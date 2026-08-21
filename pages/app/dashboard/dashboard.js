@@ -11,7 +11,7 @@
 
 
 /* ==========================================================================
-   Componentes
+   Configuração
 ========================================================================== */
 
 const COMPONENTS = {
@@ -25,64 +25,56 @@ const COMPONENTS = {
 };
 
 
+const LOGIN_URL =
+    "/pages/auth/login/login.html";
+
+
+const CONTENTS_URL =
+    "/pages/app/contents/contents.html";
+
+
+const PROGRESS_URL =
+    "/pages/app/progress/progress.html";
+
+
 /* ==========================================================================
-   Conteúdos
+   Elementos
 ========================================================================== */
 
-const DASHBOARD_CONTENTS = [
-
-    {
-        id:
-            "ametropias",
-
-        title:
-            "Ametropias",
-
-        url:
-            "/pages/app/reader/reader.html?content=ametropias"
-
-    },
+const dashboardGreeting =
+    document.querySelector(
+        "#dashboardGreeting"
+    );
 
 
-    {
-        id:
-            "dp-dnp",
-
-        title:
-            "DP e DNP",
-
-        url:
-            "/pages/app/reader/reader.html?content=dp-dnp"
-
-    },
+const dashboardAverageScore =
+    document.querySelector(
+        "#dashboardAverageScore"
+    );
 
 
-    {
-        id:
-            "montagem",
-
-        title:
-            "Montagem",
-
-        url:
-            "/pages/app/reader/reader.html?content=montagem"
-
-    },
+const dashboardQuizCount =
+    document.querySelector(
+        "#dashboardQuizCount"
+    );
 
 
-    {
-        id:
-            "patologias",
+const dashboardContentCount =
+    document.querySelector(
+        "#dashboardContentCount"
+    );
 
-        title:
-            "Patologias",
 
-        url:
-            "/pages/app/reader/reader.html?content=patologias"
+const dashboardContentList =
+    document.querySelector(
+        "#dashboardContentList"
+    );
 
-    }
 
-];
+const dashboardProgress =
+    document.querySelector(
+        "#dashboardProgress"
+    );
 
 
 /* ==========================================================================
@@ -101,6 +93,10 @@ async function loadComponent(
 
 
     if (!container) {
+
+        console.error(
+            `Visium | Container não encontrado: ${selector}`
+        );
 
         return false;
 
@@ -137,7 +133,6 @@ async function loadComponent(
             error
         );
 
-
         return false;
 
     }
@@ -149,58 +144,39 @@ async function loadComponent(
    Sessão
 ========================================================================== */
 
-function getCurrentUser() {
+async function getCurrentUser() {
 
-    const storedUser =
-        localStorage.getItem(
-            "visium_user"
-        );
-
-
-    if (!storedUser) {
-
-        return null;
-
-    }
-
-
-    try {
-
-        return JSON.parse(
-            storedUser
-        );
-
-    } catch (error) {
+    if (
+        !window.VisiumAuth ||
+        typeof window.VisiumAuth.getCurrentUser !==
+        "function"
+    ) {
 
         console.error(
-            "Visium | Sessão inválida:",
-            error
+            "Visium | Serviço de autenticação não carregado."
         );
-
-
-        localStorage.removeItem(
-            "visium_user"
-        );
-
 
         return null;
 
     }
+
+
+    return window.VisiumAuth.getCurrentUser();
 
 }
 
 
-function requireAuthentication() {
+async function requireAuthentication() {
 
     const user =
-        getCurrentUser();
+        await getCurrentUser();
 
 
     if (!user) {
 
-        window.location.href =
-            "/pages/auth/login/login.html";
-
+        window.location.replace(
+            LOGIN_URL
+        );
 
         return null;
 
@@ -213,7 +189,147 @@ function requireAuthentication() {
 
 
 /* ==========================================================================
-   Serviço de progresso
+   Header
+========================================================================== */
+
+function updateHeaderUser(
+    user
+) {
+
+    if (!user) {
+
+        return;
+
+    }
+
+
+    const headerUserName =
+        document.querySelector(
+            "#headerUserName"
+        );
+
+
+    if (headerUserName) {
+
+        headerUserName.textContent =
+            user.name ||
+            "Usuário";
+
+    }
+
+}
+
+
+/* ==========================================================================
+   Sidebar
+========================================================================== */
+
+function initializeSidebar() {
+
+    const sidebar =
+        document.querySelector(
+            "#appSidebar"
+        );
+
+
+    if (!sidebar) {
+
+        return;
+
+    }
+
+
+    if (
+        window.VisiumSidebar &&
+        typeof window.VisiumSidebar.initializeExpandableMenus ===
+        "function" &&
+        typeof window.VisiumSidebar.setActivePage ===
+        "function"
+    ) {
+
+        window.VisiumSidebar.initializeExpandableMenus(
+            sidebar
+        );
+
+        window.VisiumSidebar.setActivePage(
+            sidebar
+        );
+
+        return;
+
+    }
+
+
+    sidebar
+        .querySelectorAll(
+            ".app-sidebar__link"
+        )
+        .forEach(
+            (link) => {
+
+                link.classList.remove(
+                    "is-active"
+                );
+
+                link.setAttribute(
+                    "aria-current",
+                    "false"
+                );
+
+            }
+        );
+
+
+    const currentLink =
+        sidebar.querySelector(
+            '[data-page="dashboard"]'
+        );
+
+
+    if (currentLink) {
+
+        currentLink.classList.add(
+            "is-active"
+        );
+
+        currentLink.setAttribute(
+            "aria-current",
+            "page"
+        );
+
+    }
+
+}
+
+
+/* ==========================================================================
+   Conteúdos
+========================================================================== */
+
+function getContents() {
+
+    if (
+        !Array.isArray(
+            window.VISIUM_CONTENTS
+        )
+    ) {
+
+        console.error(
+            "Visium | Catálogo de conteúdos não carregado."
+        );
+
+        return [];
+
+    }
+
+
+    return window.VISIUM_CONTENTS;
+
+}
+
+
+/* ==========================================================================
+   Progresso
 ========================================================================== */
 
 function getProgressService() {
@@ -222,10 +338,9 @@ function getProgressService() {
         !window.VisiumProgress
     ) {
 
-        console.error(
-            "Visium | Serviço de progresso não carregado."
+        console.warn(
+            "Visium | Serviço de progresso não carregado. Usando estado inicial."
         );
-
 
         return null;
 
@@ -233,6 +348,81 @@ function getProgressService() {
 
 
     return window.VisiumProgress;
+
+}
+
+
+function clampPercentage(
+    value
+) {
+
+    return Math.max(
+        0,
+        Math.min(
+            100,
+            Number(value) || 0
+        )
+    );
+
+}
+
+
+function getContentProgress(
+    contentId
+) {
+
+    const progressService =
+        getProgressService();
+
+
+    if (
+        !progressService ||
+        !contentId
+    ) {
+
+        return {
+            progress: 0,
+            currentSection: 0,
+            status: "not_started"
+        };
+
+    }
+
+
+    const content =
+        progressService.getContent(
+            contentId
+        );
+
+
+    if (!content) {
+
+        return {
+            progress: 0,
+            currentSection: 0,
+            status: "not_started"
+        };
+
+    }
+
+
+    return {
+
+        progress:
+            clampPercentage(
+                content.progress
+            ),
+
+        currentSection:
+            Number(
+                content.currentSection
+            ) || 0,
+
+        status:
+            content.status ||
+            "not_started"
+
+    };
 
 }
 
@@ -252,7 +442,7 @@ function getFirstName(
     }
 
 
-    return name
+    return String(name)
         .trim()
         .split(/\s+/)[0];
 
@@ -263,13 +453,7 @@ function updateGreeting(
     user
 ) {
 
-    const greeting =
-        document.querySelector(
-            "#dashboardGreeting"
-        );
-
-
-    if (!greeting) {
+    if (!dashboardGreeting) {
 
         return;
 
@@ -282,398 +466,421 @@ function updateGreeting(
         );
 
 
-    greeting.textContent =
+    dashboardGreeting.textContent =
         `Olá, ${firstName}.`;
 
 }
 
 
 /* ==========================================================================
-   Header
+   Resumo
 ========================================================================== */
 
-function updateHeaderUser(
-    user
-) {
+function calculateContentStats() {
 
-    const headerUserName =
-        document.querySelector(
-            "#headerUserName"
-        );
+    const contents =
+        getContents();
 
 
-    if (
-        headerUserName &&
-        user
-    ) {
-
-        headerUserName.textContent =
-            user.name ||
-            "Usuário";
-
-    }
-
-}
-
-/* ==========================================================================
-   Progresso de conteúdo
-========================================================================== */
-
-function getContentProgress(
-    contentId
-) {
-
-    const progressService =
-        getProgressService();
+    let startedCount =
+        0;
 
 
-    if (!progressService) {
-
-        return {
-
-            progress:
-                0,
-
-            currentSection:
-                0,
-
-            status:
-                "not_started"
-
-        };
-
-    }
+    let totalProgress =
+        0;
 
 
-    const content =
-        progressService.getContent(
-            contentId
-        );
+    contents.forEach(
+        (content) => {
+
+            const progressData =
+                getContentProgress(
+                    content.id
+                );
 
 
-    if (!content) {
+            if (
+                progressData.progress > 0 ||
+                progressData.status === "in_progress" ||
+                progressData.status === "started" ||
+                progressData.status === "completed"
+            ) {
 
-        return {
+                startedCount++;
 
-            progress:
-                0,
+            }
 
-            currentSection:
-                0,
 
-            status:
-                "not_started"
+            totalProgress +=
+                progressData.progress;
 
-        };
+        }
+    );
 
-    }
+
+    const averageProgress =
+        contents.length
+            ? Math.round(
+                totalProgress /
+                contents.length
+            )
+            : 0;
 
 
     return {
 
-        progress:
-            Number(
-                content.progress
-            ) || 0,
+        startedCount,
 
-        currentSection:
-            Number(
-                content.currentSection
-            ) || 0,
-
-        status:
-            content.status ||
-            "not_started"
+        averageProgress
 
     };
 
 }
 
 
-/* ==========================================================================
-   Último conteúdo
-========================================================================== */
+function renderOverview() {
 
-function getLastContent() {
-
-    const progressService =
-        getProgressService();
+    const stats =
+        calculateContentStats();
 
 
-    if (!progressService) {
+    if (dashboardContentCount) {
 
-        return null;
-
-    }
-
-
-    const lastContent =
-        progressService.getLastContent();
-
-
-    if (!lastContent) {
-
-        return null;
+        dashboardContentCount.textContent =
+            String(
+                stats.startedCount
+            );
 
     }
 
 
-    return DASHBOARD_CONTENTS.find(
-        (content) =>
-            content.id ===
-            lastContent.id
-    ) || null;
+    if (dashboardQuizCount) {
+
+        dashboardQuizCount.textContent =
+            "0";
+
+    }
+
+
+    if (dashboardAverageScore) {
+
+        dashboardAverageScore.textContent =
+            `${stats.averageProgress}%`;
+
+    }
 
 }
 
 
 /* ==========================================================================
-   Retomar estudos
+   Lista de conteúdos
 ========================================================================== */
 
-function renderContinueCard() {
+function renderContentList() {
 
-    const title =
-        document.querySelector(
-            "#continueTitle"
-        );
-
-
-    const description =
-        document.querySelector(
-            "#continueDescription"
-        );
-
-
-    const button =
-        document.querySelector(
-            "#continueButton"
-        );
-
-
-    if (
-        !title ||
-        !description ||
-        !button
-    ) {
+    if (!dashboardContentList) {
 
         return;
 
     }
 
 
-    const lastContent =
-        getLastContent();
+    const contents =
+        getContents();
 
 
-    if (!lastContent) {
+    if (!contents.length) {
 
-        title.textContent =
-            "Você ainda não começou uma leitura.";
-
-
-        description.textContent =
-            "Escolha um conteúdo para começar seus estudos. Quando você iniciar uma leitura, o Visium poderá retomar esse ponto para você.";
-
-
-        button.textContent =
-            "Explorar conteúdos";
-
-
-        button.href =
-            "/pages/app/contents/contents.html";
-
+        dashboardContentList.innerHTML = `
+            <div class="dashboard-empty">
+                Nenhum conteúdo disponível no momento.
+            </div>
+        `;
 
         return;
 
     }
 
 
-    const progressData =
-        getContentProgress(
-            lastContent.id
-        );
+    const items =
+        contents
+            .map(
+                (content) => {
+
+                    const progressData =
+                        getContentProgress(
+                            content.id
+                        );
 
 
-    const progress =
-        Math.max(
-            0,
-            Math.min(
-                100,
-                progressData.progress
+                    return {
+
+                        content,
+
+                        progress:
+                            progressData.progress,
+
+                        status:
+                            progressData.status
+
+                    };
+
+                }
             )
-        );
+            .filter(
+                (item) =>
+                    item.progress > 0 ||
+                    item.status === "in_progress" ||
+                    item.status === "started" ||
+                    item.status === "completed"
+            )
+            .sort(
+                (a, b) =>
+                    b.progress -
+                    a.progress
+            )
+            .slice(
+                0,
+                4
+            );
 
 
-    if (
-        progressData.status ===
-        "completed"
-    ) {
+    const visibleItems =
+        items.length
+            ? items
+            : contents
+                .slice(
+                    0,
+                    4
+                )
+                .map(
+                    (content) => ({
 
-        title.textContent =
-            `${lastContent.title} concluído`;
+                        content,
 
+                        progress:
+                            0
 
-        description.textContent =
-            "Você concluiu este conteúdo. Continue seus estudos ou revise o material quando quiser.";
-
-
-        button.textContent =
-            "Revisar conteúdo";
-
-    } else {
-
-        title.textContent =
-            `Continue: ${lastContent.title}`;
+                    })
+                );
 
 
-        description.textContent =
-            `Você está com ${progress}% deste conteúdo concluído. Continue de onde parou.`;
+    dashboardContentList.innerHTML =
+        visibleItems
+            .map(
+                ({
+                    content,
+                    progress
+                }) => {
+
+                    const title =
+                        escapeHTML(
+                            content.title ||
+                            "Conteúdo"
+                        );
 
 
-        button.textContent =
-            "Continuar estudando";
+                    const description =
+                        escapeHTML(
+                            content.description ||
+                            "Continue seus estudos."
+                        );
 
-    }
+
+                    const url =
+                        content.url ||
+                        CONTENTS_URL;
 
 
-    button.href =
-        lastContent.url;
+                    return `
+                        <article class="dashboard-content-card">
+
+                            <span class="dashboard-content-card__label">
+                                ${progress > 0 ? "CONTINUAR" : "COMECE POR AQUI"}
+                            </span>
+
+                            <h3>
+                                ${title}
+                            </h3>
+
+                            <p>
+                                ${description}
+                            </p>
+
+                            <span class="dashboard-content-card__progress">
+                                ${progress > 0 ? `${progress}% concluído` : "Disponível"}
+                            </span>
+
+                            <a
+                                href="${escapeAttribute(url)}"
+                                class="dashboard-content-card__link"
+                            >
+                                ${progress > 0 ? "Continuar" : "Estudar"}
+                            </a>
+
+                        </article>
+                    `;
+
+                }
+            )
+            .join("");
 
 }
 
 
 /* ==========================================================================
-   Cards de conteúdo
+   Progresso
 ========================================================================== */
 
-function renderContentProgress() {
+function renderProgress() {
 
-    const progressService =
-        getProgressService();
-
-
-    if (!progressService) {
+    if (!dashboardProgress) {
 
         return;
 
     }
 
 
-    document
-        .querySelectorAll(
-            "[data-content-id]"
+    const contents =
+        getContents();
+
+
+    if (!contents.length) {
+
+        dashboardProgress.innerHTML = `
+            <div class="dashboard-empty">
+                Nenhum dado de progresso disponível.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    const items =
+        contents
+            .map(
+                (content) => {
+
+                    return {
+
+                        content,
+
+                        progress:
+                            getContentProgress(
+                                content.id
+                            ).progress
+
+                    };
+
+                }
+            )
+            .filter(
+                (item) =>
+                    item.progress > 0
+            )
+            .sort(
+                (a, b) =>
+                    b.progress -
+                    a.progress
+            )
+            .slice(
+                0,
+                5
+            );
+
+
+    if (!items.length) {
+
+        dashboardProgress.innerHTML = `
+            <div class="dashboard-empty">
+                Seu progresso aparecerá aqui conforme
+                você avançar nos estudos.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    dashboardProgress.innerHTML =
+        items
+            .map(
+                ({
+                    content,
+                    progress
+                }) => {
+
+                    const title =
+                        escapeHTML(
+                            content.title ||
+                            "Conteúdo"
+                        );
+
+
+                    return `
+                        <div class="dashboard-progress__card">
+
+                            <span class="dashboard-progress__label">
+                                ${title}
+                            </span>
+
+                            <strong class="dashboard-progress__value">
+                                ${progress}%
+                            </strong>
+
+                        </div>
+                    `;
+
+                }
+            )
+            .join("");
+
+}
+
+
+/* ==========================================================================
+   Segurança
+========================================================================== */
+
+function escapeHTML(
+    value
+) {
+
+    return String(value)
+        .replaceAll(
+            "&",
+            "&amp;"
         )
-        .forEach(
-            (card) => {
-
-                const contentId =
-                    card.dataset.contentId;
-
-
-                if (!contentId) {
-
-                    return;
-
-                }
-
-
-                const progressData =
-                    getContentProgress(
-                        contentId
-                    );
-
-
-                const progress =
-                    Math.max(
-                        0,
-                        Math.min(
-                            100,
-                            progressData.progress
-                        )
-                    );
-
-
-                const progressElement =
-                    card.querySelector(
-                        `[data-progress-for="${contentId}"]`
-                    );
-
-
-                if (progressElement) {
-
-                    progressElement.textContent =
-                        `${progress}%`;
-
-                }
-
-
-                const link =
-                    card.querySelector(
-                        ".content-card__link"
-                    );
-
-
-                const content =
-                    DASHBOARD_CONTENTS.find(
-                        (item) =>
-                            item.id ===
-                            contentId
-                    );
-
-
-                if (
-                    link &&
-                    content
-                ) {
-
-                    link.href =
-                        content.url;
-
-                }
-
-
-                if (
-                    progressData.status ===
-                    "completed"
-                ) {
-
-                    card.setAttribute(
-                        "data-status",
-                        "completed"
-                    );
-
-                } else if (
-                    progressData.status ===
-                    "in_progress"
-                ) {
-
-                    card.setAttribute(
-                        "data-status",
-                        "in-progress"
-                    );
-
-                } else if (
-                    progressData.status ===
-                    "started"
-                ) {
-
-                    card.setAttribute(
-                        "data-status",
-                        "started"
-                    );
-
-                } else {
-
-                    card.setAttribute(
-                        "data-status",
-                        "not-started"
-                    );
-
-                }
-
-            }
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
         );
+
+}
+
+
+function escapeAttribute(
+    value
+) {
+
+    return escapeHTML(
+        value
+    );
 
 }
 
@@ -685,19 +892,10 @@ function renderContentProgress() {
 async function initializeDashboard() {
 
     const user =
-        requireAuthentication();
+        await requireAuthentication();
 
 
     if (!user) {
-
-        return;
-
-    }
-
-
-    if (
-        !getProgressService()
-    ) {
 
         return;
 
@@ -718,12 +916,20 @@ async function initializeDashboard() {
         );
 
 
-    if (
-        !sidebarLoaded ||
-        !headerLoaded
-    ) {
+    if (!sidebarLoaded) {
 
-        return;
+        console.error(
+            "Visium | Não foi possível carregar a sidebar da área autenticada."
+        );
+
+    }
+
+
+    if (!headerLoaded) {
+
+        console.error(
+            "Visium | Não foi possível carregar o header da área autenticada."
+        );
 
     }
 
@@ -737,9 +943,15 @@ async function initializeDashboard() {
         user
     );
 
-    renderContinueCard();
 
-    renderContentProgress();
+    initializeSidebar();
+
+
+    renderOverview();
+
+    renderContentList();
+
+    renderProgress();
 
 }
 

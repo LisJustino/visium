@@ -17,16 +17,13 @@
 const COMPONENTS = {
 
     header:
-        "/components/header/header.html",
-
-    sidebar:
-        "/components/sidebar/sidebar.html"
+        "/components/header/header.html"
 
 };
 
 
 /* ==========================================================================
-   Quizzes demonstrativos
+    Quizzes
 ========================================================================== */
 
 const QUIZ_DATA = {
@@ -40,81 +37,83 @@ const QUIZ_DATA = {
             "Fundamentos de Óptica",
 
         description:
-            "Avalie seus conhecimentos básicos sobre os principais conceitos de Óptica.",
+            "Revise conceitos introdutórios sobre o olho humano e o processo visual.",
 
         questions: [
 
             {
                 text:
-                    "Qual é o objetivo principal deste quiz demonstrativo?",
+                    "Qual é a função principal da córnea no processo visual?",
 
                 options: [
-
-                    "Testar a estrutura do sistema de quizzes.",
-
-                    "Alterar as configurações do navegador.",
-
-                    "Criar uma nova conta.",
-
-                    "Excluir o histórico do usuário."
-
+                    "Proteger e participar da focalização da luz.",
+                    "Produzir lágrimas continuamente.",
+                    "Controlar os movimentos das pálpebras.",
+                    "Registrar e armazenar as imagens."
                 ],
 
                 correct:
                     0,
 
                 explanation:
-                    "Esta questão existe para validar o funcionamento do motor de quizzes do Visium."
+                    "A córnea participa da focalização da luz e também atua como uma importante estrutura de proteção."
 
             },
 
-
             {
                 text:
-                    "O que acontece quando uma resposta é confirmada?",
+                    "Qual estrutura é responsável por receber a imagem formada no olho?",
 
                 options: [
-
-                    "A questão é apagada.",
-
-                    "O sistema verifica a resposta e apresenta o feedback.",
-
-                    "O usuário é desconectado.",
-
-                    "O quiz é reiniciado automaticamente."
-
+                    "A retina.",
+                    "A pálpebra.",
+                    "A córnea.",
+                    "A íris."
                 ],
 
                 correct:
-                    1,
+                    0,
 
                 explanation:
-                    "Após a confirmação, o sistema verifica a alternativa selecionada e apresenta o resultado."
+                    "A retina recebe a imagem e participa da transformação da luz em sinais para o sistema visual."
 
             },
 
-
             {
                 text:
-                    "Qual informação deve ser registrada ao finalizar um quiz?",
+                    "Qual é uma das funções das pálpebras?",
 
                 options: [
-
-                    "Somente o título da página.",
-
-                    "Somente o nome do usuário.",
-
-                    "O resultado e o aproveitamento obtido.",
-
-                    "A resolução do monitor."
-
+                    "Distribuir a lágrima sobre a superfície ocular.",
+                    "Corrigir a miopia com uma lente negativa.",
+                    "Medir a distância pupilar.",
+                    "Formar a imagem atrás da retina."
                 ],
 
                 correct:
-                    2,
+                    0,
 
                 explanation:
-                    "O resultado do quiz será utilizado posteriormente para alimentar o histórico e o progresso."
+                    "O ato de piscar distribui a lágrima, ajuda na hidratação e protege a superfície ocular."
+
+            },
+
+            {
+                text:
+                    "O cristalino participa principalmente da:",
+
+                options: [
+                    "Acomodação e focalização da luz.",
+                    "Proteção externa contra poeira.",
+                    "Medição da distância naso-pupilar.",
+                    "Produção da lágrima."
+                ],
+
+                correct:
+                    0,
+
+                explanation:
+                    "O cristalino altera sua forma para contribuir com a acomodação e a focalização da luz."
 
             }
 
@@ -132,23 +131,23 @@ const QUIZ_DATA = {
             "Ametropias",
 
         description:
-            "Quiz demonstrativo da categoria de ametropias.",
+            "Teste seus conhecimentos sobre miopia, hipermetropia, astigmatismo e presbiopia.",
 
         questions: [
 
             {
                 text:
-                    "Qual é a finalidade desta etapa do Visium?",
+                    "O que caracteriza uma ametropia?",
 
                 options: [
 
-                    "Validar a estrutura do quiz.",
+                    "Um erro refrativo que impede o foco correto na retina.",
 
-                    "Modificar imagens do sistema.",
+                    "Uma infecção exclusiva das pálpebras.",
 
-                    "Criar usuários automaticamente.",
+                    "Uma alteração apenas na cor dos olhos.",
 
-                    "Alterar o menu principal."
+                    "Uma medida usada para ajustar a armação."
 
                 ],
 
@@ -156,24 +155,24 @@ const QUIZ_DATA = {
                     0,
 
                 explanation:
-                    "Neste momento as perguntas são demonstrativas. O conteúdo educacional definitivo será inserido posteriormente."
+                    "A ametropia ocorre quando a luz não é focada corretamente na retina."
 
             },
 
 
             {
                 text:
-                    "Qual recurso permite acompanhar o desempenho do usuário?",
+                    "Onde a imagem tende a se formar na miopia sem correção?",
 
                 options: [
 
-                    "Histórico de resultados.",
+                    "Antes da retina.",
 
-                    "Logo da plataforma.",
+                    "Atrás da retina.",
 
-                    "Menu lateral.",
+                    "Sobre a pálpebra.",
 
-                    "Título do navegador."
+                    "Na superfície da córnea."
 
                 ],
 
@@ -181,7 +180,45 @@ const QUIZ_DATA = {
                     0,
 
                 explanation:
-                    "O histórico permitirá registrar os resultados dos quizzes realizados."
+                    "Na miopia, o foco se forma antes da retina; lentes negativas ajudam a deslocá-lo para a retina."
+
+            },
+
+            {
+                text:
+                    "Qual lente é usada, em geral, para corrigir a miopia?",
+
+                options: [
+                    "Lente negativa ou divergente.",
+                    "Lente positiva ou convergente.",
+                    "Lente sem potência em todos os casos.",
+                    "Filtro sem função óptica."
+                ],
+
+                correct:
+                    0,
+
+                explanation:
+                    "A correção da miopia utiliza lentes negativas, também chamadas divergentes."
+
+            },
+
+            {
+                text:
+                    "A presbiopia está relacionada principalmente à redução da:",
+
+                options: [
+                    "Acomodação visual.",
+                    "Proteção das pálpebras.",
+                    "Sensibilidade dos cílios.",
+                    "Distância entre as pupilas."
+                ],
+
+                correct:
+                    0,
+
+                explanation:
+                    "A presbiopia está relacionada à redução progressiva da capacidade de acomodação para a visão de perto."
 
             }
 
@@ -199,23 +236,23 @@ const QUIZ_DATA = {
             "DP e DNP",
 
         description:
-            "Quiz demonstrativo da categoria de DP e DNP.",
+            "Revise conceitos relacionados à distância pupilar e à distância naso-pupilar.",
 
         questions: [
 
             {
                 text:
-                    "O que esta versão do quiz está validando?",
+                    "O que representa a distância pupilar (DP)?",
 
                 options: [
 
-                    "A interface e o fluxo de respostas.",
+                    "A distância entre as pupilas.",
 
-                    "O servidor de produção.",
+                    "A distância entre a córnea e a retina.",
 
-                    "A publicação de PDFs.",
+                    "A altura total da armação.",
 
-                    "A criação de imagens."
+                    "A espessura do centro da lente."
 
                 ],
 
@@ -223,7 +260,64 @@ const QUIZ_DATA = {
                     0,
 
                 explanation:
-                    "A prioridade desta etapa é validar o funcionamento do motor de questões."
+                    "A DP é uma medida importante para a centralização das lentes."
+
+            },
+
+            {
+                text:
+                    "A DNP representa a distância entre:",
+
+                options: [
+                    "A referência nasal e a pupila.",
+                    "As duas bordas da armação.",
+                    "A retina e o cristalino.",
+                    "O centro e a borda da lente."
+                ],
+
+                correct:
+                    0,
+
+                explanation:
+                    "A distância naso-pupilar considera a referência nasal até o centro de cada pupila."
+
+            },
+
+            {
+                text:
+                    "Por que a medição de DP e DNP é importante na montagem?",
+
+                options: [
+                    "Para posicionar corretamente o centro óptico da lente.",
+                    "Para escolher a cor da armação.",
+                    "Para definir o material da pálpebra.",
+                    "Para substituir a avaliação visual."
+                ],
+
+                correct:
+                    0,
+
+                explanation:
+                    "Medidas corretas ajudam a relacionar o centro óptico da lente à posição dos olhos."
+
+            },
+
+            {
+                text:
+                    "Uma medição de DP ou DNP deve ser realizada:",
+
+                options: [
+                    "Com atenção à posição do paciente e ao instrumento utilizado.",
+                    "Sem observar a posição dos olhos.",
+                    "Apenas depois de montar os óculos.",
+                    "Somente estimando a medida pela armação."
+                ],
+
+                correct:
+                    0,
+
+                explanation:
+                    "A precisão depende da atenção à posição do paciente e ao uso adequado do instrumento."
 
             }
 
@@ -241,23 +335,23 @@ const QUIZ_DATA = {
             "Montagem de Óculos",
 
         description:
-            "Quiz demonstrativo da categoria de montagem.",
+            "Teste seus conhecimentos sobre surfaçagem, curvatura e lentes bifocais.",
 
         questions: [
 
             {
                 text:
-                    "Qual será uma das funções do resultado do quiz?",
+                    "O que é surfaçagem?",
 
                 options: [
 
-                    "Registrar o aproveitamento do usuário.",
+                    "O processo de trabalhar a superfície da lente.",
 
-                    "Excluir a conta.",
+                    "A limpeza externa da armação.",
 
-                    "Desativar o menu.",
+                    "A medição da distância pupilar.",
 
-                    "Alterar o endereço da página."
+                    "A aplicação de maquiagem nos olhos."
 
                 ],
 
@@ -265,8 +359,517 @@ const QUIZ_DATA = {
                     0,
 
                 explanation:
-                    "O resultado será armazenado para permitir o acompanhamento do desempenho."
+                    "A surfaçagem permite obter as características ópticas necessárias para a utilização da lente."
 
+            },
+
+            {
+                text:
+                    "A curvatura está relacionada principalmente à:",
+
+                options: [
+                    "Superfície óptica da lente.",
+                    "Cor da armação.",
+                    "Altura da pálpebra.",
+                    "Quantidade de cílios."
+                ],
+
+                correct:
+                    0,
+
+                explanation:
+                    "A curvatura é um dos elementos da superfície óptica e influencia o resultado da fabricação."
+
+            },
+
+            {
+                text:
+                    "Qual é uma característica das lentes bifocais?",
+
+                options:
+                    [
+                    "Possuem diferentes áreas destinadas à correção visual.",
+                    "Corrigem apenas problemas de proteção ocular.",
+                    "Não possuem nenhuma área óptica definida.",
+                    "São usadas somente para medir a DP."
+                ],
+
+                correct:
+                    0,
+
+                explanation:
+                    "As lentes bifocais possuem áreas distintas para atender diferentes necessidades de visão."
+
+            },
+
+            {
+                text:
+                    "O bifocal Flat Top é apresentado como:",
+
+                options:
+                    [
+                    "Um modelo de lente bifocal.",
+                    "Um instrumento de medição.",
+                    "Uma estrutura do olho.",
+                    "Um tipo de lente de contato gelatinosa."
+                ],
+
+                correct:
+                    0,
+
+                explanation:
+                    "O Flat Top é um dos modelos estudados dentro do conteúdo de lentes bifocais."
+
+            }
+
+        ]
+
+    },
+
+
+    "lendo-uma-receita": {
+
+        category:
+            "Receitas",
+
+        title:
+            "Lendo uma Receita",
+
+        description:
+            "Aprenda a interpretar campos, sinais e abreviações de uma receita oftálmica.",
+
+        questions: [
+
+            {
+                text:
+                    "O que indica o campo Esférico (ESF) em uma receita?",
+
+                options: [
+                    "O grau esférico usado na correção de miopia ou hipermetropia.",
+                    "A orientação do astigmatismo em graus.",
+                    "A distância entre as pupilas.",
+                    "O poder adicional destinado à visão de perto."
+                ],
+
+                correct:
+                    0,
+
+                explanation:
+                    "O campo ESF informa o grau esférico utilizado para corrigir miopia ou hipermetropia."
+            },
+
+            {
+                text:
+                    "Quando existe um valor no campo Cilíndrico (CIL), qual campo também deve aparecer?",
+
+                options: [
+                    "Adição.",
+                    "Eixo (°).",
+                    "Distância pupilar.",
+                    "Observações obrigatoriamente."
+                ],
+
+                correct:
+                    1,
+
+                explanation:
+                    "Sempre que há um valor cilíndrico, o eixo indica a orientação do astigmatismo e deve acompanhar a prescrição."
+            },
+
+            {
+                text:
+                    "Uma receita apresenta ESF de -2,00 para longe e adição de +2,50. Qual é o grau esférico para perto?",
+
+                options: [
+                    "-4,50.",
+                    "+2,50.",
+                    "+0,50.",
+                    "-0,50."
+                ],
+
+                correct:
+                    2,
+
+                explanation:
+                    "O grau para perto é obtido somando -2,00 a +2,50, resultando em +0,50 no componente esférico."
+            },
+
+            {
+                text:
+                    "Na legenda de abreviações de uma receita, o que significam OD e OE?",
+
+                options: [
+                    "Eixo direito e eixo esquerdo.",
+                    "Dioptria direita e dioptria esquerda.",
+                    "Olho distante e olho externo.",
+                    "Olho direito e olho esquerdo."
+                ],
+
+                correct:
+                    3,
+
+                explanation:
+                    "OD significa olho direito e OE significa olho esquerdo; cada olho é avaliado de forma independente."
+            }
+
+        ]
+
+    },
+
+
+    "anatomia": {
+
+        category:
+            "Anatomia",
+
+        title:
+            "Anatomia",
+
+        description:
+            "Estude as principais estruturas do olho humano e suas funções no processo visual.",
+
+        questions: [
+
+            {
+                text:
+                    "Qual é uma das principais funções da córnea?",
+
+                options: [
+                    "Transformar sinais visuais em memórias.",
+                    "Permitir a entrada e participar da refração da luz.",
+                    "Produzir todas as lágrimas do olho.",
+                    "Controlar a abertura da pupila."
+                ],
+
+                correct:
+                    1,
+
+                explanation:
+                    "A córnea permite a entrada e participa da refração da luz, ajudando a direcioná-la para a retina."
+            },
+
+            {
+                text:
+                    "Como as pálpebras contribuem para a proteção ocular?",
+
+                options: [
+                    "Elas formam a imagem na retina.",
+                    "Elas ajustam a acomodação do cristalino.",
+                    "Elas medem a distância pupilar.",
+                    "Elas distribuem a lágrima e ajudam a proteger a superfície ocular."
+                ],
+
+                correct:
+                    3,
+
+                explanation:
+                    "O piscar distribui a lágrima, reduz o ressecamento e ajuda a remover pequenas partículas da superfície ocular."
+            },
+
+            {
+                text:
+                    "O cristalino participa principalmente de qual processo?",
+
+                options: [
+                    "Produção da camada externa do olho.",
+                    "Proteção contra poeira por meio dos cílios.",
+                    "Acomodação e ajuste do foco para diferentes distâncias.",
+                    "Medição da acuidade visual."
+                ],
+
+                correct:
+                    2,
+
+                explanation:
+                    "O cristalino altera sua forma para ajustar o foco da visão, processo conhecido como acomodação."
+            },
+
+            {
+                text:
+                    "Qual é o papel da retina no processo visual?",
+
+                options: [
+                    "Captar a luz e participar da transformação em sinais visuais.",
+                    "Unir os dois aros da armação.",
+                    "Produzir a lágrima que lubrifica a córnea.",
+                    "Determinar o eixo do astigmatismo."
+                ],
+
+                correct:
+                    0,
+
+                explanation:
+                    "A retina é a camada interna que capta a luz e participa da transformação da informação luminosa em sinais visuais."
+            }
+
+        ]
+
+    },
+
+
+    "armacoes": {
+
+        category:
+            "Armações",
+
+        title:
+            "Armações",
+
+        description:
+            "Revise tipos, materiais, partes, medidas e critérios de indicação de armações.",
+
+        questions: [
+
+            {
+                text:
+                    "O que caracteriza uma armação de aro fechado?",
+
+                options: [
+                    "A lente fica presa apenas por um fio de nylon.",
+                    "A lente é fixada diretamente nas hastes e na ponte.",
+                    "A lente fica totalmente envolvida pela armação.",
+                    "A armação não possui ponte nem hastes."
+                ],
+
+                correct:
+                    2,
+
+                explanation:
+                    "No aro fechado, a lente fica totalmente envolvida pela armação, formando uma opção resistente e tradicional."
+            },
+
+            {
+                text:
+                    "Qual material é flexível, leve e resistente a impactos, sendo indicado também para crianças e esportistas?",
+
+                options: [
+                    "Acetato.",
+                    "Aço inox.",
+                    "Titânio.",
+                    "TR90."
+                ],
+
+                correct:
+                    3,
+
+                explanation:
+                    "O TR90 é descrito como flexível, leve e resistente a impactos, características úteis para crianças e esportistas."
+            },
+
+            {
+                text:
+                    "Na medida 52 □ 18 - 140, o que representa o número 18?",
+
+                options: [
+                    "A largura horizontal da lente.",
+                    "A distância da ponte entre as lentes.",
+                    "O comprimento da haste.",
+                    "A espessura do aro."
+                ],
+
+                correct:
+                    1,
+
+                explanation:
+                    "Na sequência de medidas, 18 mm representa a ponte, ou seja, a distância entre as lentes."
+            },
+
+            {
+                text:
+                    "Qual orientação é apresentada para a escolha de armação em casos de miopia alta?",
+
+                options: [
+                    "Preferir aro fechado e lentes menores.",
+                    "Escolher sempre uma armação sem aro.",
+                    "Usar apenas armações muito pequenas para progressivas.",
+                    "Ignorar conforto e adaptação ao rosto."
+                ],
+
+                correct:
+                    0,
+
+                explanation:
+                    "Para miopia alta, o conteúdo recomenda aro fechado; lentes menores ajudam a reduzir a percepção de espessura."
+            }
+
+        ]
+
+    },
+
+
+    "lentes-contato": {
+
+        category:
+            "Lentes de Contato",
+
+        title:
+            "Lentes de Contato e Acuidade Visual",
+
+        description:
+            "Teste seus conhecimentos sobre adaptação, cuidados e avaliação da acuidade visual.",
+
+        questions: [
+
+            {
+                text:
+                    "Em qual situação as lentes rígidas gás permeáveis (RGP) são especialmente indicadas no conteúdo?",
+
+                options: [
+                    "Somente para uso cosmético, sem finalidade óptica.",
+                    "Para ametropias associadas a irregularidades corneanas.",
+                    "Apenas para substituir a avaliação de acuidade visual.",
+                    "Exclusivamente para pessoas que não precisam de correção."
+                ],
+
+                correct:
+                    1,
+
+                explanation:
+                    "As lentes RGP são apresentadas como opção para irregularidades corneanas, como astigmatismo irregular e ceratocone."
+            },
+
+            {
+                text:
+                    "Qual é um objetivo da anamnese antes da adaptação de lentes de contato?",
+
+                options: [
+                    "Coletar condições oculares e sistêmicas e identificar possíveis contraindicações.",
+                    "Definir a cor da armação dos óculos.",
+                    "Substituir todos os exames e avaliações profissionais.",
+                    "Aumentar o tempo de uso sem considerar o fabricante."
+                ],
+
+                correct:
+                    0,
+
+                explanation:
+                    "A anamnese coleta informações relevantes, identifica possíveis contraindicações e ajuda a selecionar uma lente adequada."
+            },
+
+            {
+                text:
+                    "Qual conduta é recomendada antes de manipular lentes de contato?",
+
+                options: [
+                    "Usar água do banho para enxaguar as lentes.",
+                    "Compartilhar o estojo com outra pessoa.",
+                    "Dormir com as lentes sem orientação profissional.",
+                    "Higienizar e secar adequadamente as mãos."
+                ],
+
+                correct:
+                    3,
+
+                explanation:
+                    "A higiene e a secagem das mãos devem ser realizadas antes de manipular as lentes para reduzir riscos de contaminação."
+            },
+
+            {
+                text:
+                    "Qual tabela é composta por caracteres alfabéticos e é usada na avaliação da acuidade visual para longe?",
+
+                options: [
+                    "Tabela LEA.",
+                    "Tabela de Jaeger.",
+                    "Tabela de Snellen.",
+                    "Tabela Tumbling."
+                ],
+
+                correct:
+                    2,
+
+                explanation:
+                    "A Tabela de Snellen utiliza caracteres alfabéticos padronizados para avaliar a acuidade visual para longe em pacientes alfabetizados."
+            }
+
+        ]
+
+    },
+
+
+    "patologias": {
+
+        category:
+            "Patologias",
+
+        title:
+            "Patologias",
+
+        description:
+            "Revise conceitos introdutórios sobre alterações relacionadas à saúde ocular.",
+
+        questions: [
+
+            {
+                text:
+                    "Qual é o objetivo principal do conteúdo introdutório sobre patologias?",
+
+                options: [
+                    "Prescrever tratamentos individualizados.",
+                    "Substituir a avaliação de um profissional habilitado.",
+                    "Definir um diagnóstico a partir de qualquer sintoma.",
+                    "Apresentar conceitos educacionais sobre alterações do sistema visual."
+                ],
+
+                correct:
+                    3,
+
+                explanation:
+                    "O conteúdo tem finalidade educacional e introdutória; ele não substitui diagnóstico ou acompanhamento profissional."
+            },
+
+            {
+                text:
+                    "Por que a observação de sinais e sintomas é importante?",
+
+                options: [
+                    "Pode contribuir para identificar situações que necessitem de avaliação especializada.",
+                    "Garante um diagnóstico sem outros procedimentos.",
+                    "Elimina a necessidade de acompanhamento profissional.",
+                    "Define sozinha a causa da alteração visual."
+                ],
+
+                correct:
+                    0,
+
+                explanation:
+                    "A observação pode ajudar a reconhecer situações que precisam de avaliação especializada, mas não substitui essa avaliação."
+            },
+
+            {
+                text:
+                    "Qual alternativa apresenta apenas exemplos de alterações visuais citadas no conteúdo?",
+
+                options: [
+                    "Apenas mudança na cor da armação e dor nas hastes.",
+                    "Somente alteração no comprimento dos cílios.",
+                    "Redução da acuidade visual, alterações no campo visual e distorções na percepção.",
+                    "Apenas aumento da distância pupilar."
+                ],
+
+                correct:
+                    2,
+
+                explanation:
+                    "O conteúdo cita redução da acuidade visual, alterações no campo visual, distorções na percepção e mudanças na sensibilidade visual."
+            },
+
+            {
+                text:
+                    "O que deve orientar uma avaliação adequada de uma alteração visual?",
+
+                options: [
+                    "Somente a preferência do usuário.",
+                    "As características apresentadas e os procedimentos apropriados para cada situação.",
+                    "Apenas uma comparação com sintomas de outra pessoa.",
+                    "Somente a escolha de uma lente sem avaliação."
+                ],
+
+                correct:
+                    1,
+
+                explanation:
+                    "A avaliação depende das características apresentadas e dos procedimentos apropriados; o conteúdo não substitui acompanhamento profissional."
             }
 
         ]
@@ -295,51 +898,17 @@ let attemptId = null;
    Sessão
 ========================================================================== */
 
-function getCurrentUser() {
+async function getCurrentUser() {
 
-    const storedUser =
-        localStorage.getItem(
-            "visium_user"
-        );
-
-
-    if (!storedUser) {
-
-        return null;
-
-    }
-
-
-    try {
-
-        return JSON.parse(
-            storedUser
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Visium | Sessão inválida:",
-            error
-        );
-
-
-        localStorage.removeItem(
-            "visium_user"
-        );
-
-
-        return null;
-
-    }
+    return window.VisiumAuth?.getCurrentUser() || null;
 
 }
 
 
-function requireAuthentication() {
+async function requireAuthentication() {
 
     const user =
-        getCurrentUser();
+        await getCurrentUser();
 
 
     if (!user) {
@@ -1989,7 +2558,7 @@ function initializeEvents() {
 async function initializeQuiz() {
 
     const user =
-        requireAuthentication();
+        await requireAuthentication();
 
 
     if (!user) {
@@ -2030,13 +2599,6 @@ async function initializeQuiz() {
     }
 
 
-    const sidebarLoaded =
-        await loadComponent(
-            "#appSidebarContainer",
-            COMPONENTS.sidebar
-        );
-
-
     const headerLoaded =
         await loadComponent(
             "#appHeaderContainer",
@@ -2045,7 +2607,6 @@ async function initializeQuiz() {
 
 
     if (
-        !sidebarLoaded ||
         !headerLoaded
     ) {
 

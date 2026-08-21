@@ -17,10 +17,7 @@
 const COMPONENTS = {
 
     header:
-        "/components/header/header.html",
-
-    sidebar:
-        "/components/sidebar/sidebar.html"
+        "/components/header/header.html"
 
 };
 
@@ -640,51 +637,17 @@ async function loadComponent(
    Sessão
 ========================================================================== */
 
-function getCurrentUser() {
+async function getCurrentUser() {
 
-    const storedUser =
-        localStorage.getItem(
-            "visium_user"
-        );
-
-
-    if (!storedUser) {
-
-        return null;
-
-    }
-
-
-    try {
-
-        return JSON.parse(
-            storedUser
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Visium | Sessão inválida:",
-            error
-        );
-
-
-        localStorage.removeItem(
-            "visium_user"
-        );
-
-
-        return null;
-
-    }
+    return window.VisiumAuth?.getCurrentUser() || null;
 
 }
 
 
-function requireAuthentication() {
+async function requireAuthentication() {
 
     const user =
-        getCurrentUser();
+        await getCurrentUser();
 
 
     if (!user) {
@@ -735,7 +698,92 @@ function getCurrentContent() {
     }
 
 
-    return CONTENTS[key] || null;
+    return window.VisiumContent?.[key] || CONTENTS[key] || null;
+
+}
+
+
+function canLoadExternalContent(
+    key
+) {
+
+    return /^[a-z0-9-]+$/.test(
+        String(
+            key || ""
+        )
+    );
+
+}
+
+
+async function loadExternalContent(
+    key
+) {
+
+    if (
+        !canLoadExternalContent(
+            key
+        )
+    ) {
+
+        return false;
+
+    }
+
+
+    if (
+        window.VisiumContent?.[key]
+    ) {
+
+        return true;
+
+    }
+
+
+    return new Promise(
+        (resolve) => {
+
+            const script =
+                document.createElement(
+                    "script"
+                );
+
+
+            script.src =
+                `/data/content/${key}.js`;
+
+            script.async =
+                true;
+
+
+            script.onload =
+                () => {
+
+                    resolve(
+                        Boolean(
+                            window.VisiumContent?.[key]
+                        )
+                    );
+
+                };
+
+
+            script.onerror =
+                () => {
+
+                    resolve(
+                        false
+                    );
+
+                };
+
+
+            document.head.appendChild(
+                script
+            );
+
+        }
+    );
 
 }
 
@@ -1242,8 +1290,238 @@ function renderArticle() {
                 );
 
 
-            sectionElement.innerHTML =
-                section.content;
+            /*
+             * Conteúdos novos:
+             * utilizam uma estrutura baseada em blocks.
+             */
+
+            if (
+                Array.isArray(
+                    section.blocks
+                )
+            ) {
+
+                section.blocks.forEach(
+                    (block) => {
+
+                        if (
+                            !block ||
+                            !block.type
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        /* --------------------------------------------------
+                           Texto
+                        -------------------------------------------------- */
+
+                        if (
+                            block.type ===
+                            "text"
+                        ) {
+
+                            const paragraph =
+                                document.createElement(
+                                    "p"
+                                );
+
+
+                            paragraph.textContent =
+                                block.content || "";
+
+
+                            sectionElement.appendChild(
+                                paragraph
+                            );
+
+
+                            return;
+
+                        }
+
+
+                        /* --------------------------------------------------
+                           Imagem
+                        -------------------------------------------------- */
+
+                        if (
+                            block.type ===
+                            "image"
+                        ) {
+
+                            const figure =
+                                document.createElement(
+                                    "figure"
+                                );
+
+
+                            figure.className =
+                                "reader-article__figure";
+
+
+                            const image =
+                                document.createElement(
+                                    "img"
+                                );
+
+                            image.className =
+                                "reader-media__image";
+
+                            image.src =
+                                block.src || "";
+
+
+                            image.alt =
+                                block.alt || "";
+
+
+                            image.loading =
+                                "lazy";
+
+
+                            figure.appendChild(
+                                image
+                            );
+
+
+                            if (
+                                block.caption
+                            ) {
+
+                                const caption =
+                                    document.createElement(
+                                        "figcaption"
+                                    );
+
+
+                                caption.textContent =
+                                    block.caption;
+
+
+                                figure.appendChild(
+                                    caption
+                                );
+
+                            }
+
+
+                            sectionElement.appendChild(
+                                figure
+                            );
+
+
+                            return;
+
+                        }
+
+
+                        /* --------------------------------------------------
+                           Lista
+                        -------------------------------------------------- */
+
+                        if (
+                            block.type ===
+                            "list"
+                        ) {
+
+                            const wrapper =
+                                document.createElement(
+                                    "div"
+                                );
+
+
+                            wrapper.className =
+                                "reader-article__list";
+
+
+                            if (
+                                block.title
+                            ) {
+
+                                const title =
+                                    document.createElement(
+                                        "h3"
+                                    );
+
+
+                                title.textContent =
+                                    block.title;
+
+
+                                wrapper.appendChild(
+                                    title
+                                );
+
+                            }
+
+
+                            const list =
+                                document.createElement(
+                                    "ul"
+                                );
+
+
+                            const items =
+                                Array.isArray(
+                                    block.items
+                                )
+                                    ? block.items
+                                    : [];
+
+
+                            items.forEach(
+                                (item) => {
+
+                                    const listItem =
+                                        document.createElement(
+                                            "li"
+                                        );
+
+
+                                    listItem.textContent =
+                                        item;
+
+
+                                    list.appendChild(
+                                        listItem
+                                    );
+
+                                }
+                            );
+
+
+                            wrapper.appendChild(
+                                list
+                            );
+
+
+                            sectionElement.appendChild(
+                                wrapper
+                            );
+
+
+                            return;
+
+                        }
+
+                    }
+                );
+
+
+            } else {
+
+                /*
+                 * Compatibilidade com conteúdos antigos
+                 * que utilizam section.content.
+                 */
+
+                sectionElement.innerHTML =
+                    section.content || "";
+
+            }
 
 
             elements.article.appendChild(
@@ -1454,7 +1732,7 @@ function initializeNavigation() {
 async function initializeReader() {
 
     const user =
-        requireAuthentication();
+        await requireAuthentication();
 
 
     if (!user) {
@@ -1464,8 +1742,27 @@ async function initializeReader() {
     }
 
 
+    const contentKey =
+        getContentKey();
+
+
     currentContent =
         getCurrentContent();
+
+
+    if (
+        !currentContent &&
+        contentKey
+    ) {
+
+        await loadExternalContent(
+            contentKey
+        );
+
+        currentContent =
+            getCurrentContent();
+
+    }
 
 
     if (!currentContent) {
@@ -1491,16 +1788,8 @@ async function initializeReader() {
         );
 
 
-    const sidebarLoaded =
-        await loadComponent(
-            "#appSidebarContainer",
-            COMPONENTS.sidebar
-        );
-
-
     if (
-        !headerLoaded ||
-        !sidebarLoaded
+        !headerLoaded
     ) {
 
         return;

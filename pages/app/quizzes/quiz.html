@@ -11,6 +11,8 @@
 
     <title>Quiz | Visium</title>
 
+    <link rel="icon" type="image/jpeg" href="/assets/img/brand/logo.jpg">
+
     <link rel="stylesheet" href="/css/base/reset.css">
 
     <link rel="stylesheet" href="/css/base/global.css">
@@ -22,6 +24,8 @@
     <link rel="stylesheet" href="/components/sidebar/sidebar.css">
 
     <link rel="stylesheet" href="/pages/app/quizzes/quiz.css">
+
+    <link rel="stylesheet" href="/css/pages/app.css">
 
 </head>
 
@@ -38,7 +42,7 @@
 
 
         <!-- ==========================================================
-             Ãrea principal
+             Área principal
         =========================================================== -->
 
         <div class="app-main">
@@ -51,7 +55,7 @@
                 <div class="quiz-container">
 
                     <!-- ==================================================
-                         CabeÃ§alho
+                         Cabeçalho
                     =================================================== -->
 
                     <header class="quiz-header">
@@ -72,7 +76,7 @@
                             </h1>
 
                             <p id="quizDescription">
-                                Aguarde enquanto o quiz Ã© carregado.
+                                Aguarde enquanto o quiz é carregado.
                             </p>
 
                         </div>
@@ -81,13 +85,13 @@
 
 
                     <!-- ==================================================
-                         Ãrea do quiz
+                         Área do quiz
                     =================================================== -->
 
                     <section class="quiz-card" id="quizCard">
 
                         <!-- ==================================================
-                             Topo da questÃ£o
+                             Topo da questão
                         =================================================== -->
 
                         <div class="quiz-card__top">
@@ -95,7 +99,7 @@
                             <div>
 
                                 <span class="quiz-question-label">
-                                    QUESTÃƒO
+                                    QUESTÃO
                                 </span>
 
                                 <strong id="questionNumber">
@@ -108,7 +112,7 @@
                             <div class="quiz-score">
 
                                 <span>
-                                    PontuaÃ§Ã£o
+                                    Pontuação
                                 </span>
 
                                 <strong id="quizScore">
@@ -149,13 +153,13 @@
 
 
                         <!-- ==================================================
-                             QuestÃ£o
+                             Questão
                         =================================================== -->
 
                         <div class="quiz-question">
 
                             <h2 id="questionText">
-                                Carregando questÃ£o...
+                                Carregando questão...
                             </h2>
 
 
@@ -180,7 +184,7 @@
 
 
                         <!-- ==================================================
-                             NavegaÃ§Ã£o
+                             Navegação
                         =================================================== -->
 
                         <div class="quiz-navigation">
@@ -207,7 +211,7 @@
                     <section class="quiz-result" id="quizResult" hidden>
 
                         <span class="quiz-result__eyebrow">
-                            QUIZ CONCLUÃDO
+                            QUIZ CONCLUÍDO
                         </span>
 
                         <h2>
@@ -215,7 +219,7 @@
                         </h2>
 
                         <p class="quiz-result__message" id="resultMessage">
-                            VocÃª concluiu o quiz.
+                            Você concluiu o quiz.
                         </p>
 
 
@@ -267,7 +271,7 @@
                                 </strong>
 
                                 <span>
-                                    questÃµes
+                                    questões
                                 </span>
 
                             </div>
@@ -299,8 +303,9 @@
     </div>
 
 
-    <script src="/pages/app/quizzes/quiz.js"></script>
-    <script src="/components/sidebar/sidebar.js"></script>
+    <script src="/js/auth/auth.js?v=20260822"></script>
+    <script src="/pages/app/quizzes/quiz.js?v=20260821"></script>
+    <script src="/components/sidebar/sidebar.js?v=20260821"></script>
 </body>
 
 </html>

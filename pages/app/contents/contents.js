@@ -3,7 +3,7 @@
  * Visium
  * Arquivo: contents.js
  *
- * Comportamentos da pÃ¡gina de conteÃºdos da Ã¡rea autenticada.
+ * Comportamentos da página de conteúdos da área autenticada.
  * ==========================================================================
  */
 
@@ -17,10 +17,7 @@
 const CONTENTS_COMPONENTS = {
 
     header:
-        "/components/header/header.html",
-
-    sidebar:
-        "/components/sidebar/sidebar.html"
+        "/components/header/header.html"
 
 };
 
@@ -54,7 +51,7 @@ async function loadContentsComponent(
         if (!response.ok) {
 
             throw new Error(
-                `NÃ£o foi possÃ­vel carregar ${path}.`
+                `Não foi possível carregar ${path}.`
             );
 
         }
@@ -82,54 +79,20 @@ async function loadContentsComponent(
 
 
 /* ==========================================================================
-   SessÃ£o
+    Sessão
 ========================================================================== */
 
-function getCurrentUser() {
+async function getCurrentUser() {
 
-    const storedUser =
-        localStorage.getItem(
-            "visium_user"
-        );
-
-
-    if (!storedUser) {
-
-        return null;
-
-    }
-
-
-    try {
-
-        return JSON.parse(
-            storedUser
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Visium | SessÃ£o invÃ¡lida:",
-            error
-        );
-
-
-        localStorage.removeItem(
-            "visium_user"
-        );
-
-
-        return null;
-
-    }
+    return window.VisiumAuth?.getCurrentUser() || null;
 
 }
 
 
-function requireAuthentication() {
+async function requireAuthentication() {
 
     const user =
-        getCurrentUser();
+        await getCurrentUser();
 
 
     if (!user) {
@@ -169,7 +132,7 @@ function updateHeaderUser(
 
         headerUserName.textContent =
             user.name ||
-            "UsuÃ¡rio";
+            "Usuário";
 
     }
 
@@ -224,8 +187,28 @@ function initializeContentsFilters() {
     }
 
 
+    const initialCategory =
+        new URLSearchParams(
+            window.location.search
+        ).get(
+            "category"
+        );
+
+
+    const availableFilters =
+        filterButtons.map(
+            (button) =>
+                button.dataset.filter ||
+                "all"
+        );
+
+
     let activeFilter =
-        "all";
+        availableFilters.includes(
+            initialCategory
+        )
+            ? initialCategory
+            : "all";
 
 
     function normalizeText(
@@ -292,8 +275,8 @@ function initializeContentsFilters() {
 
         countElement.textContent =
             visibleCount === 1
-                ? "1 conteÃºdo"
-                : `${visibleCount} conteÃºdos`;
+                ? "1 conteúdo"
+                : `${visibleCount} conteúdos`;
 
     }
 
@@ -418,6 +401,38 @@ function initializeContentsFilters() {
                         "all";
 
 
+                    const url =
+                        new URL(
+                            window.location.href
+                        );
+
+
+                    if (
+                        activeFilter ===
+                        "all"
+                    ) {
+
+                        url.searchParams.delete(
+                            "category"
+                        );
+
+                    } else {
+
+                        url.searchParams.set(
+                            "category",
+                            activeFilter
+                        );
+
+                    }
+
+
+                    window.history.replaceState(
+                        {},
+                        "",
+                        url
+                    );
+
+
                     updateFilterButtons();
 
 
@@ -448,14 +463,14 @@ function initializeContentsFilters() {
 }
 
 
-/* ==========================================================================
-   InicializaÃ§Ã£o
+/* ========================================================================== 
+    Inicialização
 ========================================================================== */
 
 async function initializeContentsPage() {
 
     const user =
-        requireAuthentication();
+        await requireAuthentication();
 
 
     if (!user) {
@@ -463,13 +478,6 @@ async function initializeContentsPage() {
         return;
 
     }
-
-
-    const sidebarLoaded =
-        await loadContentsComponent(
-            "#appSidebarContainer",
-            CONTENTS_COMPONENTS.sidebar
-        );
 
 
     const headerLoaded =
@@ -480,12 +488,11 @@ async function initializeContentsPage() {
 
 
     if (
-        !sidebarLoaded ||
         !headerLoaded
     ) {
 
         console.error(
-            "Visium | NÃ£o foi possÃ­vel inicializar os componentes da Ã¡rea autenticada."
+            "Visium | Não foi possível inicializar os componentes da área autenticada."
         );
 
 

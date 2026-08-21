@@ -7,9 +7,11 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="Leitor de conteÃºdos educacionais do Visium.">
+    <meta name="description" content="Leitor de conteúdos educacionais do Visium.">
 
-    <title>ConteÃºdo | Visium</title>
+    <title>Conteúdo | Visium</title>
+
+    <link rel="icon" type="image/jpeg" href="/assets/img/brand/logo.jpg">
 
 
     <!-- ==========================================================
@@ -33,10 +35,12 @@
 
 
     <!-- ==========================================================
-         Estilos da pÃ¡gina
+         Estilos da página
     =========================================================== -->
 
     <link rel="stylesheet" href="/pages/app/reader/reader.css">
+
+    <link rel="stylesheet" href="/css/pages/app.css">
 
 </head>
 
@@ -50,11 +54,11 @@
              Sidebar
         ======================================================= -->
 
-        <div id="appSidebarContainer" aria-label="NavegaÃ§Ã£o principal"></div>
+        <div id="appSidebarContainer" aria-label="Navegação principal"></div>
 
 
         <!-- ======================================================
-             Ãrea principal da aplicaÃ§Ã£o
+             Área principal da aplicação
         ======================================================= -->
 
         <div class="app-main">
@@ -68,7 +72,7 @@
 
 
             <!-- ==================================================
-                 ConteÃºdo principal
+                 Conteúdo principal
             =================================================== -->
 
             <main class="reader-page" id="main-content">
@@ -81,12 +85,12 @@
                     =========================================== -->
 
                     <a href="/pages/app/contents/contents.html" class="reader-back">
-                        â† Voltar para conteÃºdos
+                        ← Voltar para conteúdos
                     </a>
 
 
                     <!-- ==========================================
-                         CabeÃ§alho do conteÃºdo
+                         Cabeçalho do conteúdo
                     =========================================== -->
 
                     <header class="reader-header">
@@ -94,17 +98,17 @@
                         <div>
 
                             <span class="reader-eyebrow" id="readerCategory">
-                                CONTEÃšDO
+                                CONTEÚDO
                             </span>
 
 
                             <h1 id="readerTitle">
-                                Carregando conteÃºdo...
+                                Carregando conteúdo...
                             </h1>
 
 
                             <p id="readerDescription">
-                                Aguarde enquanto o conteÃºdo Ã© carregado.
+                                Aguarde enquanto o conteúdo é carregado.
                             </p>
 
                         </div>
@@ -133,7 +137,7 @@
 
 
                         <div class="reader-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                            aria-valuenow="0" aria-label="Progresso do conteÃºdo">
+                            aria-valuenow="0" aria-label="Progresso do conteúdo">
 
                             <div id="readerProgressBar" class="reader-progress__fill"></div>
 
@@ -150,21 +154,21 @@
 
 
                         <!-- ======================================
-                             NavegaÃ§Ã£o interna do conteÃºdo
+                             Navegação interna do conteúdo
                         ======================================= -->
 
-                        <aside class="reader-navigation" aria-label="SeÃ§Ãµes do conteÃºdo">
+                        <aside class="reader-navigation" aria-label="Seções do conteúdo">
 
                             <div class="reader-navigation__header">
 
                                 <span>
-                                    Neste conteÃºdo
+                                    Neste conteúdo
                                 </span>
 
                             </div>
 
 
-                            <nav id="readerSections" class="reader-sections" aria-label="SeÃ§Ãµes"></nav>
+                            <nav id="readerSections" class="reader-sections" aria-label="Seções"></nav>
 
                         </aside>
 
@@ -179,19 +183,19 @@
 
 
                     <!-- ==========================================
-                         NavegaÃ§Ã£o entre seÃ§Ãµes
+                         Navegação entre seções
                     =========================================== -->
 
-                    <nav class="reader-footer-navigation" aria-label="NavegaÃ§Ã£o entre seÃ§Ãµes">
+                    <nav class="reader-footer-navigation" aria-label="Navegação entre seções">
 
                         <button type="button" id="readerPrevious" class="reader-navigation-button" disabled>
-                            â† Anterior
+                            &larr; Anterior
                         </button>
 
 
                         <button type="button" id="readerNext"
                             class="reader-navigation-button reader-navigation-button--primary">
-                            PrÃ³ximo â†’
+                            Próximo &rarr;
                         </button>
 
                     </nav>
@@ -216,14 +220,12 @@
     -->
 
     <script src="/js/app/progress.js"></script>
+    <script src="/js/auth/auth.js?v=20260822"></script>
 
-
-    <!--
-        Comportamento da pÃ¡gina de leitura.
-    -->
+    <script src="/data/content/transposicao.js"></script>
 
     <script src="/pages/app/reader/reader.js"></script>
-    <script src="/components/sidebar/sidebar.js"></script>
+    <script src="/components/sidebar/sidebar.js?v=20260821"></script>
 </body>
 
 </html>

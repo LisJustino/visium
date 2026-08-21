@@ -3,7 +3,7 @@
  * Visium
  * Arquivo: profile.js
  *
- * Inicialização e comportamento da página Meu Perfil.
+ * Controle da página Meu Perfil.
  * ==========================================================================
  */
 
@@ -11,101 +11,83 @@
 
 
 /* ==========================================================================
-   Componentes
+   Configuração
 ========================================================================== */
 
 const COMPONENTS = {
 
     header:
-        "/components/header/header.html",
-
-    sidebar:
-        "/components/sidebar/sidebar.html"
+        "/components/header/header.html"
 
 };
 
 
+const LOGIN_URL =
+    "/pages/auth/login/login.html";
+
+
 /* ==========================================================================
-   Sessão
+   Elementos
 ========================================================================== */
 
-function getCurrentUser() {
-
-    const storedUser =
-        localStorage.getItem(
-            "visium_user"
-        );
+const profileForm =
+    document.querySelector(
+        "#profileForm"
+    );
 
 
-    if (!storedUser) {
-
-        return null;
-
-    }
-
-
-    try {
-
-        const user =
-            JSON.parse(
-                storedUser
-            );
+const profileName =
+    document.querySelector(
+        "#profileName"
+    );
 
 
-        if (
-            !user ||
-            typeof user !== "object"
-        ) {
-
-            throw new Error(
-                "Sessão inválida."
-            );
-
-        }
+const profileEmailInput =
+    document.querySelector(
+        "#profileEmailInput"
+    );
 
 
-        return user;
-
-    } catch (error) {
-
-        console.error(
-            "Visium | Sessão inválida:",
-            error
-        );
+const profileNameError =
+    document.querySelector(
+        "#profileNameError"
+    );
 
 
-        localStorage.removeItem(
-            "visium_user"
-        );
+const profileEmailError =
+    document.querySelector(
+        "#profileEmailError"
+    );
 
 
-        return null;
-
-    }
-
-}
-
-
-function requireAuthentication() {
-
-    const user =
-        getCurrentUser();
+const profileFeedback =
+    document.querySelector(
+        "#profileFeedback"
+    );
 
 
-    if (!user) {
-
-        window.location.href =
-            "/pages/auth/login/login.html";
-
-
-        return null;
-
-    }
+const saveProfileButton =
+    document.querySelector(
+        "#saveProfileButton"
+    );
 
 
-    return user;
+const profileAvatar =
+    document.querySelector(
+        "#profileAvatar"
+    );
 
-}
+
+const profileTitle =
+    document.querySelector(
+        "#profileTitle"
+    );
+
+
+const profileEmail =
+    document.querySelector(
+        "#profileEmail"
+    );
 
 
 /* ==========================================================================
@@ -160,15 +142,63 @@ async function loadComponent(
             error
         );
 
-
         return false;
 
     }
 
 }
 
+
 /* ==========================================================================
-   Utilitários
+   Sessão
+========================================================================== */
+
+async function getCurrentUser() {
+
+    if (
+        !window.VisiumAuth ||
+        typeof window.VisiumAuth.getCurrentUser !==
+        "function"
+    ) {
+
+        console.error(
+            "Visium | Serviço de autenticação não carregado."
+        );
+
+        return null;
+
+    }
+
+
+    return await window.VisiumAuth.getCurrentUser();
+
+}
+
+
+async function requireAuthentication() {
+
+    const user =
+        await getCurrentUser();
+
+
+    if (!user) {
+
+        window.location.replace(
+            LOGIN_URL
+        );
+
+        return null;
+
+    }
+
+
+    return user;
+
+}
+
+
+/* ==========================================================================
+   Avatar
 ========================================================================== */
 
 function getUserInitials(
@@ -177,109 +207,76 @@ function getUserInitials(
 
     const normalizedName =
         String(
-            name ||
-            ""
+            name || ""
         )
             .trim();
 
 
     if (!normalizedName) {
 
-        return "U";
+        return "US";
 
     }
 
 
     const parts =
         normalizedName
-            .split(
-                /\s+/
-            )
-            .filter(
-                Boolean
-            );
+            .split(/\s+/)
+            .filter(Boolean);
 
 
-    if (
-        parts.length === 1
-    ) {
+    if (parts.length === 1) {
 
         return parts[0]
-            .charAt(0)
+            .slice(
+                0,
+                2
+            )
             .toUpperCase();
 
     }
 
 
     return (
-        parts[0].charAt(0) +
-        parts[
-            parts.length - 1
-        ].charAt(0)
-    )
-        .toUpperCase();
+        parts[0][0] +
+        parts[parts.length - 1][0]
+    ).toUpperCase();
 
 }
 
 
 /* ==========================================================================
-   Interface
+   Atualização da visualização
 ========================================================================== */
 
 function updateProfileView(
     user
 ) {
 
-    const profileTitle =
-        document.querySelector(
-            "#profileTitle"
-        );
+    if (!user) {
 
-    const profileEmail =
-        document.querySelector(
-            "#profileEmail"
-        );
+        return;
 
-    const profileAvatar =
-        document.querySelector(
-            "#profileAvatar"
-        );
-
-    const profileName =
-        document.querySelector(
-            "#profileName"
-        );
-
-    const profileEmailInput =
-        document.querySelector(
-            "#profileEmailInput"
-        );
-
-    const profileUserId =
-        document.querySelector(
-            "#profileUserId"
-        );
+    }
 
 
     const name =
-        user.name ||
-        "Usuário";
+        String(
+            user.name || ""
+        ).trim();
 
 
     const email =
-        user.email ||
-        "";
-
-
-    const id =
-        user.id ||
-        "Não informado";
+        String(
+            user.email || ""
+        ).trim();
 
 
     if (profileTitle) {
 
         profileTitle.textContent =
-            name;
+            name ||
+            "Usuário";
 
     }
 
@@ -287,7 +284,8 @@ function updateProfileView(
     if (profileEmail) {
 
         profileEmail.textContent =
-            email;
+            email ||
+            "";
 
     }
 
@@ -317,14 +315,6 @@ function updateProfileView(
 
     }
 
-
-    if (profileUserId) {
-
-        profileUserId.textContent =
-            id;
-
-    }
-
 }
 
 
@@ -344,14 +334,18 @@ function isValidEmail(
 }
 
 
+/* ==========================================================================
+   Erros
+========================================================================== */
+
 function clearFieldError(
-    input,
+    field,
     errorElement
 ) {
 
-    if (input) {
+    if (field) {
 
-        input.removeAttribute(
+        field.removeAttribute(
             "aria-invalid"
         );
 
@@ -372,14 +366,14 @@ function clearFieldError(
 
 
 function setFieldError(
-    input,
+    field,
     errorElement,
     message
 ) {
 
-    if (input) {
+    if (field) {
 
-        input.setAttribute(
+        field.setAttribute(
             "aria-invalid",
             "true"
         );
@@ -400,69 +394,55 @@ function setFieldError(
 }
 
 
+/* ==========================================================================
+   Validação do formulário
+========================================================================== */
+
 function validateProfileForm() {
 
-    const nameInput =
-        document.querySelector(
-            "#profileName"
-        );
-
-    const emailInput =
-        document.querySelector(
-            "#profileEmailInput"
-        );
-
-    const nameError =
-        document.querySelector(
-            "#profileNameError"
-        );
-
-    const emailError =
-        document.querySelector(
-            "#profileEmailError"
-        );
-
-
     clearFieldError(
-        nameInput,
-        nameError
+        profileName,
+        profileNameError
     );
 
 
     clearFieldError(
-        emailInput,
-        emailError
+        profileEmailInput,
+        profileEmailError
     );
+
+
+    hideFeedback();
 
 
     const name =
-        nameInput
-            ?.value
-            .trim() ||
-        "";
+        String(
+            profileName?.value || ""
+        )
+            .trim();
 
 
     const email =
-        emailInput
-            ?.value
-            .trim() ||
-        "";
+        String(
+            profileEmailInput?.value || ""
+        )
+            .trim()
+            .toLowerCase();
 
 
-    let valid =
+    let isValid =
         true;
 
 
     if (!name) {
 
         setFieldError(
-            nameInput,
-            nameError,
+            profileName,
+            profileNameError,
             "Informe seu nome."
         );
 
-
-        valid =
+        isValid =
             false;
 
     } else if (
@@ -470,13 +450,12 @@ function validateProfileForm() {
     ) {
 
         setFieldError(
-            nameInput,
-            nameError,
-            "O nome deve ter pelo menos 2 caracteres."
+            profileName,
+            profileNameError,
+            "O nome deve possuir pelo menos 2 caracteres."
         );
 
-
-        valid =
+        isValid =
             false;
 
     }
@@ -485,13 +464,12 @@ function validateProfileForm() {
     if (!email) {
 
         setFieldError(
-            emailInput,
-            emailError,
+            profileEmailInput,
+            profileEmailError,
             "Informe seu e-mail."
         );
 
-
-        valid =
+        isValid =
             false;
 
     } else if (
@@ -501,13 +479,12 @@ function validateProfileForm() {
     ) {
 
         setFieldError(
-            emailInput,
-            emailError,
+            profileEmailInput,
+            profileEmailError,
             "Informe um e-mail válido."
         );
 
-
-        valid =
+        isValid =
             false;
 
     }
@@ -515,7 +492,7 @@ function validateProfileForm() {
 
     return {
 
-        valid,
+        isValid,
 
         name,
 
@@ -532,72 +509,192 @@ function validateProfileForm() {
 
 function showFeedback(
     message,
-    type
+    type = "error"
 ) {
 
-    const feedback =
-        document.querySelector(
-            "#profileFeedback"
-        );
-
-
-    if (!feedback) {
+    if (!profileFeedback) {
 
         return;
 
     }
 
 
-    feedback.textContent =
+    profileFeedback.textContent =
         message;
 
 
-    feedback.hidden =
-        false;
-
-
-    feedback.classList.remove(
+    profileFeedback.classList.toggle(
         "is-success",
-        "is-error"
+        type === "success"
     );
 
 
-    feedback.classList.add(
-        type === "error"
-            ? "is-error"
-            : "is-success"
-    );
+    profileFeedback.hidden =
+        false;
 
 }
 
 
 function hideFeedback() {
 
-    const feedback =
-        document.querySelector(
-            "#profileFeedback"
-        );
-
-
-    if (!feedback) {
+    if (!profileFeedback) {
 
         return;
 
     }
 
 
-    feedback.hidden =
-        true;
-
-
-    feedback.textContent =
+    profileFeedback.textContent =
         "";
 
 
-    feedback.classList.remove(
-        "is-success",
-        "is-error"
+    profileFeedback.classList.remove(
+        "is-success"
     );
+
+
+    profileFeedback.hidden =
+        true;
+
+}
+
+
+/* ==========================================================================
+   Estado do botão
+========================================================================== */
+
+function setLoading(
+    isLoading
+) {
+
+    if (!saveProfileButton) {
+
+        return;
+
+    }
+
+
+    saveProfileButton.disabled =
+        isLoading;
+
+
+    saveProfileButton.textContent =
+        isLoading
+            ? "Salvando..."
+            : "Salvar alterações";
+
+}
+
+
+/* ==========================================================================
+   Atualização do perfil
+========================================================================== */
+
+async function handleProfileSubmit(
+    event
+) {
+
+    event.preventDefault();
+
+
+    const validation =
+        validateProfileForm();
+
+
+    if (!validation.isValid) {
+
+        return;
+
+    }
+
+
+    if (
+        !window.VisiumAuth ||
+        typeof window.VisiumAuth.updateProfile !==
+        "function"
+    ) {
+
+        console.error(
+            "Visium | Serviço de atualização de perfil não carregado."
+        );
+
+
+        showFeedback(
+            "Não foi possível carregar o serviço de perfil."
+        );
+
+        return;
+
+    }
+
+
+    setLoading(
+        true
+    );
+
+
+    try {
+
+        const result =
+            await window.VisiumAuth.updateProfile(
+                validation.name,
+                validation.email
+            );
+
+
+        if (
+            !result ||
+            !result.success
+        ) {
+
+            showFeedback(
+                result?.message ||
+                "Não foi possível atualizar seus dados."
+            );
+
+            return;
+
+        }
+
+
+        const updatedUser =
+            result.user ||
+            await getCurrentUser();
+
+
+        if (updatedUser) {
+
+            updateProfileView(
+                updatedUser
+            );
+
+        }
+
+
+        showFeedback(
+            "Seus dados foram atualizados com sucesso.",
+            "success"
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Visium | Erro ao atualizar perfil:",
+            error
+        );
+
+
+        showFeedback(
+            "Não foi possível atualizar seus dados. Tente novamente."
+        );
+
+    } finally {
+
+        setLoading(
+            false
+        );
+
+    }
 
 }
 
@@ -606,138 +703,51 @@ function hideFeedback() {
    Formulário
 ========================================================================== */
 
-function initializeProfileForm(
-    user
-) {
+function initializeProfileForm() {
 
-    const form =
-        document.querySelector(
-            "#profileForm"
+    if (
+        !profileForm ||
+        !profileName ||
+        !profileEmailInput ||
+        !saveProfileButton
+    ) {
+
+        console.error(
+            "Visium | Estrutura do formulário de perfil não encontrada."
         );
-
-
-    const saveButton =
-        document.querySelector(
-            "#saveProfileButton"
-        );
-
-
-    if (!form) {
 
         return;
 
     }
 
 
-    form.addEventListener(
+    profileForm.addEventListener(
+        "submit",
+        handleProfileSubmit
+    );
+
+
+    profileName.addEventListener(
         "input",
         () => {
 
-            hideFeedback();
+            clearFieldError(
+                profileName,
+                profileNameError
+            );
 
         }
     );
 
 
-    form.addEventListener(
-        "submit",
-        (event) => {
+    profileEmailInput.addEventListener(
+        "input",
+        () => {
 
-            event.preventDefault();
-
-
-            hideFeedback();
-
-
-            const result =
-                validateProfileForm();
-
-
-            if (!result.valid) {
-
-                showFeedback(
-                    "Revise os campos destacados.",
-                    "error"
-                );
-
-
-                return;
-
-            }
-
-
-            const updatedUser = {
-
-                ...user,
-
-                name:
-                    result.name,
-
-                email:
-                    result.email
-
-            };
-
-
-            try {
-
-                localStorage.setItem(
-                    "visium_user",
-                    JSON.stringify(
-                        updatedUser
-                    )
-                );
-
-
-                Object.assign(
-                    user,
-                    updatedUser
-                );
-
-
-                updateProfileView(
-                    updatedUser
-                );
-
-
-                showFeedback(
-                    "Suas informações foram salvas.",
-                    "success"
-                );
-
-
-                if (saveButton) {
-
-                    saveButton.disabled =
-                        true;
-
-
-                    window.setTimeout(
-                        () => {
-
-                            saveButton.disabled =
-                                false;
-
-                        },
-                        600
-                    );
-
-                }
-
-            } catch (error) {
-
-                console.error(
-                    "Visium | Não foi possível salvar o perfil:",
-                    error
-                );
-
-
-                showFeedback(
-                    "Não foi possível salvar suas informações.",
-                    "error"
-                );
-
-            }
+            clearFieldError(
+                profileEmailInput,
+                profileEmailError
+            );
 
         }
     );
@@ -752,7 +762,7 @@ function initializeProfileForm(
 async function initializeProfile() {
 
     const user =
-        requireAuthentication();
+        await requireAuthentication();
 
 
     if (!user) {
@@ -762,13 +772,6 @@ async function initializeProfile() {
     }
 
 
-    const sidebarLoaded =
-        await loadComponent(
-            "#appSidebarContainer",
-            COMPONENTS.sidebar
-        );
-
-
     const headerLoaded =
         await loadComponent(
             "#appHeaderContainer",
@@ -776,10 +779,11 @@ async function initializeProfile() {
         );
 
 
-    if (
-        !sidebarLoaded ||
-        !headerLoaded
-    ) {
+    if (!headerLoaded) {
+
+        console.error(
+            "Visium | Não foi possível carregar o cabeçalho."
+        );
 
         return;
 
@@ -790,9 +794,8 @@ async function initializeProfile() {
         user
     );
 
-    initializeProfileForm(
-        user
-    );
+
+    initializeProfileForm();
 
 }
 

@@ -7,10 +7,11 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="Perfil do usuÃ¡rio no Visium.">
+    <meta name="description" content="Perfil do usuário no Visium.">
 
     <title>Meu Perfil | Visium</title>
 
+    <link rel="icon" type="image/jpeg" href="/assets/img/brand/logo.jpg">
 
     <!-- ==========================================================
          Base
@@ -22,7 +23,6 @@
 
     <link rel="stylesheet" href="/css/abstracts/variables.css">
 
-
     <!-- ==========================================================
          Componentes
     =========================================================== -->
@@ -31,12 +31,13 @@
 
     <link rel="stylesheet" href="/components/sidebar/sidebar.css">
 
-
     <!-- ==========================================================
          Perfil
     =========================================================== -->
 
     <link rel="stylesheet" href="/pages/app/profile/profile.css">
+
+    <link rel="stylesheet" href="/css/pages/app.css">
 
 </head>
 
@@ -44,7 +45,6 @@
 <body>
 
     <div class="app-shell">
-
 
         <!-- ======================================================
              Sidebar
@@ -54,11 +54,10 @@
 
 
         <!-- ======================================================
-             Ãrea principal
+             Área principal
         ======================================================= -->
 
         <div class="app-main">
-
 
             <!-- ==================================================
                  Header
@@ -68,16 +67,15 @@
 
 
             <!-- ==================================================
-                 PÃ¡gina de perfil
+                 Página de perfil
             =================================================== -->
 
             <main class="profile-page">
 
                 <div class="profile-container">
 
-
                     <!-- ==================================================
-                         CabeÃ§alho
+                         Cabeçalho
                     =================================================== -->
 
                     <header class="profile-header">
@@ -93,7 +91,7 @@
                             </h1>
 
                             <p>
-                                Gerencie suas informaÃ§Ãµes pessoais
+                                Gerencie suas informações pessoais
                                 e acompanhe os dados da sua conta.
                             </p>
 
@@ -108,26 +106,25 @@
 
                     <section class="profile-card" aria-labelledby="profileTitle">
 
+                        <!-- ==================================================
+                             Identidade
+                        =================================================== -->
+
                         <div class="profile-card__identity">
 
-
-                            <!-- Avatar -->
-
                             <div class="profile-avatar" id="profileAvatar" aria-hidden="true">
-                                UT
+                                US
                             </div>
 
-
-                            <!-- Identidade -->
 
                             <div class="profile-identity">
 
                                 <h2 id="profileTitle">
-                                    UsuÃ¡rio de Teste
+                                    Usuário
                                 </h2>
 
                                 <p id="profileEmail">
-                                    teste@visium.local
+                                    usuario@visium.com
                                 </p>
 
                             </div>
@@ -136,7 +133,7 @@
 
 
                         <!-- ==================================================
-                             InformaÃ§Ãµes pessoais
+                             Informações pessoais
                         =================================================== -->
 
                         <div class="profile-section">
@@ -144,7 +141,7 @@
                             <div class="profile-section__header">
 
                                 <span class="profile-section__eyebrow">
-                                    INFORMAÃ‡Ã•ES PESSOAIS
+                                    INFORMAÇÕES PESSOAIS
                                 </span>
 
                                 <h2>
@@ -152,14 +149,13 @@
                                 </h2>
 
                                 <p>
-                                    Mantenha suas informaÃ§Ãµes atualizadas.
+                                    Mantenha suas informações atualizadas.
                                 </p>
 
                             </div>
 
 
                             <form class="profile-form" id="profileForm" novalidate>
-
 
                                 <!-- Nome -->
 
@@ -172,7 +168,8 @@
                                     <input type="text" id="profileName" name="name" autocomplete="name" required
                                         maxlength="120">
 
-                                    <span class="profile-field__error" id="profileNameError" role="alert" hidden></span>
+                                    <span class="profile-field__error" id="profileNameError" role="alert"
+                                        aria-live="polite" hidden></span>
 
                                 </div>
 
@@ -189,7 +186,7 @@
                                         required maxlength="160">
 
                                     <span class="profile-field__error" id="profileEmailError" role="alert"
-                                        hidden></span>
+                                        aria-live="polite" hidden></span>
 
                                 </div>
 
@@ -200,13 +197,13 @@
                                     hidden></div>
 
 
-                                <!-- AÃ§Ãµes -->
+                                <!-- Ações -->
 
                                 <div class="profile-form__actions">
 
                                     <button type="submit" class="profile-button profile-button--primary"
                                         id="saveProfileButton">
-                                        Salvar alteraÃ§Ãµes
+                                        Salvar alterações
                                     </button>
 
                                 </div>
@@ -215,52 +212,11 @@
 
                         </div>
 
-
-                        <!-- ==================================================
-                             InformaÃ§Ãµes da conta
-                        =================================================== -->
-
-                        <div class="profile-section profile-section--account">
-
-                            <div class="profile-section__header">
-
-                                <span class="profile-section__eyebrow">
-                                    CONTA
-                                </span>
-
-                                <h2>
-                                    InformaÃ§Ãµes da conta
-                                </h2>
-
-                            </div>
-
-
-                            <div class="profile-account">
-
-                                <div class="profile-account__item">
-
-                                    <span>
-                                        ID do usuÃ¡rio
-                                    </span>
-
-                                    <strong id="profileUserId">
-                                        test-user
-                                    </strong>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
                     </section>
-
 
                 </div>
 
             </main>
-
 
         </div>
 
@@ -271,8 +227,12 @@
          JavaScript
     =========================================================== -->
 
+    <script src="/js/auth/auth.js?v=20260822"></script>
+
     <script src="/pages/app/profile/profile.js"></script>
-    <script src="/components/sidebar/sidebar.js"></script>
+
+    <script src="/components/sidebar/sidebar.js?v=20260821"></script>
+
 </body>
 
 </html>

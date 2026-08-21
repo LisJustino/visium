@@ -17,10 +17,7 @@
 const COMPONENTS = {
 
     header:
-        "/components/header/header.html",
-
-    sidebar:
-        "/components/sidebar/sidebar.html"
+        "/components/header/header.html"
 
 };
 
@@ -60,6 +57,15 @@ const CONTENTS = [
 
     {
         id:
+            "armacoes",
+
+        title:
+            "Armações"
+    },
+
+
+    {
+        id:
             "patologias",
 
         title:
@@ -73,51 +79,17 @@ const CONTENTS = [
    Sessão
 ========================================================================== */
 
-function getCurrentUser() {
+async function getCurrentUser() {
 
-    const storedUser =
-        localStorage.getItem(
-            "visium_user"
-        );
-
-
-    if (!storedUser) {
-
-        return null;
-
-    }
-
-
-    try {
-
-        return JSON.parse(
-            storedUser
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Visium | Sessão inválida:",
-            error
-        );
-
-
-        localStorage.removeItem(
-            "visium_user"
-        );
-
-
-        return null;
-
-    }
+    return window.VisiumAuth?.getCurrentUser() || null;
 
 }
 
 
-function requireAuthentication() {
+async function requireAuthentication() {
 
     const user =
-        getCurrentUser();
+        await getCurrentUser();
 
 
     if (!user) {
@@ -913,7 +885,7 @@ function renderHistory(
 async function initializeProgress() {
 
     const user =
-        requireAuthentication();
+        await requireAuthentication();
 
 
     if (!user) {
@@ -921,13 +893,6 @@ async function initializeProgress() {
         return;
 
     }
-
-
-    const sidebarLoaded =
-        await loadComponent(
-            "#appSidebarContainer",
-            COMPONENTS.sidebar
-        );
 
 
     const headerLoaded =
@@ -938,7 +903,6 @@ async function initializeProgress() {
 
 
     if (
-        !sidebarLoaded ||
         !headerLoaded
     ) {
 

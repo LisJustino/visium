@@ -19,66 +19,55 @@ const loginForm =
         "#loginForm"
     );
 
-
 const loginEmail =
     document.querySelector(
         "#loginEmail"
     );
-
 
 const loginPassword =
     document.querySelector(
         "#loginPassword"
     );
 
-
 const loginEmailError =
     document.querySelector(
         "#loginEmailError"
     );
-
 
 const loginPasswordError =
     document.querySelector(
         "#loginPasswordError"
     );
 
-
 const loginFeedback =
     document.querySelector(
         "#loginFeedback"
     );
-
 
 const loginSubmit =
     document.querySelector(
         "#loginSubmit"
     );
 
-
 const loginSubmitText =
     document.querySelector(
         "#loginSubmitText"
     );
-
 
 const loginSubmitLoading =
     document.querySelector(
         "#loginSubmitLoading"
     );
 
-
 const togglePassword =
     document.querySelector(
         "#togglePassword"
     );
 
-
 const registerButton =
     document.querySelector(
         "#registerButton"
     );
-
 
 const forgotPasswordButton =
     document.querySelector(
@@ -93,10 +82,8 @@ const forgotPasswordButton =
 const DASHBOARD_URL =
     "/pages/app/dashboard/dashboard.html";
 
-
 const REGISTER_URL =
     "/pages/auth/register/register.html";
-
 
 const FORGOT_PASSWORD_URL =
     "/pages/auth/forgot-password/forgot-password.html";
@@ -108,11 +95,8 @@ const FORGOT_PASSWORD_URL =
 
 function clearFieldErrors() {
 
-    loginEmailError.textContent =
-        "";
-
-    loginPasswordError.textContent =
-        "";
+    loginEmailError.textContent = "";
+    loginPasswordError.textContent = "";
 
     loginEmail.removeAttribute(
         "aria-invalid"
@@ -121,7 +105,6 @@ function clearFieldErrors() {
     loginPassword.removeAttribute(
         "aria-invalid"
     );
-
 }
 
 
@@ -138,7 +121,6 @@ function showFieldError(
 
     errorElement.textContent =
         message;
-
 }
 
 
@@ -157,7 +139,6 @@ function showFeedback(
 
     loginFeedback.hidden =
         false;
-
 }
 
 
@@ -172,7 +153,6 @@ function clearFeedback() {
 
     loginFeedback.hidden =
         true;
-
 }
 
 
@@ -180,34 +160,26 @@ function clearFeedback() {
    Validação
 ========================================================================== */
 
-function isValidEmail(
-    email
-) {
+function isValidEmail(email) {
 
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        .test(
-            email
-        );
-
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+        email
+    );
 }
 
 
 function validateForm() {
 
     clearFieldErrors();
-
     clearFeedback();
-
 
     const email =
         loginEmail.value
             .trim()
             .toLowerCase();
 
-
     const password =
         loginPassword.value;
-
 
     let isValid =
         true;
@@ -225,9 +197,7 @@ function validateForm() {
             false;
 
     } else if (
-        !isValidEmail(
-            email
-        )
+        !isValidEmail(email)
     ) {
 
         showFieldError(
@@ -238,7 +208,6 @@ function validateForm() {
 
         isValid =
             false;
-
     }
 
 
@@ -252,20 +221,14 @@ function validateForm() {
 
         isValid =
             false;
-
     }
 
 
     return {
-
         isValid,
-
         email,
-
         password
-
     };
-
 }
 
 
@@ -273,21 +236,16 @@ function validateForm() {
    Estado do formulário
 ========================================================================== */
 
-function setLoading(
-    isLoading
-) {
+function setLoading(isLoading) {
 
     loginSubmit.disabled =
         isLoading;
 
-
     loginSubmitText.hidden =
         isLoading;
 
-
     loginSubmitLoading.hidden =
         !isLoading;
-
 }
 
 
@@ -298,32 +256,25 @@ function setLoading(
 function initializePasswordToggle() {
 
     if (!togglePassword) {
-
         return;
-
     }
-
 
     togglePassword.addEventListener(
         "click",
         () => {
 
             const showingPassword =
-                loginPassword.type ===
-                "text";
-
+                loginPassword.type === "text";
 
             loginPassword.type =
                 showingPassword
                     ? "password"
                     : "text";
 
-
             togglePassword.textContent =
                 showingPassword
                     ? "Mostrar"
                     : "Ocultar";
-
 
             togglePassword.setAttribute(
                 "aria-label",
@@ -332,17 +283,12 @@ function initializePasswordToggle() {
                     : "Ocultar senha"
             );
 
-
             togglePassword.setAttribute(
                 "aria-pressed",
-                String(
-                    !showingPassword
-                )
+                String(!showingPassword)
             );
-
         }
     );
-
 }
 
 
@@ -352,9 +298,7 @@ function initializePasswordToggle() {
 
 function initializeNavigation() {
 
-    if (
-        registerButton
-    ) {
+    if (registerButton) {
 
         registerButton.addEventListener(
             "click",
@@ -362,16 +306,12 @@ function initializeNavigation() {
 
                 window.location.href =
                     REGISTER_URL;
-
             }
         );
-
     }
 
 
-    if (
-        forgotPasswordButton
-    ) {
+    if (forgotPasswordButton) {
 
         forgotPasswordButton.addEventListener(
             "click",
@@ -379,12 +319,9 @@ function initializeNavigation() {
 
                 window.location.href =
                     FORGOT_PASSWORD_URL;
-
             }
         );
-
     }
-
 }
 
 
@@ -392,53 +329,43 @@ function initializeNavigation() {
    Login
 ========================================================================== */
 
-function handleLogin(
-    event
-) {
+async function handleLogin(event) {
 
     event.preventDefault();
-
 
     const validation =
         validateForm();
 
 
-    if (
-        !validation.isValid
-    ) {
-
+    if (!validation.isValid) {
         return;
-
     }
 
 
     if (
-        !window.VisiumAuth
+        !window.VisiumAuth ||
+        typeof window.VisiumAuth.login !== "function"
     ) {
 
         console.error(
             "Visium | Serviço de autenticação não carregado."
         );
 
-
         showFeedback(
             "Não foi possível carregar o serviço de autenticação."
         );
 
         return;
-
     }
 
 
-    setLoading(
-        true
-    );
+    setLoading(true);
 
 
     try {
 
         const result =
-            window.VisiumAuth.login(
+            await window.VisiumAuth.login(
                 validation.email,
                 validation.password
             );
@@ -454,12 +381,7 @@ function handleLogin(
                 "E-mail ou senha inválidos."
             );
 
-            setLoading(
-                false
-            );
-
             return;
-
         }
 
 
@@ -473,7 +395,6 @@ function handleLogin(
          * A sessão já foi criada pelo VisiumAuth.
          * O redirecionamento é imediato e determinístico.
          */
-
         window.location.assign(
             DASHBOARD_URL
         );
@@ -485,18 +406,14 @@ function handleLogin(
             error
         );
 
-
         showFeedback(
             "Não foi possível realizar o login. Tente novamente."
         );
 
+    } finally {
 
-        setLoading(
-            false
-        );
-
+        setLoading(false);
     }
-
 }
 
 
@@ -504,27 +421,35 @@ function handleLogin(
    Usuário já autenticado
 ========================================================================== */
 
-function redirectAuthenticatedUser() {
+async function redirectAuthenticatedUser() {
 
     if (
-        !window.VisiumAuth
+        !window.VisiumAuth ||
+        typeof window.VisiumAuth.isAuthenticated !== "function"
     ) {
-
         return;
-
     }
 
 
-    if (
-        window.VisiumAuth.isAuthenticated()
-    ) {
+    try {
 
-        window.location.replace(
-            DASHBOARD_URL
+        const authenticated =
+            await window.VisiumAuth.isAuthenticated();
+
+        if (authenticated) {
+
+            window.location.replace(
+                DASHBOARD_URL
+            );
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Visium | Erro ao verificar autenticação:",
+            error
         );
-
     }
-
 }
 
 
@@ -548,23 +473,19 @@ function initializeLogin() {
         );
 
         return;
-
     }
 
 
     initializePasswordToggle();
-
     initializeNavigation();
+
+    redirectAuthenticatedUser();
 
 
     loginForm.addEventListener(
         "submit",
         handleLogin
     );
-
-
-    redirectAuthenticatedUser();
-
 }
 
 

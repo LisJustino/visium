@@ -1,12 +1,18 @@
 from pathlib import Path
 import sys
+import zipfile
 
 import fitz
+from docx import Document
 
 
 # =========================================================
 # VISIUM
-# INVENTÁRIO E EXTRAÇÃO DE IMAGENS DE PDF
+# INVENTÁRIO E EXTRAÇÃO DE IMAGENS
+#
+# Suporta:
+# - PDF
+# - DOCX
 # =========================================================
 
 
@@ -14,9 +20,18 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 
 DOCS_DIR = ROOT_DIR / "docs"
 
-IMAGES_DIR = ROOT_DIR / "assets" / "img"
+IMAGES_DIR = (
+    ROOT_DIR
+    / "assets"
+    / "img"
+)
 
-REPORTS_DIR = ROOT_DIR / "docs" / "development" / "reports"
+REPORTS_DIR = (
+    ROOT_DIR
+    / "docs"
+    / "development"
+    / "reports"
+)
 
 
 # =========================================================
@@ -24,46 +39,74 @@ REPORTS_DIR = ROOT_DIR / "docs" / "development" / "reports"
 # =========================================================
 
 
-def normalizar_nome(nome: str) -> str:
+def normalizar_nome(
+    nome: str
+) -> str:
     """
-    Converte um nome para um formato seguro para pasta.
+    Converte um nome para um formato seguro
+    para pasta ou arquivo.
     """
 
     return (
-        nome.strip()
+        nome
+        .strip()
         .lower()
         .replace(" ", "-")
         .replace("_", "-")
     )
 
 
-def encontrar_pdf(nome_pdf: str) -> Path:
+def encontrar_documento(
+    nome_documento: str
+) -> Path:
     """
-    Procura o PDF dentro da pasta docs.
+    Procura um PDF ou DOCX dentro da pasta docs.
     """
 
-    pdf_path = DOCS_DIR / nome_pdf
+    caminho = (
+        DOCS_DIR
+        / nome_documento
+    )
 
-    if pdf_path.exists():
-        return pdf_path
+    if caminho.exists():
+
+        return caminho
 
 
-    if not nome_pdf.lower().endswith(".pdf"):
+    extensoes = [
+        ".pdf",
+        ".docx"
+    ]
 
-        pdf_path = DOCS_DIR / f"{nome_pdf}.pdf"
 
-        if pdf_path.exists():
-            return pdf_path
+    if not Path(
+        nome_documento
+    ).suffix:
+
+        for extensao in extensoes:
+
+            candidato = (
+                DOCS_DIR
+                / f"{nome_documento}{extensao}"
+            )
+
+            if candidato.exists():
+
+                return candidato
 
 
     raise FileNotFoundError(
-        f"PDF não encontrado em: {DOCS_DIR}"
+        "Documento não encontrado em: "
+        f"{DOCS_DIR}"
     )
 
 
-def formatar_tamanho(valor: int) -> str:
+def formatar_tamanho(
+    valor: int
+) -> str:
     """
-    Formata tamanho em bytes para leitura humana.
+    Formata tamanho em bytes
+    para leitura humana.
     """
 
     unidades = [
@@ -73,22 +116,33 @@ def formatar_tamanho(valor: int) -> str:
         "GB"
     ]
 
-    tamanho = float(valor)
+    tamanho = float(
+        valor
+    )
+
 
     for unidade in unidades:
 
         if tamanho < 1024:
-            return f"{tamanho:.1f} {unidade}"
+
+            return (
+                f"{tamanho:.1f} "
+                f"{unidade}"
+            )
+
 
         tamanho /= 1024
 
 
-    return f"{tamanho:.1f} TB"
+    return (
+        f"{tamanho:.1f} TB"
+    )
 
 
 def garantir_pasta_relatorios() -> None:
     """
-    Cria a pasta de relatórios caso ela não exista.
+    Cria a pasta de relatórios
+    caso ela não exista.
     """
 
     REPORTS_DIR.mkdir(
@@ -98,7 +152,7 @@ def garantir_pasta_relatorios() -> None:
 
 
 # =========================================================
-# INVENTÁRIO
+# INVENTÁRIO — PDF
 # =========================================================
 
 
@@ -106,22 +160,17 @@ def inventariar_pdf(
     pdf_path: Path
 ) -> str:
     """
-    Analisa o PDF e gera um relatório textual.
-
-    O relatório contém:
-
-    - quantidade de páginas;
-    - existência de texto;
-    - quantidade de imagens;
-    - formato das imagens;
-    - dimensões das imagens;
-    - tamanho das imagens;
-    - quantidade de desenhos vetoriais;
+    Analisa um PDF e gera
+    um relatório textual.
     """
 
-    documento = fitz.open(pdf_path)
+    documento = fitz.open(
+        pdf_path
+    )
 
-    total_paginas = len(documento)
+    total_paginas = len(
+        documento
+    )
 
     linhas = []
 
@@ -142,6 +191,10 @@ def inventariar_pdf(
 
     linhas.append(
         f"Arquivo: {pdf_path.name}"
+    )
+
+    linhas.append(
+        f"Tipo: PDF"
     )
 
     linhas.append(
@@ -183,7 +236,9 @@ def inventariar_pdf(
         )
 
 
-        desenhos = pagina.get_drawings()
+        desenhos = (
+            pagina.get_drawings()
+        )
 
 
         if texto:
@@ -209,7 +264,8 @@ def inventariar_pdf(
         linhas.append("")
 
         linhas.append(
-            f"PÁGINA {numero_pagina + 1:03d}"
+            f"PÁGINA "
+            f"{numero_pagina + 1:03d}"
         )
 
         linhas.append(
@@ -228,13 +284,13 @@ def inventariar_pdf(
 
 
         linhas.append(
-            f"Imagens incorporadas: "
+            "Imagens incorporadas: "
             f"{len(imagens)}"
         )
 
 
         linhas.append(
-            f"Elementos vetoriais: "
+            "Elementos vetoriais: "
             f"{len(desenhos)}"
         )
 
@@ -253,6 +309,7 @@ def inventariar_pdf(
                 linhas.append(
                     "Primeiro conteúdo textual:"
                 )
+
 
                 limite = min(
                     5,
@@ -285,7 +342,8 @@ def inventariar_pdf(
 
 
                     linhas.append(
-                        f"  - {linha_normalizada}"
+                        f"  - "
+                        f"{linha_normalizada}"
                     )
 
 
@@ -308,8 +366,10 @@ def inventariar_pdf(
 
             try:
 
-                dados = documento.extract_image(
-                    xref
+                dados = (
+                    documento.extract_image(
+                        xref
+                    )
                 )
 
 
@@ -410,24 +470,288 @@ def inventariar_pdf(
 
 
 # =========================================================
-# EXTRAÇÃO DE IMAGENS
+# INVENTÁRIO — DOCX
 # =========================================================
 
 
-def extrair_imagens(
+def inventariar_docx(
+    docx_path: Path
+) -> str:
+    """
+    Analisa um DOCX.
+
+    Registra:
+    - quantidade de parágrafos;
+    - quantidade de tabelas;
+    - quantidade de imagens;
+    - nomes das imagens;
+    - formatos;
+    - tamanhos.
+    """
+
+    documento = Document(
+        docx_path
+    )
+
+
+    linhas = []
+
+
+    linhas.append(
+        "=" * 72
+    )
+
+    linhas.append(
+        "VISIUM — INVENTÁRIO DE MATERIAL"
+    )
+
+    linhas.append(
+        "=" * 72
+    )
+
+    linhas.append("")
+
+    linhas.append(
+        f"Arquivo: {docx_path.name}"
+    )
+
+    linhas.append(
+        "Tipo: DOCX"
+    )
+
+    linhas.append(
+        f"Parágrafos: "
+        f"{len(documento.paragraphs)}"
+    )
+
+    linhas.append(
+        f"Tabelas: "
+        f"{len(documento.tables)}"
+    )
+
+    linhas.append("")
+
+
+    # -----------------------------------------------------
+    # Imagens incorporadas
+    # -----------------------------------------------------
+
+    imagens = []
+
+
+    with zipfile.ZipFile(
+        docx_path,
+        "r"
+    ) as arquivo_zip:
+
+        for nome in arquivo_zip.namelist():
+
+            if not nome.startswith(
+                "word/media/"
+            ):
+
+                continue
+
+
+            if nome.endswith("/"):
+
+                continue
+
+
+            dados = arquivo_zip.read(
+                nome
+            )
+
+
+            imagens.append(
+                (
+                    nome,
+                    dados
+                )
+            )
+
+
+    linhas.append(
+        "-" * 72
+    )
+
+    linhas.append(
+        "IMAGENS INCORPORADAS"
+    )
+
+    linhas.append(
+        "-" * 72
+    )
+
+    linhas.append("")
+
+
+    if not imagens:
+
+        linhas.append(
+            "[Nenhuma imagem incorporada encontrada]"
+        )
+
+
+    for indice, (
+        nome,
+        dados
+    ) in enumerate(
+        imagens,
+        start=1
+    ):
+
+        extensao = (
+            Path(nome)
+            .suffix
+            .replace(
+                ".",
+                ""
+            )
+            .upper()
+        )
+
+
+        linhas.append(
+            f"Imagem {indice:02d}: "
+            f"{Path(nome).name} | "
+            f"{extensao} | "
+            f"{formatar_tamanho(len(dados))}"
+        )
+
+
+    # -----------------------------------------------------
+    # Conteúdo textual inicial
+    # -----------------------------------------------------
+
+    linhas.append("")
+
+    linhas.append(
+        "-" * 72
+    )
+
+    linhas.append(
+        "CONTEÚDO TEXTUAL"
+    )
+
+    linhas.append(
+        "-" * 72
+    )
+
+    linhas.append("")
+
+
+    paragrafos_com_texto = [
+        paragrafo.text.strip()
+        for paragrafo in documento.paragraphs
+        if paragrafo.text.strip()
+    ]
+
+
+    if paragrafos_com_texto:
+
+        limite = min(
+            10,
+            len(paragrafos_com_texto)
+        )
+
+
+        for texto in paragrafos_com_texto[
+            :limite
+        ]:
+
+            texto_normalizado = (
+                texto
+                .replace(
+                    "\t",
+                    " "
+                )
+                .strip()
+            )
+
+
+            if len(
+                texto_normalizado
+            ) > 160:
+
+                texto_normalizado = (
+                    texto_normalizado[:157]
+                    + "..."
+                )
+
+
+            linhas.append(
+                f"  - "
+                f"{texto_normalizado}"
+            )
+
+
+    else:
+
+        linhas.append(
+            "[Nenhum texto extraível encontrado]"
+        )
+
+
+    linhas.append("")
+
+    linhas.append(
+        "=" * 72
+    )
+
+    linhas.append(
+        "RESUMO"
+    )
+
+    linhas.append(
+        "=" * 72
+    )
+
+    linhas.append(
+        f"Total de imagens: "
+        f"{len(imagens)}"
+    )
+
+    linhas.append(
+        f"Total de parágrafos: "
+        f"{len(documento.paragraphs)}"
+    )
+
+    linhas.append(
+        f"Total de tabelas: "
+        f"{len(documento.tables)}"
+    )
+
+    linhas.append("")
+
+
+    return "\n".join(
+        linhas
+    )
+
+
+# =========================================================
+# EXTRAÇÃO DE IMAGENS — PDF
+# =========================================================
+
+
+def extrair_imagens_pdf(
     pdf_path: Path
 ) -> Path:
     """
-    Extrai as imagens incorporadas do PDF.
+    Extrai imagens incorporadas de um PDF.
     """
 
-    nome_documento = normalizar_nome(
-        pdf_path.stem
+    nome_documento = (
+        normalizar_nome(
+            pdf_path.stem
+        )
     )
 
 
     pasta_saida = (
-        IMAGES_DIR / nome_documento
+        IMAGES_DIR
+        / nome_documento
     )
 
 
@@ -464,7 +788,11 @@ def extrair_imagens(
     )
 
     print(
-        f"PDF: {pdf_path.name}"
+        f"Tipo: PDF"
+    )
+
+    print(
+        f"Arquivo: {pdf_path.name}"
     )
 
     print(
@@ -515,8 +843,10 @@ def extrair_imagens(
 
             try:
 
-                dados = documento.extract_image(
-                    xref
+                dados = (
+                    documento.extract_image(
+                        xref
+                    )
                 )
 
 
@@ -544,10 +874,6 @@ def extrair_imagens(
                     / nome_arquivo
                 )
 
-
-                # -------------------------------------------------
-                # Não sobrescreve arquivos existentes.
-                # -------------------------------------------------
 
                 if caminho_saida.exists():
 
@@ -625,12 +951,219 @@ def extrair_imagens(
 
 
 # =========================================================
+# EXTRAÇÃO DE IMAGENS — DOCX
+# =========================================================
+
+
+def extrair_imagens_docx(
+    docx_path: Path
+) -> Path:
+    """
+    Extrai as imagens originais incorporadas
+    em um arquivo DOCX.
+
+    As imagens são armazenadas internamente
+    em word/media/.
+    """
+
+    nome_documento = (
+        normalizar_nome(
+            docx_path.stem
+        )
+    )
+
+
+    pasta_saida = (
+        IMAGES_DIR
+        / nome_documento
+    )
+
+
+    pasta_saida.mkdir(
+        parents=True,
+        exist_ok=True
+    )
+
+
+    total_imagens = 0
+
+
+    print()
+
+    print(
+        "=" * 60
+    )
+
+    print(
+        "VISIUM — EXTRAÇÃO DE IMAGENS"
+    )
+
+    print(
+        "=" * 60
+    )
+
+    print(
+        "Tipo: DOCX"
+    )
+
+    print(
+        f"Arquivo: {docx_path.name}"
+    )
+
+    print(
+        f"Destino: {pasta_saida}"
+    )
+
+    print(
+        "-" * 60
+    )
+
+
+    try:
+
+        with zipfile.ZipFile(
+            docx_path,
+            "r"
+        ) as arquivo_zip:
+
+            arquivos_media = [
+                nome
+                for nome in arquivo_zip.namelist()
+                if (
+                    nome.startswith(
+                        "word/media/"
+                    )
+                    and not nome.endswith("/")
+                )
+            ]
+
+
+            if not arquivos_media:
+
+                print(
+                    "[--] Nenhuma imagem "
+                    "incorporada encontrada."
+                )
+
+
+            for indice, nome_interno in enumerate(
+                arquivos_media,
+                start=1
+            ):
+
+                conteudo = (
+                    arquivo_zip.read(
+                        nome_interno
+                    )
+                )
+
+
+                nome_original = (
+                    Path(
+                        nome_interno
+                    ).name
+                )
+
+
+                extensao = (
+                    Path(
+                        nome_original
+                    ).suffix
+                    .lower()
+                )
+
+
+                if not extensao:
+
+                    extensao = ".bin"
+
+
+                nome_arquivo = (
+                    f"imagem-"
+                    f"{indice:02d}"
+                    f"{extensao}"
+                )
+
+
+                caminho_saida = (
+                    pasta_saida
+                    / nome_arquivo
+                )
+
+
+                if caminho_saida.exists():
+
+                    print(
+                        f"[EXISTE] "
+                        f"{nome_arquivo}"
+                    )
+
+                    continue
+
+
+                caminho_saida.write_bytes(
+                    conteudo
+                )
+
+
+                total_imagens += 1
+
+
+                print(
+                    f"[OK] "
+                    f"{nome_arquivo} "
+                    f"← "
+                    f"{nome_original} "
+                    f"({formatar_tamanho(len(conteudo))})"
+                )
+
+
+    except zipfile.BadZipFile as erro:
+
+        print(
+            "[ERRO] O arquivo DOCX "
+            "não pôde ser lido como ZIP:"
+        )
+
+        print(
+            erro
+        )
+
+
+        return pasta_saida
+
+
+    print(
+        "-" * 60
+    )
+
+    print(
+        f"Finalizado: "
+        f"{total_imagens} nova(s) "
+        "imagem(ns) extraída(s)."
+    )
+
+    print(
+        f"Pasta: {pasta_saida}"
+    )
+
+    print(
+        "=" * 60
+    )
+
+    print()
+
+
+    return pasta_saida
+
+
+# =========================================================
 # RELATÓRIO
 # =========================================================
 
 
 def salvar_relatorio(
-    pdf_path: Path,
+    documento_path: Path,
     conteudo: str
 ) -> Path:
     """
@@ -642,7 +1175,7 @@ def salvar_relatorio(
 
     nome_relatorio = (
         normalizar_nome(
-            pdf_path.stem
+            documento_path.stem
         )
         + "-inventario.txt"
     )
@@ -664,7 +1197,7 @@ def salvar_relatorio(
 
 
 # =========================================================
-# PROCESSAMENTO COMPLETO
+# PROCESSAMENTO — PDF
 # =========================================================
 
 
@@ -683,12 +1216,10 @@ def processar_pdf(
     )
 
 
-    # -----------------------------------------------------
-    # Inventário
-    # -----------------------------------------------------
-
-    relatorio = inventariar_pdf(
-        pdf_path
+    relatorio = (
+        inventariar_pdf(
+            pdf_path
+        )
     )
 
 
@@ -703,7 +1234,7 @@ def processar_pdf(
     print()
 
     print(
-        f"[OK] Inventário salvo em:"
+        "[OK] Inventário salvo em:"
     )
 
     print(
@@ -711,13 +1242,104 @@ def processar_pdf(
     )
 
 
-    # -----------------------------------------------------
-    # Extração
-    # -----------------------------------------------------
-
-    extrair_imagens(
+    extrair_imagens_pdf(
         pdf_path
     )
+
+
+# =========================================================
+# PROCESSAMENTO — DOCX
+# =========================================================
+
+
+def processar_docx(
+    docx_path: Path
+) -> None:
+
+    print()
+
+    print(
+        "Analisando material..."
+    )
+
+    print(
+        docx_path.name
+    )
+
+
+    relatorio = (
+        inventariar_docx(
+            docx_path
+        )
+    )
+
+
+    caminho_relatorio = (
+        salvar_relatorio(
+            docx_path,
+            relatorio
+        )
+    )
+
+
+    print()
+
+    print(
+        "[OK] Inventário salvo em:"
+    )
+
+    print(
+        caminho_relatorio
+    )
+
+
+    extrair_imagens_docx(
+        docx_path
+    )
+
+
+# =========================================================
+# PROCESSAMENTO COMPLETO
+# =========================================================
+
+
+def processar_documento(
+    documento_path: Path
+) -> None:
+
+    extensao = (
+        documento_path.suffix
+        .lower()
+    )
+
+
+    if extensao == ".pdf":
+
+        processar_pdf(
+            documento_path
+        )
+
+        return
+
+
+    if extensao == ".docx":
+
+        processar_docx(
+            documento_path
+        )
+
+        return
+
+
+    print(
+        "[ERRO] Formato não suportado:"
+    )
+
+    print(
+        documento_path.suffix
+    )
+
+    sys.exit(1)
 
 
 # =========================================================
@@ -737,37 +1359,42 @@ def main():
         sys.exit(1)
 
 
-    pdfs = sorted(
-        DOCS_DIR.glob("*.pdf")
+    documentos = sorted(
+        [
+            *DOCS_DIR.glob("*.pdf"),
+            *DOCS_DIR.glob("*.docx")
+        ]
     )
 
 
-    if not pdfs:
+    if not documentos:
 
         print(
             "[ERRO] "
-            "Nenhum PDF encontrado "
-            "na pasta docs."
+            "Nenhum PDF ou DOCX "
+            "encontrado na pasta docs."
         )
 
         sys.exit(1)
 
 
     # -----------------------------------------------------
-    # PDF informado pelo terminal
+    # Documento informado pelo terminal
     # -----------------------------------------------------
 
     if len(sys.argv) > 1:
 
-        nome_pdf = " ".join(
+        nome_documento = " ".join(
             sys.argv[1:]
         )
 
 
         try:
 
-            pdf_path = encontrar_pdf(
-                nome_pdf
+            documento_path = (
+                encontrar_documento(
+                    nome_documento
+                )
             )
 
         except FileNotFoundError as erro:
@@ -779,47 +1406,47 @@ def main():
             sys.exit(1)
 
 
-        processar_pdf(
-            pdf_path
+        processar_documento(
+            documento_path
         )
 
         return
 
 
     # -----------------------------------------------------
-    # APENAS UM PDF
+    # Apenas um documento
     # -----------------------------------------------------
 
-    if len(pdfs) == 1:
+    if len(documentos) == 1:
 
-        processar_pdf(
-            pdfs[0]
+        processar_documento(
+            documentos[0]
         )
 
         return
 
 
     # -----------------------------------------------------
-    # ESCOLHA DO PDF
+    # Escolha do documento
     # -----------------------------------------------------
 
     print()
 
     print(
-        "PDFs disponíveis:"
+        "Documentos disponíveis:"
     )
 
     print()
 
 
-    for indice, pdf in enumerate(
-        pdfs,
+    for indice, documento in enumerate(
+        documentos,
         start=1
     ):
 
         print(
             f"{indice}. "
-            f"{pdf.name}"
+            f"{documento.name}"
         )
 
 
@@ -827,7 +1454,7 @@ def main():
 
 
     escolha = input(
-        "Escolha o PDF: "
+        "Escolha o documento: "
     ).strip()
 
 
@@ -838,7 +1465,7 @@ def main():
         ) - 1
 
 
-        pdf_path = pdfs[
+        documento_path = documentos[
             indice
         ]
 
@@ -856,8 +1483,8 @@ def main():
         sys.exit(1)
 
 
-    processar_pdf(
-        pdf_path
+    processar_documento(
+        documento_path
     )
 
 

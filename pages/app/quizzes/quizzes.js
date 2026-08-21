@@ -17,10 +17,7 @@
 const COMPONENTS = {
 
     header:
-        "/components/header/header.html",
-
-    sidebar:
-        "/components/sidebar/sidebar.html"
+        "/components/header/header.html"
 
 };
 
@@ -42,13 +39,13 @@ const QUIZZES = [
             "Fundamentos de Óptica",
 
         description:
-            "Avalie seus conhecimentos básicos sobre os principais conceitos de Óptica.",
+            "Revise conceitos introdutórios sobre o olho humano e o processo visual.",
 
         difficulty:
             "Básico",
 
         questions:
-            3
+            4
 
     },
 
@@ -70,7 +67,7 @@ const QUIZZES = [
             "Intermediário",
 
         questions:
-            2
+            4
 
     },
 
@@ -92,7 +89,7 @@ const QUIZZES = [
             "Intermediário",
 
         questions:
-            1
+            4
 
     },
 
@@ -114,7 +111,117 @@ const QUIZZES = [
             "Intermediário",
 
         questions:
-            1
+            4
+
+    },
+
+
+    {
+        id:
+            "lendo-uma-receita",
+
+        category:
+            "Receitas",
+
+        title:
+            "Lendo uma Receita",
+
+        description:
+            "Aprenda a interpretar campos, sinais e abreviações de uma receita oftálmica.",
+
+        difficulty:
+            "Básico",
+
+        questions:
+            4
+
+    },
+
+
+    {
+        id:
+            "anatomia",
+
+        category:
+            "Anatomia",
+
+        title:
+            "Anatomia",
+
+        description:
+            "Estude as principais estruturas do olho humano e suas funções no processo visual.",
+
+        difficulty:
+            "Básico",
+
+        questions:
+            4
+
+    },
+
+
+    {
+        id:
+            "armacoes",
+
+        category:
+            "Armações",
+
+        title:
+            "Armações",
+
+        description:
+            "Revise tipos, materiais, partes, medidas e critérios de indicação de armações.",
+
+        difficulty:
+            "Intermediário",
+
+        questions:
+            4
+
+    },
+
+
+    {
+        id:
+            "lentes-contato",
+
+        category:
+            "Lentes de Contato",
+
+        title:
+            "Lentes de Contato e Acuidade Visual",
+
+        description:
+            "Teste seus conhecimentos sobre adaptação, cuidados e avaliação da acuidade visual.",
+
+        difficulty:
+            "Intermediário",
+
+        questions:
+            4
+
+    },
+
+
+    {
+        id:
+            "patologias",
+
+        category:
+            "Patologias",
+
+        title:
+            "Patologias",
+
+        description:
+            "Revise conceitos introdutórios sobre alterações relacionadas à saúde ocular.",
+
+        difficulty:
+            "Básico",
+
+        questions:
+            4
 
     }
 
@@ -185,51 +292,17 @@ async function loadComponent(
    Sessão
 ========================================================================== */
 
-function getCurrentUser() {
+async function getCurrentUser() {
 
-    const storedUser =
-        localStorage.getItem(
-            "visium_user"
-        );
-
-
-    if (!storedUser) {
-
-        return null;
-
-    }
-
-
-    try {
-
-        return JSON.parse(
-            storedUser
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Visium | Sessão inválida:",
-            error
-        );
-
-
-        localStorage.removeItem(
-            "visium_user"
-        );
-
-
-        return null;
-
-    }
+    return window.VisiumAuth?.getCurrentUser() || null;
 
 }
 
 
-function requireAuthentication() {
+async function requireAuthentication() {
 
     const user =
-        getCurrentUser();
+        await getCurrentUser();
 
 
     if (!user) {
@@ -1056,7 +1129,7 @@ function initializeQuizActions() {
 async function initializeQuizzes() {
 
     const user =
-        requireAuthentication();
+        await requireAuthentication();
 
 
     if (!user) {
@@ -1064,13 +1137,6 @@ async function initializeQuizzes() {
         return;
 
     }
-
-
-    const sidebarLoaded =
-        await loadComponent(
-            "#appSidebarContainer",
-            COMPONENTS.sidebar
-        );
 
 
     const headerLoaded =
@@ -1081,7 +1147,6 @@ async function initializeQuizzes() {
 
 
     if (
-        !sidebarLoaded ||
         !headerLoaded
     ) {
 

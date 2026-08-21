@@ -10,16 +10,47 @@
 "use strict";
 
 
+const REGISTER_URL =
+    "/pages/auth/register/register.html";
+
+
+/* ========================================================================== 
+   Navegação
+========================================================================== */
+
+function initializeRegisterButtons() {
+
+    document
+        .querySelectorAll(
+            "#registerButton"
+        )
+        .forEach(
+            (button) => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        window.location.assign(
+                            REGISTER_URL
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
 /* ==========================================================================
    Inicialização
 ========================================================================== */
 
 function initializeLanding() {
 
-    /*
-     * A Landing atualmente não depende de lógica dinâmica.
-     * Este ponto existe para centralizar futuras inicializações.
-     */
+    initializeRegisterButtons();
 
     console.log(
         "Visium | Landing Page inicializada."

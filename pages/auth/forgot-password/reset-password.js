@@ -9,70 +9,39 @@
 
 "use strict";
 
-
 /* ==========================================================================
    Elementos
 ========================================================================== */
 
 const resetPasswordForm =
-    document.querySelector(
-        "#resetPasswordForm"
-    );
-
+    document.querySelector("#resetPasswordForm");
 
 const resetPasswordNew =
-    document.querySelector(
-        "#resetPasswordNew"
-    );
-
+    document.querySelector("#resetPasswordNew");
 
 const resetPasswordConfirm =
-    document.querySelector(
-        "#resetPasswordConfirm"
-    );
-
+    document.querySelector("#resetPasswordConfirm");
 
 const resetPasswordNewError =
-    document.querySelector(
-        "#resetPasswordNewError"
-    );
-
+    document.querySelector("#resetPasswordNewError");
 
 const resetPasswordConfirmError =
-    document.querySelector(
-        "#resetPasswordConfirmError"
-    );
-
+    document.querySelector("#resetPasswordConfirmError");
 
 const resetPasswordFeedback =
-    document.querySelector(
-        "#resetPasswordFeedback"
-    );
-
+    document.querySelector("#resetPasswordFeedback");
 
 const resetPasswordSubmit =
-    document.querySelector(
-        "#resetPasswordSubmit"
-    );
-
+    document.querySelector("#resetPasswordSubmit");
 
 const resetPasswordSubmitText =
-    document.querySelector(
-        "#resetPasswordSubmitText"
-    );
-
+    document.querySelector("#resetPasswordSubmitText");
 
 const resetPasswordSubmitLoading =
-    document.querySelector(
-        "#resetPasswordSubmitLoading"
-    );
-
+    document.querySelector("#resetPasswordSubmitLoading");
 
 const resetPasswordLoginButton =
-    document.querySelector(
-        "#resetPasswordLoginButton"
-    );
-
+    document.querySelector("#resetPasswordLoginButton");
 
 /* ==========================================================================
    Configuração
@@ -81,17 +50,19 @@ const resetPasswordLoginButton =
 const LOGIN_URL =
     "/pages/auth/login/login.html";
 
-
 const RESET_TOKEN_KEY =
     "visium_password_reset_token";
 
+const RESET_EMAIL_KEY =
+    "visium_password_reset_email";
+
+const MIN_PASSWORD_LENGTH = 8;
 
 /* ==========================================================================
    Feedback
 ========================================================================== */
 
 function clearErrors() {
-
     resetPasswordNew.removeAttribute(
         "aria-invalid"
     );
@@ -100,52 +71,38 @@ function clearErrors() {
         "aria-invalid"
     );
 
-    resetPasswordNewError.textContent =
-        "";
+    resetPasswordNewError.textContent = "";
 
-    resetPasswordConfirmError.textContent =
-        "";
-
+    resetPasswordConfirmError.textContent = "";
 }
 
-
 function clearFeedback() {
-
-    resetPasswordFeedback.textContent =
-        "";
+    resetPasswordFeedback.textContent = "";
 
     resetPasswordFeedback.classList.remove(
         "is-success"
     );
 
-    resetPasswordFeedback.hidden =
-        true;
-
+    resetPasswordFeedback.hidden = true;
 }
-
 
 function showFieldError(
     field,
     element,
     message
 ) {
-
     field.setAttribute(
         "aria-invalid",
         "true"
     );
 
-    element.textContent =
-        message;
-
+    element.textContent = message;
 }
-
 
 function showFeedback(
     message,
     type = "error"
 ) {
-
     resetPasswordFeedback.textContent =
         message;
 
@@ -154,20 +111,14 @@ function showFeedback(
         type === "success"
     );
 
-    resetPasswordFeedback.hidden =
-        false;
-
+    resetPasswordFeedback.hidden = false;
 }
-
 
 /* ==========================================================================
    Estado
 ========================================================================== */
 
-function setLoading(
-    isLoading
-) {
-
+function setLoading(isLoading) {
     resetPasswordSubmit.disabled =
         isLoading;
 
@@ -176,150 +127,115 @@ function setLoading(
 
     resetPasswordSubmitLoading.hidden =
         !isLoading;
-
 }
-
 
 /* ==========================================================================
    Validação
 ========================================================================== */
 
 function validateForm() {
-
     clearErrors();
-
     clearFeedback();
-
 
     const password =
         resetPasswordNew.value;
 
-
     const confirmation =
         resetPasswordConfirm.value;
 
-
-    let isValid =
-        true;
-
+    let isValid = true;
 
     if (!password) {
-
         showFieldError(
             resetPasswordNew,
             resetPasswordNewError,
             "Informe uma nova senha."
         );
 
-        isValid =
-            false;
-
+        isValid = false;
     } else if (
-        password.length <
-        6
+        password.length < MIN_PASSWORD_LENGTH
     ) {
-
         showFieldError(
             resetPasswordNew,
             resetPasswordNewError,
-            "A senha deve possuir pelo menos 6 caracteres."
+            "A senha deve possuir pelo menos 8 caracteres."
         );
 
-        isValid =
-            false;
+        isValid = false;
+    } else if (
+        !/[A-Za-zÀ-ÿ]/.test(password) ||
+        !/\d/.test(password)
+    ) {
+        showFieldError(
+            resetPasswordNew,
+            resetPasswordNewError,
+            "A senha deve conter pelo menos uma letra e um número."
+        );
 
+        isValid = false;
     }
 
-
     if (!confirmation) {
-
         showFieldError(
             resetPasswordConfirm,
             resetPasswordConfirmError,
             "Confirme sua nova senha."
         );
 
-        isValid =
-            false;
-
+        isValid = false;
     } else if (
-        password !==
-        confirmation
+        password !== confirmation
     ) {
-
         showFieldError(
             resetPasswordConfirm,
             resetPasswordConfirmError,
             "As senhas não coincidem."
         );
 
-        isValid =
-            false;
-
+        isValid = false;
     }
 
-
     return {
-
         isValid,
-
         password
-
     };
-
 }
-
 
 /* ==========================================================================
    Redefinição
 ========================================================================== */
 
-function handleResetPassword(
-    event
-) {
-
+async function handleResetPassword(event) {
     event.preventDefault();
-
 
     const validation =
         validateForm();
 
-
-    if (
-        !validation.isValid
-    ) {
-
+    if (!validation.isValid) {
         return;
-
     }
-
 
     const token =
         sessionStorage.getItem(
             RESET_TOKEN_KEY
         );
 
-
     if (!token) {
-
         showFeedback(
             "O link de recuperação é inválido ou expirou."
         );
 
-        resetPasswordSubmit.disabled =
-            true;
+        resetPasswordSubmit.disabled = true;
 
         return;
-
     }
-
 
     if (
         !window.VisiumAuth ||
         typeof window.VisiumAuth.resetPassword !==
             "function"
     ) {
-
         console.error(
             "Visium | Serviço de redefinição não carregado."
         );
@@ -329,174 +245,135 @@ function handleResetPassword(
         );
 
         return;
-
     }
 
-
-    setLoading(
-        true
-    );
-
+    setLoading(true);
 
     try {
-
         const result =
-            window.VisiumAuth.resetPassword(
+            await window.VisiumAuth.resetPassword(
                 token,
                 validation.password
             );
-
 
         if (
             !result ||
             !result.success
         ) {
-
             showFeedback(
                 result?.message ||
-                "Não foi possível redefinir sua senha."
+                    "Não foi possível redefinir sua senha."
             );
 
             return;
-
         }
-
-
-        /*
-         * Token de sessão removido após uso.
-         */
 
         sessionStorage.removeItem(
             RESET_TOKEN_KEY
         );
 
-
         sessionStorage.removeItem(
-            "visium_password_reset_email"
+            RESET_EMAIL_KEY
         );
-
 
         showFeedback(
             "Senha redefinida com sucesso. Você será direcionado para o login.",
             "success"
         );
 
-
         resetPasswordForm.reset();
 
-
-        window.setTimeout(
-            () => {
-
-                window.location.href =
-                    LOGIN_URL;
-
-            },
-            1000
-        );
-
+        window.setTimeout(() => {
+            window.location.replace(
+                LOGIN_URL
+            );
+        }, 1000);
     } catch (error) {
-
         console.error(
             "Visium | Erro ao redefinir senha:",
             error
         );
 
-
         showFeedback(
             "Não foi possível redefinir sua senha. Tente novamente."
         );
-
     } finally {
-
-        setLoading(
-            false
-        );
-
+        setLoading(false);
     }
-
 }
-
 
 /* ==========================================================================
    Navegação
 ========================================================================== */
 
 function initializeNavigation() {
-
-    if (
-        resetPasswordLoginButton
-    ) {
-
-        resetPasswordLoginButton.addEventListener(
-            "click",
-            () => {
-
-                window.location.href =
-                    LOGIN_URL;
-
-            }
-        );
-
+    if (!resetPasswordLoginButton) {
+        return;
     }
 
+    resetPasswordLoginButton.addEventListener(
+        "click",
+        () => {
+            window.location.assign(
+                LOGIN_URL
+            );
+        }
+    );
 }
 
+/* ==========================================================================
+   Validação inicial do token
+========================================================================== */
+
+function validateResetToken() {
+    const token =
+        sessionStorage.getItem(
+            RESET_TOKEN_KEY
+        );
+
+    if (token) {
+        return true;
+    }
+
+    showFeedback(
+        "O link de recuperação é inválido ou expirou."
+    );
+
+    resetPasswordSubmit.disabled = true;
+
+    resetPasswordNew.disabled = true;
+
+    resetPasswordConfirm.disabled = true;
+
+    return false;
+}
 
 /* ==========================================================================
    Inicialização
 ========================================================================== */
 
 function initializeResetPassword() {
-
     if (
         !resetPasswordForm ||
         !resetPasswordNew ||
         !resetPasswordConfirm ||
         !resetPasswordSubmit
     ) {
-
         console.error(
             "Visium | Estrutura da redefinição não encontrada."
         );
 
         return;
-
     }
 
-
     initializeNavigation();
-
 
     resetPasswordForm.addEventListener(
         "submit",
         handleResetPassword
     );
 
-
-    /*
-     * Verifica imediatamente se existe
-     * um token de recuperação.
-     */
-
-    const token =
-        sessionStorage.getItem(
-            RESET_TOKEN_KEY
-        );
-
-
-    if (!token) {
-
-        showFeedback(
-            "O link de recuperação é inválido ou expirou."
-        );
-
-        resetPasswordSubmit.disabled =
-            true;
-
-    }
-
+    validateResetToken();
 }
-
 
 initializeResetPassword();

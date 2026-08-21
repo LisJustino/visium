@@ -1,11 +1,8 @@
-/**
- * ==========================================================================
- * Visium
- * Arquivo: register.css
- *
- * Estilos da página de Cadastro.
- * ==========================================================================
- */
+/* ==========================================================================
+   Visium
+   Arquivo: register.css
+   Estilos da página de Cadastro.
+========================================================================== */
 
 
 /* ==========================================================================
@@ -14,29 +11,21 @@
 
 .register-page {
 
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
 
-    justify-content:
-        center;
+    justify-content: center;
 
-    width:
-        100%;
+    width: 100%;
 
-    min-height:
-        100vh;
+    min-height: 100vh;
 
-    min-height:
-        100dvh;
+    min-height: 100dvh;
 
-    padding:
-        40px 24px;
+    padding: 40px 24px;
 
-    background:
-        var(--color-background);
+    background: var(--color-background);
 
 }
 
@@ -47,173 +36,116 @@
 
 .register-card {
 
-    width:
-        min(100%, 500px);
+    width: min(100%, 500px);
 
-    padding:
-        40px;
+    padding: 40px;
 
-    border:
-        1px solid var(--color-border);
+    border: 1px solid var(--color-border);
 
-    border-radius:
-        var(--radius-xl);
+    border-radius: var(--radius-xl);
 
-    background:
-        var(--color-white);
+    background: var(--color-white);
 
-    box-shadow:
-        var(--shadow-md);
+    box-shadow: 0 16px 40px rgba(15, 23, 42, .07);
 
 }
 
 
 /* ==========================================================================
-   Cabeçalho
+   Header
 ========================================================================== */
 
 .register-header {
 
-    margin-bottom:
-        32px;
+    margin-bottom: 32px;
 
-    text-align:
-        center;
+    text-align: center;
 
 }
 
 
-/* ==========================================================================
-   Marca
-========================================================================== */
-
 .register-brand {
 
-    display:
-        inline-flex;
+    display: inline-flex;
 
-    align-items:
-        center;
+    align-items: center;
 
-    justify-content:
-        center;
+    gap: 10px;
 
-    gap:
-        10px;
+    margin-bottom: 28px;
 
-    margin-bottom:
-        32px;
+    color: var(--color-gray-900);
 
-    color:
-        var(--color-gray-900);
-
-    text-decoration:
-        none;
+    text-decoration: none;
 
 }
 
 
 .register-brand__logo {
 
-    display:
-        block;
+    width: 40px;
 
-    width:
-        44px;
+    height: 40px;
 
-    height:
-        44px;
+    border-radius: 8px;
 
-    flex:
-        0 0 44px;
-
-    object-fit:
-        cover;
-
-    border-radius:
-        var(--radius-md);
+    object-fit: cover;
 
 }
 
 
 .register-brand__name {
 
-    font-size:
-        1.25rem;
+    font-size: 1.25rem;
 
-    font-weight:
-        750;
+    font-weight: 750;
 
-    letter-spacing:
-        .04em;
-
-    line-height:
-        1;
+    letter-spacing: .04em;
 
 }
 
-
-/* ==========================================================================
-   Eyebrow
-========================================================================== */
 
 .register-eyebrow {
 
-    display:
-        block;
+    display: block;
 
-    margin-bottom:
-        8px;
+    margin-bottom: 8px;
 
-    color:
-        var(--color-primary);
+    color: var(--color-primary);
 
-    font-size:
-        var(--font-size-xs);
+    font-size: .7rem;
 
-    font-weight:
-        750;
+    font-weight: 700;
 
-    letter-spacing:
-        .1em;
+    letter-spacing: .08em;
 
 }
 
 
-/* ==========================================================================
-   Cabeçalho — Título
-========================================================================== */
-
 .register-header h1 {
 
-    margin-bottom:
-        10px;
+    margin: 0;
 
-    color:
-        var(--color-gray-900);
+    color: var(--color-gray-900);
 
-    font-size:
-        clamp(1.7rem, 4vw, 2.15rem);
+    font-size: 1.9rem;
 
-    font-weight:
-        700;
-
-    line-height:
-        1.2;
+    line-height: 1.2;
 
 }
 
 
 .register-header p {
 
-    color:
-        var(--color-text-muted);
+    max-width: 360px;
 
-    font-size:
-        var(--font-size-sm);
+    margin: 10px auto 0;
 
-    line-height:
-        1.6;
+    color: var(--color-text-muted);
+
+    font-size: .88rem;
+
+    line-height: 1.55;
 
 }
 
@@ -224,42 +156,33 @@
 
 .register-form {
 
-    display:
-        flex;
+    display: flex;
 
-    flex-direction:
-        column;
+    flex-direction: column;
 
-    gap:
-        20px;
+    gap: 18px;
 
 }
 
 
 .register-field {
 
-    display:
-        flex;
+    display: flex;
 
-    flex-direction:
-        column;
+    flex-direction: column;
 
-    gap:
-        8px;
+    gap: 6px;
 
 }
 
 
 .register-field>label {
 
-    color:
-        var(--color-gray-900);
+    color: var(--color-gray-900);
 
-    font-size:
-        var(--font-size-sm);
+    font-size: .82rem;
 
-    font-weight:
-        600;
+    font-weight: 650;
 
 }
 
@@ -268,32 +191,27 @@
 .register-field input[type="email"],
 .register-field input[type="password"] {
 
-    width:
-        100%;
+    width: 100%;
 
-    min-height:
-        48px;
+    min-height: 46px;
 
-    padding:
-        12px 14px;
+    padding: 0 14px;
 
-    border:
-        1px solid var(--color-border);
+    border: 1px solid var(--color-border);
 
-    border-radius:
-        var(--radius-md);
+    border-radius: var(--radius-md);
 
-    background:
-        var(--color-background);
+    outline: none;
 
-    color:
-        var(--color-text);
+    background: var(--color-background);
 
-    font:
-        inherit;
+    color: var(--color-gray-900);
 
-    outline:
-        none;
+    font: inherit;
+
+    font-size: .85rem;
+
+    box-sizing: border-box;
 
     transition:
         border-color var(--transition-fast),
@@ -305,47 +223,38 @@
 
 .register-field input::placeholder {
 
-    color:
-        var(--color-gray-400);
+    color: var(--color-gray-400);
 
 }
 
 
 .register-field input:focus {
 
-    border-color:
-        var(--color-primary);
+    border-color: var(--color-primary);
 
-    background:
-        var(--color-white);
+    background: var(--color-white);
 
-    box-shadow:
-        0 0 0 3px var(--color-primary-light);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .10);
 
 }
 
 
 .register-field input[aria-invalid="true"] {
 
-    border-color:
-        var(--color-danger);
+    border-color: var(--color-danger);
 
 }
 
 
 .register-field__error {
 
-    min-height:
-        16px;
+    min-height: 18px;
 
-    color:
-        var(--color-danger);
+    color: var(--color-danger);
 
-    font-size:
-        .8rem;
+    font-size: .74rem;
 
-    line-height:
-        1.4;
+    line-height: 1.35;
 
 }
 
@@ -356,178 +265,138 @@
 
 .register-password {
 
-    position:
-        relative;
+    position: relative;
+
+    display: flex;
 
 }
 
 
 .register-password input {
 
-    padding-right:
-        78px !important;
+    padding-right: 86px !important;
 
 }
 
 
 .register-password__toggle {
 
-    position:
-        absolute;
+    position: absolute;
 
-    top:
-        50%;
+    top: 50%;
 
-    right:
-        12px;
+    right: 10px;
 
-    min-height:
-        32px;
+    transform: translateY(-50%);
 
-    padding:
-        4px 6px;
+    padding: 4px 6px;
 
-    transform:
-        translateY(-50%);
+    border: 0;
 
-    border:
-        0;
+    background: transparent;
 
-    background:
-        transparent;
+    color: var(--color-primary);
 
-    color:
-        var(--color-primary);
+    font: inherit;
 
-    font:
-        inherit;
+    font-size: .75rem;
 
-    font-size:
-        .8rem;
+    font-weight: 700;
 
-    font-weight:
-        600;
-
-    line-height:
-        1;
-
-    cursor:
-        pointer;
+    cursor: pointer;
 
 }
 
 
 .register-password__toggle:hover {
 
-    color:
-        var(--color-primary-dark);
+    color: var(--color-primary-dark);
 
 }
 
 
 .register-password__toggle:focus-visible {
 
-    outline:
-        2px solid var(--color-primary);
+    outline: 2px solid var(--color-primary);
 
-    outline-offset:
-        2px;
+    outline-offset: 2px;
 
-    border-radius:
-        4px;
+    border-radius: 3px;
 
 }
 
 
-/* ==========================================================================
-   Regras da senha
-========================================================================== */
-
 .register-password__rules {
 
-    color:
-        var(--color-text-muted);
+    color: var(--color-text-muted);
 
-    font-size:
-        .75rem;
+    font-size: .74rem;
 
-    line-height:
-        1.5;
+    line-height: 1.4;
 
 }
 
 
 .register-password__rules>span {
 
-    display:
-        block;
+    display: block;
 
-    margin-bottom:
-        4px;
+    margin-bottom: 4px;
 
 }
 
 
 .register-password__rules ul {
 
-    display:
-        flex;
+    display: flex;
 
-    flex-wrap:
-        wrap;
+    flex-wrap: wrap;
 
-    gap:
-        4px 16px;
+    gap: 6px 14px;
 
-    margin:
-        0;
+    margin: 0;
 
-    padding:
-        0;
+    padding: 0;
 
-    list-style:
-        none;
+    list-style: none;
 
 }
 
 
 .register-password__rules li {
 
-    position:
-        relative;
+    position: relative;
 
-    padding-left:
-        14px;
+    padding-left: 15px;
 
 }
 
 
 .register-password__rules li::before {
 
-    content:
-        "•";
+    content: "○";
 
-    position:
-        absolute;
+    position: absolute;
 
-    left:
-        0;
+    left: 0;
+
+    color: var(--color-gray-400);
 
 }
 
 
 .register-password__rules li.is-valid {
 
-    color:
-        var(--color-success);
+    color: var(--color-success);
 
 }
 
 
 .register-password__rules li.is-valid::before {
 
-    content:
-        "✓";
+    content: "✓";
+
+    color: var(--color-success);
 
 }
 
@@ -538,217 +407,176 @@
 
 .register-terms {
 
-    display:
-        flex;
+    display: flex;
 
-    flex-direction:
-        column;
+    flex-direction: column;
 
-    gap:
-        6px;
+    gap: 8px;
 
 }
 
 
 .register-checkbox {
 
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        flex-start;
+    align-items: flex-start;
 
-    gap:
-        10px;
+    gap: 10px;
 
-    cursor:
-        pointer;
+    cursor: pointer;
 
 }
 
 
 .register-checkbox input {
 
-    position:
-        absolute;
+    position: absolute;
 
-    width:
-        1px;
+    width: 1px;
 
-    height:
-        1px;
+    height: 1px;
 
-    margin:
-        -1px;
-
-    padding:
-        0;
-
-    overflow:
-        hidden;
-
-    clip:
-        rect(0, 0, 0, 0);
-
-    white-space:
-        nowrap;
-
-    border:
-        0;
+    opacity: 0;
 
 }
 
 
 .register-checkbox__control {
 
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
 
-    justify-content:
-        center;
+    justify-content: center;
 
-    width:
-        20px;
+    flex: 0 0 18px;
 
-    height:
-        20px;
+    width: 18px;
 
-    flex:
-        0 0 20px;
+    height: 18px;
 
-    margin-top:
-        1px;
+    margin-top: 2px;
 
-    border:
-        1px solid var(--color-border);
+    border: 1px solid var(--color-border);
 
-    border-radius:
-        5px;
+    border-radius: 5px;
 
-    background:
-        var(--color-background);
-
-    transition:
-        background-color var(--transition-fast),
-        border-color var(--transition-fast);
+    background: var(--color-background);
 
 }
 
 
 .register-checkbox input:checked+.register-checkbox__control {
 
-    border-color:
-        var(--color-primary);
+    border-color: var(--color-primary);
 
-    background:
-        var(--color-primary);
+    background: var(--color-primary);
 
 }
 
 
 .register-checkbox input:checked+.register-checkbox__control::after {
 
-    content:
-        "✓";
+    content: "✓";
 
-    color:
-        var(--color-white);
+    color: var(--color-white);
 
-    font-size:
-        .75rem;
+    font-size: .72rem;
 
-    font-weight:
-        700;
+    font-weight: 700;
 
 }
 
 
 .register-checkbox input:focus-visible+.register-checkbox__control {
 
-    outline:
-        3px solid var(--color-primary-light);
+    outline: 3px solid var(--color-primary-light);
 
-    outline-offset:
-        2px;
+    outline-offset: 2px;
 
 }
 
 
 .register-checkbox input[aria-invalid="true"]+.register-checkbox__control {
 
-    border-color:
-        var(--color-danger);
+    border-color: var(--color-danger);
 
 }
 
 
 .register-checkbox__text {
 
-    color:
-        var(--color-text-muted);
+    color: var(--color-text-muted);
 
-    font-size:
-        .8rem;
+    font-size: .8rem;
 
-    line-height:
-        1.5;
+    line-height: 1.5;
 
 }
 
 
-.register-terms__link {
+.register-terms__details {
 
-    display:
-        inline;
+    margin-top: 4px;
 
-    padding:
-        0;
+    border: 1px solid var(--color-border);
 
-    border:
-        0;
+    border-radius: var(--radius-md);
 
-    background:
-        transparent;
-
-    color:
-        var(--color-primary);
-
-    font:
-        inherit;
-
-    font-weight:
-        650;
-
-    line-height:
-        inherit;
-
-    cursor:
-        pointer;
+    background: var(--color-background);
 
 }
 
 
-.register-terms__link:hover {
+.register-terms__details summary {
 
-    color:
-        var(--color-primary-dark);
+    padding: 10px 12px;
+
+    color: var(--color-primary);
+
+    font-size: .78rem;
+
+    font-weight: 650;
+
+    cursor: pointer;
 
 }
 
 
-.register-terms__link:focus-visible {
+.register-terms__content {
 
-    outline:
-        2px solid var(--color-primary);
+    padding: 0 14px 14px;
 
-    outline-offset:
-        3px;
+    color: var(--color-text-muted);
 
-    border-radius:
-        3px;
+    font-size: .76rem;
+
+    line-height: 1.55;
+
+}
+
+
+.register-terms__content h2,
+.register-terms__content h3 {
+
+    color: var(--color-gray-900);
+
+}
+
+
+.register-terms__content h2 {
+
+    font-size: .95rem;
+
+}
+
+
+.register-terms__content h3 {
+
+    margin-top: 14px;
+
+    font-size: .82rem;
 
 }
 
@@ -759,45 +587,35 @@
 
 .register-feedback {
 
-    padding:
-        12px 14px;
+    padding: 12px 14px;
 
-    border:
-        1px solid transparent;
+    border: 1px solid transparent;
 
-    border-radius:
-        var(--radius-md);
+    border-radius: var(--radius-md);
 
-    background:
-        rgba(239, 68, 68, .08);
+    background: rgba(239, 68, 68, .08);
 
-    color:
-        var(--color-danger);
+    color: var(--color-danger);
 
-    font-size:
-        .85rem;
+    font-size: .84rem;
 
-    line-height:
-        1.5;
+    line-height: 1.5;
 
 }
 
 
 .register-feedback.is-success {
 
-    background:
-        rgba(34, 197, 94, .1);
+    background: rgba(34, 197, 94, .10);
 
-    color:
-        var(--color-success);
+    color: var(--color-success);
 
 }
 
 
 .register-feedback[hidden] {
 
-    display:
-        none;
+    display: none;
 
 }
 
@@ -808,47 +626,31 @@
 
 .register-button {
 
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
 
-    justify-content:
-        center;
+    justify-content: center;
 
-    width:
-        100%;
+    width: 100%;
 
-    min-height:
-        48px;
+    min-height: 48px;
 
-    padding:
-        12px 20px;
+    padding: 12px 20px;
 
-    border:
-        0;
+    border: 0;
 
-    border-radius:
-        var(--radius-md);
+    border-radius: var(--radius-md);
 
-    background:
-        var(--color-primary);
+    background: var(--color-primary);
 
-    color:
-        var(--color-white);
+    color: var(--color-white);
 
-    font:
-        inherit;
+    font: inherit;
 
-    font-weight:
-        650;
+    font-weight: 700;
 
-    line-height:
-        1.2;
-
-    cursor:
-        pointer;
+    cursor: pointer;
 
     transition:
         background-color var(--transition-fast),
@@ -860,94 +662,70 @@
 
 .register-button:hover {
 
-    background:
-        var(--color-primary-dark);
+    background: var(--color-primary-dark);
 
-    transform:
-        translateY(-1px);
+    transform: translateY(-1px);
 
 }
 
 
 .register-button:focus-visible {
 
-    outline:
-        3px solid var(--color-primary-light);
+    outline: 3px solid var(--color-primary-light);
 
-    outline-offset:
-        2px;
+    outline-offset: 2px;
 
 }
 
 
 .register-button:disabled {
 
-    opacity:
-        .65;
+    opacity: .65;
 
-    cursor:
-        not-allowed;
+    cursor: not-allowed;
 
-    transform:
-        none;
+    transform: none;
 
 }
 
 
-/* ==========================================================================
-   Loading
-========================================================================== */
-
 .register-button__loading {
 
-    display:
-        inline-flex;
+    display: inline-flex;
 
-    align-items:
-        center;
+    align-items: center;
 
-    justify-content:
-        center;
+    justify-content: center;
 
-    gap:
-        8px;
+    gap: 8px;
 
 }
 
 
 .register-button__loading::before {
 
-    content:
-        "";
+    content: "";
 
-    width:
-        14px;
+    width: 14px;
 
-    height:
-        14px;
+    height: 14px;
 
-    flex:
-        0 0 14px;
+    flex: 0 0 14px;
 
-    border:
-        2px solid rgba(255, 255, 255, .35);
+    border: 2px solid rgba(255, 255, 255, .35);
 
-    border-top-color:
-        var(--color-white);
+    border-top-color: var(--color-white);
 
-    border-radius:
-        50%;
+    border-radius: 50%;
 
-    animation:
-        register-spin .7s linear infinite;
+    animation: register-spin .7s linear infinite;
 
 }
 
 
 .register-button__loading[hidden] {
 
-    display:
-        none;
+    display: none;
 
 }
 
@@ -956,8 +734,7 @@
 
     to {
 
-        transform:
-            rotate(360deg);
+        transform: rotate(360deg);
 
     }
 
@@ -970,26 +747,19 @@
 
 .register-divider {
 
-    display:
-        flex;
+    display: flex;
 
-    align-items:
-        center;
+    align-items: center;
 
-    gap:
-        16px;
+    gap: 16px;
 
-    margin:
-        28px 0 12px;
+    margin: 28px 0 12px;
 
-    color:
-        var(--color-gray-400);
+    color: var(--color-gray-400);
 
-    font-size:
-        .8rem;
+    font-size: .8rem;
 
-    text-align:
-        center;
+    text-align: center;
 
 }
 
@@ -997,67 +767,53 @@
 .register-divider::before,
 .register-divider::after {
 
-    content:
-        "";
+    content: "";
 
-    height:
-        1px;
+    height: 1px;
 
-    flex:
-        1;
+    flex: 1;
 
-    background:
-        var(--color-border);
+    background: var(--color-border);
 
 }
 
 
 .register-login {
 
-    margin:
-        0;
+    margin: 0;
 
-    text-align:
-        center;
+    text-align: center;
 
 }
 
 
 .register-login a {
 
-    color:
-        var(--color-primary);
+    color: var(--color-primary);
 
-    font-size:
-        var(--font-size-sm);
+    font-size: var(--font-size-sm);
 
-    font-weight:
-        650;
+    font-weight: 650;
 
-    text-decoration:
-        none;
+    text-decoration: none;
 
 }
 
 
 .register-login a:hover {
 
-    color:
-        var(--color-primary-dark);
+    color: var(--color-primary-dark);
 
 }
 
 
 .register-login a:focus-visible {
 
-    outline:
-        2px solid var(--color-primary);
+    outline: 2px solid var(--color-primary);
 
-    outline-offset:
-        3px;
+    outline-offset: 3px;
 
-    border-radius:
-        3px;
+    border-radius: 3px;
 
 }
 
@@ -1068,45 +824,35 @@
 
 .register-back {
 
-    display:
-        block;
+    display: block;
 
-    margin-top:
-        24px;
+    margin-top: 24px;
 
-    color:
-        var(--color-text-muted);
+    color: var(--color-text-muted);
 
-    font-size:
-        .8rem;
+    font-size: .8rem;
 
-    text-align:
-        center;
+    text-align: center;
 
-    text-decoration:
-        none;
+    text-decoration: none;
 
 }
 
 
 .register-back:hover {
 
-    color:
-        var(--color-gray-900);
+    color: var(--color-gray-900);
 
 }
 
 
 .register-back:focus-visible {
 
-    outline:
-        2px solid var(--color-primary);
+    outline: 2px solid var(--color-primary);
 
-    outline-offset:
-        3px;
+    outline-offset: 3px;
 
-    border-radius:
-        3px;
+    border-radius: 3px;
 
 }
 
@@ -1119,71 +865,41 @@
 
     .register-page {
 
-        align-items:
-            flex-start;
+        align-items: flex-start;
 
-        padding:
-            24px 16px;
+        padding: 24px 16px;
 
     }
 
 
     .register-card {
 
-        padding:
-            28px 20px;
+        padding: 28px 20px;
 
-        border-radius:
-            var(--radius-lg);
+        border-radius: var(--radius-lg);
 
     }
 
 
     .register-brand {
 
-        margin-bottom:
-            24px;
-
-    }
-
-
-    .register-brand__logo {
-
-        width:
-            40px;
-
-        height:
-            40px;
-
-        flex-basis:
-            40px;
-
-    }
-
-
-    .register-brand__name {
-
-        font-size:
-            1.15rem;
+        margin-bottom: 24px;
 
     }
 
 
     .register-header {
 
-        margin-bottom:
-            28px;
+        margin-bottom: 28px;
 
     }
 
 
     .register-password__rules ul {
 
-        flex-direction:
-            column;
+        flex-direction: column;
 
-        gap:
-            2px;
+        gap: 2px;
 
     }
 

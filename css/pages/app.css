@@ -3,193 +3,154 @@
  * Visium
  * Arquivo: app.css
  *
- * Estrutura global da área autenticada.
+ * Estrutura global da area autenticada.
  * ==========================================================================
  */
 
-
-/* ==========================================================================
-   Página autenticada
-========================================================================== */
-
 .app-page {
-
-    width:
-        100%;
-
-    min-height:
-        100vh;
-
-    min-height:
-        100dvh;
-
-    overflow:
-        hidden;
-
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    background:
+        radial-gradient(circle at top right, rgba(37, 99, 235, .08), transparent 340px),
+        var(--color-background);
 }
-
-
-/* ==========================================================================
-   Shell
-========================================================================== */
 
 .app-shell {
-
-    display:
-        flex;
-
-    width:
-        100%;
-
-    height:
-        100vh;
-
-    height:
-        100dvh;
-
-    min-height:
-        0;
-
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
 }
-
-
-/* ==========================================================================
-   Área principal
-========================================================================== */
 
 .app-main {
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    width:
-        calc(100% - var(--sidebar-width));
-
-    height:
-        100%;
-
-    min-width:
-        0;
-
-    min-height:
-        0;
-
-    margin-left:
-        var(--sidebar-width);
-
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - var(--sidebar-width));
+    min-width: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+    margin-left: var(--sidebar-width);
 }
 
-
-/* ==========================================================================
-   Conteúdo principal
-========================================================================== */
-
-.app-content {
-
-    flex:
-        1;
-
-    min-width:
-        0;
-
-    min-height:
-        0;
-
-    overflow-y:
-        auto;
-
-    overflow-x:
-        hidden;
-
-    background:
-        var(--color-background);
-
+.app-content,
+.dashboard-page,
+.reader-page,
+.progress-page,
+.profile-page,
+.quizzes-page,
+.quiz-page {
+    flex: 1;
+    min-width: 0;
+    min-height: calc(100vh - var(--header-height));
+    min-height: calc(100dvh - var(--header-height));
+    overflow-x: hidden;
+    background: transparent;
 }
 
-
-/* ==========================================================================
-   Container padrão
-========================================================================== */
-
-.app-content__container {
-
-    width:
-        min(
-            calc(100% - 3rem),
-            var(--content-max-width)
-        );
-
-    margin:
-        0 auto;
-
-    padding:
-        var(--space-10) 0 var(--space-16);
-
+.app-content,
+.dashboard-page {
+    overflow-y: auto;
 }
 
+.app-content__container,
+.dashboard-container,
+.reader-container,
+.progress-container,
+.profile-container,
+.quizzes-container,
+.quiz-container {
+    width: min(calc(100% - 3rem), var(--content-max-width));
+    margin: 0 auto;
+}
 
-/* ==========================================================================
-   Responsividade
-========================================================================== */
+.app-content__container,
+.dashboard-container {
+    padding: var(--space-10) 0 var(--space-16);
+}
+
+.reader-page,
+.progress-page,
+.profile-page,
+.quizzes-page,
+.quiz-page {
+    padding: var(--space-10) clamp(var(--space-6), 4vw, var(--space-12)) var(--space-16);
+}
+
+.reader-container,
+.progress-container,
+.quizzes-container {
+    max-width: 1180px;
+}
+
+.profile-container {
+    max-width: 1080px;
+}
+
+.quiz-container {
+    max-width: 920px;
+}
 
 @media (max-width: 900px) {
-
     .app-page {
-
-        overflow:
-            auto;
-
+        overflow: auto;
     }
-
 
     .app-shell {
-
-        min-height:
-            100dvh;
-
+        min-height: 100dvh;
     }
-
 
     .app-main {
-
-        width:
-            100%;
-
-        margin-left:
-            0;
-
+        width: 100%;
+        margin-left: 0;
     }
 
-
-    .app-content__container {
-
-        width:
-            min(
-                calc(100% - 2rem),
-                var(--content-max-width)
-            );
-
-        padding:
-            var(--space-8) 0 var(--space-12);
-
+    .app-content__container,
+    .dashboard-container,
+    .reader-container,
+    .progress-container,
+    .profile-container,
+    .quizzes-container,
+    .quiz-container {
+        width: min(calc(100% - 2rem), var(--content-max-width));
     }
 
+    .app-content__container,
+    .dashboard-container {
+        padding: var(--space-8) 0 var(--space-12);
+    }
+
+    .reader-page,
+    .progress-page,
+    .profile-page,
+    .quizzes-page,
+    .quiz-page {
+        padding: var(--space-8) 0 var(--space-12);
+    }
 }
 
-
 @media (max-width: 576px) {
-
-    .app-content__container {
-
-        width:
-            calc(100% - 1.5rem);
-
-        padding:
-            var(--space-6) 0 var(--space-10);
-
+    .app-content__container,
+    .dashboard-container,
+    .reader-container,
+    .progress-container,
+    .profile-container,
+    .quizzes-container,
+    .quiz-container {
+        width: calc(100% - 1.5rem);
     }
 
+    .app-content__container,
+    .dashboard-container {
+        padding: var(--space-6) 0 var(--space-10);
+    }
+
+    .reader-page,
+    .progress-page,
+    .profile-page,
+    .quizzes-page,
+    .quiz-page {
+        padding: var(--space-6) 0 var(--space-10);
+    }
 }

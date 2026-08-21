@@ -2,394 +2,163 @@
 <html lang="pt-BR">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="Painel de estudos do Visium.">
+    <meta name="description" content="Seu painel de estudos no Visium.">
 
-    <title>InÃ­cio | Visium</title>
+    <title>Dashboard | Visium</title>
 
-
-    <link rel="stylesheet" href="/css/abstracts/variables.css">
+    <link rel="icon" type="image/jpeg" href="/assets/img/brand/logo.jpg">
 
     <link rel="stylesheet" href="/css/base/reset.css">
-
     <link rel="stylesheet" href="/css/base/global.css">
+    <link rel="stylesheet" href="/css/abstracts/variables.css">
 
     <link rel="stylesheet" href="/components/header/header.css">
-
     <link rel="stylesheet" href="/components/sidebar/sidebar.css">
 
+    <link rel="stylesheet" href="/css/pages/app.css">
     <link rel="stylesheet" href="/pages/app/dashboard/dashboard.css">
 
 </head>
-
 
 <body class="app-page">
 
     <div class="app-shell">
 
-
-        <!-- ================================================================
-             Sidebar
-        ================================================================= -->
-
         <div id="appSidebarContainer"></div>
-
-
-        <!-- ================================================================
-             Ãrea principal
-        ================================================================= -->
 
         <div class="app-main">
 
-
-            <!-- ============================================================
-                 Header
-            ============================================================= -->
-
             <div id="appHeaderContainer"></div>
 
+            <main class="dashboard-page">
 
-            <!-- ============================================================
-                 ConteÃºdo
-            ============================================================= -->
+                <div class="dashboard-container">
 
-            <main class="app-content" id="mainContent">
+                    <header class="dashboard-header">
 
-                <div class="app-content__container">
-
-
-                    <!-- ====================================================
-                         SaudaÃ§Ã£o
-                    ===================================================== -->
-
-                    <section class="dashboard-intro">
-
-                        <span class="dashboard-intro__eyebrow">
-                            ÃREA DE ESTUDOS
+                        <span class="dashboard-eyebrow">
+                            VISIUM
                         </span>
 
                         <h1 id="dashboardGreeting">
-                            OlÃ¡.
+                            Olá!
                         </h1>
 
                         <p>
-                            Continue seus estudos ou escolha um conteÃºdo
-                            para comeÃ§ar.
+                            Continue seus estudos e acompanhe sua evolução.
                         </p>
 
-                    </section>
+                    </header>
 
+                    <section class="dashboard-overview" aria-label="Resumo dos estudos">
 
-                    <!-- ====================================================
-                         Retomar estudos
-                    ===================================================== -->
+                        <article class="dashboard-card">
 
-                    <section class="continue-card" aria-labelledby="continueTitle">
-
-                        <div class="continue-card__content">
-
-                            <span class="section-label">
-                                CONTINUE SEUS ESTUDOS
+                            <span class="dashboard-card__label">
+                                Aproveitamento
                             </span>
 
-                            <h2 id="continueTitle">
-                                VocÃª ainda nÃ£o comeÃ§ou uma leitura.
-                            </h2>
+                            <strong id="dashboardAverageScore" class="dashboard-card__value">
+                                0%
+                            </strong>
 
-                            <p id="continueDescription">
-                                Escolha um conteÃºdo para comeÃ§ar seus
-                                estudos. Quando vocÃª iniciar uma leitura,
-                                o Visium poderÃ¡ retomar esse ponto para vocÃª.
-                            </p>
+                        </article>
 
-                            <a id="continueButton" href="/pages/app/contents/contents.html" class="btn btn-primary">
-                                Explorar conteÃºdos
-                            </a>
+                        <article class="dashboard-card">
 
-                        </div>
+                            <span class="dashboard-card__label">
+                                Quizzes realizados
+                            </span>
 
+                            <strong id="dashboardQuizCount" class="dashboard-card__value">
+                                0
+                            </strong>
 
-                        <div class="continue-card__visual" aria-hidden="true">
+                        </article>
 
-                            <svg viewBox="0 0 120 120" role="presentation">
+                        <article class="dashboard-card">
 
-                                <rect x="22" y="18" width="76" height="84" rx="8" fill="none" stroke="currentColor"
-                                    stroke-width="5" />
+                            <span class="dashboard-card__label">
+                                Conteúdos iniciados
+                            </span>
 
-                                <path d="M40 42h40M40 59h40M40 76h25" fill="none" stroke="currentColor" stroke-width="5"
-                                    stroke-linecap="round" />
+                            <strong id="dashboardContentCount" class="dashboard-card__value">
+                                0
+                            </strong>
 
-                            </svg>
-
-                        </div>
+                        </article>
 
                     </section>
 
-
-                    <!-- ====================================================
-                         ConteÃºdos
-                    ===================================================== -->
-
-                    <section class="dashboard-section" aria-labelledby="contentsTitle">
+                    <section class="dashboard-section">
 
                         <div class="dashboard-section__header">
 
                             <div>
 
-                                <span class="section-label">
-                                    BIBLIOTECA
+                                <span class="dashboard-section__eyebrow">
+                                    ESTUDOS
                                 </span>
 
-                                <h2 id="contentsTitle">
-                                    Seus conteÃºdos
+                                <h2>
+                                    Continue estudando
                                 </h2>
 
                             </div>
 
-                            <a href="/pages/app/contents/contents.html" class="section-link">
-                                Ver todos
+                            <a href="/pages/app/contents/contents.html" class="dashboard-section__link">
+                                Ver conteúdos
                             </a>
 
                         </div>
 
-
-                        <div class="content-grid">
-
-
-                            <!-- =================================================
-                                 Ametropias
-                            ================================================== -->
-
-                            <article class="content-card" data-content-id="ametropias">
-
-                                <div class="content-card__icon">
-
-                                    <svg viewBox="0 0 24 24" aria-hidden="true">
-
-                                        <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor"
-                                            stroke-width="1.8" />
-
-                                        <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor"
-                                            stroke-width="1.8" />
-
-                                    </svg>
-
-                                </div>
-
-                                <div class="content-card__body">
-
-                                    <h3>
-                                        Ametropias
-                                    </h3>
-
-                                    <p>
-                                        Estude miopia, hipermetropia,
-                                        astigmatismo e presbiopia.
-                                    </p>
-
-                                    <span class="content-card__progress" data-progress-for="ametropias">
-                                        0%
-                                    </span>
-
-                                </div>
-
-                                <a href="/pages/app/reader/reader.html?content=ametropias" class="content-card__link"
-                                    aria-label="Estudar Ametropias">
-
-                                    <svg viewBox="0 0 24 24" aria-hidden="true">
-
-                                        <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor"
-                                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-
-                                    </svg>
-
-                                </a>
-
-                            </article>
-
-
-                            <!-- =================================================
-                                 DP e DNP
-                            ================================================== -->
-
-                            <article class="content-card" data-content-id="dp-dnp">
-
-                                <div class="content-card__icon">
-
-                                    <svg viewBox="0 0 24 24" aria-hidden="true">
-
-                                        <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor"
-                                            stroke-width="1.8" />
-
-                                        <path d="M4 12h16M12 4v16" fill="none" stroke="currentColor" stroke-width="1.8"
-                                            stroke-linecap="round" />
-
-                                    </svg>
-
-                                </div>
-
-                                <div class="content-card__body">
-
-                                    <h3>
-                                        DP e DNP
-                                    </h3>
-
-                                    <p>
-                                        Conceitos relacionados Ã  distÃ¢ncia
-                                        pupilar e distÃ¢ncia naso-pupilar.
-                                    </p>
-
-                                    <span class="content-card__progress" data-progress-for="dp-dnp">
-                                        0%
-                                    </span>
-
-                                </div>
-
-                                <a href="/pages/app/reader/reader.html?content=dp-dnp" class="content-card__link"
-                                    aria-label="Estudar DP e DNP">
-
-                                    <svg viewBox="0 0 24 24" aria-hidden="true">
-
-                                        <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor"
-                                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-
-                                    </svg>
-
-                                </a>
-
-                            </article>
-
-
-                            <!-- =================================================
-                                 Montagem
-                            ================================================== -->
-
-                            <article class="content-card" data-content-id="montagem">
-
-                                <div class="content-card__icon">
-
-                                    <svg viewBox="0 0 24 24" aria-hidden="true">
-
-                                        <path d="M5 19 19 5M8 5h11v11" fill="none" stroke="currentColor"
-                                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-
-                                        <path d="M5 8v11h11" fill="none" stroke="currentColor" stroke-width="1.8"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-
-                                    </svg>
-
-                                </div>
-
-                                <div class="content-card__body">
-
-                                    <h3>
-                                        Montagem
-                                    </h3>
-
-                                    <p>
-                                        ConheÃ§a conceitos e processos
-                                        relacionados Ã  montagem Ã³ptica.
-                                    </p>
-
-                                    <span class="content-card__progress" data-progress-for="montagem">
-                                        0%
-                                    </span>
-
-                                </div>
-
-                                <a href="/pages/app/reader/reader.html?content=montagem" class="content-card__link"
-                                    aria-label="Estudar Montagem">
-
-                                    <svg viewBox="0 0 24 24" aria-hidden="true">
-
-                                        <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor"
-                                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-
-                                    </svg>
-
-                                </a>
-
-                            </article>
-
-
-                            <!-- =================================================
-                                 Patologias
-                            ================================================== -->
-
-                            <article class="content-card" data-content-id="patologias">
-
-                                <div class="content-card__icon">
-
-                                    <svg viewBox="0 0 24 24" aria-hidden="true">
-
-                                        <path d="M12 20s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 10c0 5.65-7 10-7 10Z"
-                                            fill="none" stroke="currentColor" stroke-width="1.8"
-                                            stroke-linejoin="round" />
-
-                                    </svg>
-
-                                </div>
-
-                                <div class="content-card__body">
-
-                                    <h3>
-                                        Patologias
-                                    </h3>
-
-                                    <p>
-                                        ConteÃºdos introdutÃ³rios sobre
-                                        patologias relacionadas Ã  visÃ£o.
-                                    </p>
-
-                                    <span class="content-card__progress" data-progress-for="patologias">
-                                        0%
-                                    </span>
-
-                                </div>
-
-                                <a href="/pages/app/reader/reader.html?content=patologias" class="content-card__link"
-                                    aria-label="Estudar Patologias">
-
-                                    <svg viewBox="0 0 24 24" aria-hidden="true">
-
-                                        <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor"
-                                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-
-                                    </svg>
-
-                                </a>
-
-                            </article>
-
-
-                        </div>
+                        <div id="dashboardContentList" class="dashboard-content-list"></div>
 
                     </section>
 
+                    <section class="dashboard-section">
+
+                        <div class="dashboard-section__header">
+
+                            <div>
+
+                                <span class="dashboard-section__eyebrow">
+                                    DESEMPENHO
+                                </span>
+
+                                <h2>
+                                    Seu desempenho
+                                </h2>
+
+                            </div>
+
+                            <a href="/pages/app/progress/progress.html" class="dashboard-section__link">
+                                Ver progresso
+                            </a>
+
+                        </div>
+
+                        <div id="dashboardProgress" class="dashboard-progress"></div>
+
+                    </section>
 
                 </div>
 
             </main>
 
-
         </div>
-
 
     </div>
 
-
-    <!-- ================================================================
-         ServiÃ§os
-    ================================================================= -->
-
+    <script src="/data/content/catalog.js"></script>
+    <script src="/js/auth/auth.js"></script>
     <script src="/js/app/progress.js"></script>
-
-    <script src="/pages/app/dashboard/dashboard.js"></script>
     <script src="/components/sidebar/sidebar.js"></script>
+    <script src="/pages/app/dashboard/dashboard.js"></script>
+
 </body>
 
 </html>
