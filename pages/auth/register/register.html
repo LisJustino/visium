@@ -11,6 +11,7 @@
 
     <title>Criar conta | Visium</title>
 
+    <link rel="icon" type="image/jpeg" href="/assets/img/brand/logo.jpg">
 
     <link rel="stylesheet" href="/css/base/reset.css">
 
@@ -30,10 +31,6 @@
         <section class="register-card" aria-labelledby="registerTitle">
 
             <header class="register-header">
-
-                <!--
-                    Marca oficial do Visium.
-                -->
 
                 <a href="/pages/public/landing/index.html" class="register-brand"
                     aria-label="Voltar para o início do Visium">
@@ -116,11 +113,11 @@
                         Senha
                     </label>
 
-
                     <div class="register-password">
 
                         <input type="password" id="registerPassword" name="password" autocomplete="new-password"
-                            placeholder="Crie uma senha" minlength="8" required>
+                            placeholder="Crie uma senha" minlength="8" maxlength="128" required
+                            aria-describedby="registerPasswordRules">
 
                         <button type="button" class="register-password__toggle" id="toggleRegisterPassword"
                             aria-label="Mostrar senha" aria-pressed="false">
@@ -170,11 +167,10 @@
                         Confirmar senha
                     </label>
 
-
                     <div class="register-password">
 
                         <input type="password" id="registerPasswordConfirmation" name="passwordConfirmation"
-                            autocomplete="new-password" placeholder="Digite a senha novamente" required>
+                            autocomplete="new-password" placeholder="Digite a senha novamente" maxlength="128" required>
 
                         <button type="button" class="register-password__toggle" id="toggleRegisterPasswordConfirmation"
                             aria-label="Mostrar confirmação da senha" aria-pressed="false">
@@ -182,7 +178,6 @@
                         </button>
 
                     </div>
-
 
                     <span class="register-field__error" id="registerPasswordConfirmationError"
                         aria-live="polite"></span>
@@ -204,13 +199,7 @@
 
                         <span class="register-checkbox__text">
 
-                            Li e concordo com os
-
-                            <button type="button" id="registerTermsButton" class="register-terms__link">
-                                Termos de Uso
-                            </button>
-
-                            do Visium.
+                            Li e concordo com os Termos de Uso do Visium.
 
                         </span>
 
@@ -219,11 +208,85 @@
 
                     <span class="register-field__error" id="registerTermsError" aria-live="polite"></span>
 
+
+                    <details class="register-terms__details">
+
+                        <summary>
+                            Ler os Termos de Uso
+                        </summary>
+
+                        <div class="register-terms__content">
+
+                            <h2>
+                                Termos de Uso
+                            </h2>
+
+                            <p>
+                                Ao utilizar o Visium, você declara que leu,
+                                compreendeu e concorda com estes Termos de Uso.
+                            </p>
+
+                            <h3>
+                                1. Sobre o Visium
+                            </h3>
+
+                            <p>
+                                O Visium é uma plataforma educacional destinada
+                                ao estudo e à organização de conteúdos de Óptica.
+                            </p>
+
+                            <h3>
+                                2. Cadastro e conta
+                            </h3>
+
+                            <p>
+                                As informações fornecidas no cadastro devem ser
+                                verdadeiras, completas e atualizadas. O usuário
+                                é responsável por suas credenciais e atividades.
+                            </p>
+
+                            <h3>
+                                3. Uso da plataforma
+                            </h3>
+
+                            <p>
+                                A plataforma deve ser utilizada de forma adequada,
+                                respeitando a legislação e os direitos de terceiros.
+                            </p>
+
+                            <h3>
+                                4. Conteúdo e propriedade intelectual
+                            </h3>
+
+                            <p>
+                                Os conteúdos têm finalidade educacional. A identidade
+                                visual, o código e os componentes próprios do Visium
+                                são protegidos pela legislação aplicável.
+                            </p>
+
+                            <h3>
+                                5. Disponibilidade e alterações
+                            </h3>
+
+                            <p>
+                                Recursos podem ser atualizados, modificados ou
+                                removidos durante a evolução da plataforma. A versão
+                                vigente destes termos estará disponível no Visium.
+                            </p>
+
+                            <p>
+                                Última atualização: 19 de agosto de 2026.
+                            </p>
+
+                        </div>
+
+                    </details>
+
                 </div>
 
 
                 <!-- ======================================================
-                     Botão de cadastro
+                     Cadastro
                 ======================================================= -->
 
                 <button type="submit" class="register-button" id="registerSubmit">
@@ -231,7 +294,6 @@
                     <span id="registerSubmitText">
                         Criar minha conta
                     </span>
-
 
                     <span class="register-button__loading" id="registerSubmitLoading" hidden>
                         Criando conta...
@@ -249,7 +311,7 @@
             <div class="register-divider" aria-hidden="true">
 
                 <span>
-                    já possui uma conta?
+                    Já possui uma conta?
                 </span>
 
             </div>
@@ -264,10 +326,6 @@
             </p>
 
 
-            <!-- ==========================================================
-                 Retorno para Landing Page
-            =========================================================== -->
-
             <a href="/pages/public/landing/index.html" class="register-back">
                 &larr; Voltar para a página inicial
             </a>
@@ -277,16 +335,7 @@
     </main>
 
 
-    <!-- ================================================================
-         Autenticação
-    ================================================================= -->
-
-    <script src="/js/auth/auth.js"></script>
-
-
-    <!-- ================================================================
-         Lógica da página
-    ================================================================= -->
+    <script src="/js/auth/auth.js?v=20260822"></script>
 
     <script src="/pages/auth/register/register.js"></script>
 

@@ -3,44 +3,33 @@
  * Visium
  * Arquivo: auth.js
  *
- * Serviço central de autenticação, contas e sessão.
+ * Serviço central de autenticação.
+ *
+ * A sessão é mantida exclusivamente pelo cookie HttpOnly
+ * criado pelo backend. Nenhum dado de autenticação é armazenado
+ * no localStorage.
  * ==========================================================================
  */
 
 "use strict";
 
 
+const VISIUM_API_BASE_URL =
+    "/api";
+
+
 /* ==========================================================================
-   Configuração
+   Constantes
 ========================================================================== */
 
-const VISIUM_AUTH_STORAGE_KEY =
-    "visium_user";
+const MIN_PASSWORD_LENGTH =
+    8;
 
+const LOGIN_URL =
+    "/pages/auth/login/login.html";
 
-const VISIUM_USERS_STORAGE_KEY =
-    "visium_users";
-
-
-const VISIUM_DEV_USER = {
-
-    id:
-        "test-user",
-
-    name:
-        "Usuário de Teste",
-
-    email:
-        "teste@visium.local",
-
-    createdAt:
-        "2026-01-01T00:00:00.000Z"
-
-};
-
-
-const VISIUM_DEV_PASSWORD =
-    "visium123";
+const LANDING_URL =
+    "/pages/public/landing/index.html";
 
 
 /* ==========================================================================
@@ -60,31 +49,6 @@ function normalizeEmail(
 }
 
 
-function generateUserId() {
-
-    if (
-        window.crypto &&
-        typeof window.crypto.randomUUID ===
-        "function"
-    ) {
-
-        return window.crypto.randomUUID();
-
-    }
-
-
-    return (
-        "user-" +
-        Date.now() +
-        "-" +
-        Math.random()
-            .toString(36)
-            .slice(2, 10)
-    );
-
-}
-
-
 function isValidEmail(
     email
 ) {
@@ -97,119 +61,89 @@ function isValidEmail(
 }
 
 
-function getStoredUsers() {
-
-    const storedUsers =
-        localStorage.getItem(
-            VISIUM_USERS_STORAGE_KEY
-        );
-
-
-    if (!storedUsers) {
-
-        return [];
-
-    }
-
-
-    try {
-
-        const users =
-            JSON.parse(
-                storedUsers
-            );
-
-
-        if (
-            !Array.isArray(
-                users
-            )
-        ) {
-
-            return [];
-
-        }
-
-
-        return users.filter(
-            user =>
-                user &&
-                typeof user === "object" &&
-                user.id &&
-                user.name &&
-                user.email &&
-                user.password
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Visium | Contas inválidas:",
-            error
-        );
-
-
-        return [];
-
-    }
-
-}
-
-
-function saveUsers(
-    users
+function isValidPassword(
+    password
 ) {
 
-    localStorage.setItem(
+    if (
+        typeof password !==
+        "string"
+    ) {
 
-        VISIUM_USERS_STORAGE_KEY,
+        return false;
 
-        JSON.stringify(
-            users
+    }
+
+
+    if (
+        password.length <
+        MIN_PASSWORD_LENGTH
+    ) {
+
+        return false;
+
+    }
+
+
+    return (
+        /[A-Za-zÀ-ÿ]/.test(
+            password
+        ) &&
+        /\d/.test(
+            password
         )
-
     );
 
 }
 
 
-/* ==========================================================================
-   Inicialização das contas
-========================================================================== */
+function getErrorMessage(
+    error
+) {
 
-function initializeUsers() {
-
-    const users =
-        getStoredUsers();
-
-
-    const devUserExists =
-        users.some(
-            user =>
-                normalizeEmail(
-                    user.email
-                ) ===
-                VISIUM_DEV_USER.email
-        );
-
-
-    if (
-        !devUserExists
+    switch (
+    error
     ) {
 
-        users.push({
+        case "EMAIL_ALREADY_EXISTS":
 
-            ...VISIUM_DEV_USER,
+            return "Já existe uma conta cadastrada com este e-mail.";
 
-            password:
-                VISIUM_DEV_PASSWORD
+        case "INVALID_CREDENTIALS":
 
-        });
+            return "E-mail ou senha inválidos.";
 
+        case "INVALID_EMAIL":
 
-        saveUsers(
-            users
-        );
+            return "Informe um e-mail válido.";
+
+        case "INVALID_PASSWORD":
+
+            return "A senha não atende aos requisitos.";
+
+        case "INVALID_RESET_TOKEN":
+
+            return "O link de recuperação é inválido ou expirou.";
+
+        case "AUTH_REQUIRED":
+
+            return "Sua sessão expirou. Faça login novamente.";
+
+        case "INVALID_PROFILE":
+
+            return "Informe um nome e e-mail válidos.";
+
+        case "TERMS_REQUIRED":
+
+            return "Você precisa aceitar os Termos de Uso.";
+
+        case "API_UNAVAILABLE":
+
+            return "Não foi possível conectar ao servidor.";
+
+        default:
+
+            return "Não foi possível concluir a operação.";
 
     }
 
@@ -217,38 +151,501 @@ function initializeUsers() {
 
 
 /* ==========================================================================
-   Usuário atual
+   API
 ========================================================================== */
 
-function getCurrentUser() {
+async function requestApi(
+    endpoint,
+    options = {}
+) {
 
-    const storedUser =
-        localStorage.getItem(
-            VISIUM_AUTH_STORAGE_KEY
-        );
+    const requestOptions = {
+        ...options,
+
+        credentials:
+            "same-origin",
+
+        headers: {
+            "Content-Type":
+                "application/json",
+
+            ...(options.headers || {})
+        }
+    };
 
 
-    if (!storedUser) {
-
-        return null;
-
-    }
+    let response;
 
 
     try {
 
-        const user =
-            JSON.parse(
-                storedUser
+        response =
+            await fetch(
+                `${VISIUM_API_BASE_URL}${endpoint}`,
+                requestOptions
+            );
+
+    } catch (error) {
+
+        console.error(
+            "Visium | API indisponível:",
+            error
+        );
+
+        return {
+
+            success:
+                false,
+
+            code:
+                "API_UNAVAILABLE",
+
+            message:
+                getErrorMessage(
+                    "API_UNAVAILABLE"
+                )
+
+        };
+
+    }
+
+
+    let payload = {};
+
+
+    if (
+        response.status !==
+        204
+    ) {
+
+        const contentType =
+            response.headers.get(
+                "content-type"
+            ) || "";
+
+
+        if (
+            contentType
+                .toLowerCase()
+                .includes(
+                    "application/json"
+                )
+        ) {
+
+            try {
+
+                payload =
+                    await response.json();
+
+            } catch (error) {
+
+                console.error(
+                    "Visium | Resposta JSON inválida:",
+                    error
+                );
+
+                payload = {};
+
+            }
+
+        }
+
+    }
+
+
+    if (
+        !response.ok
+    ) {
+
+        const errorCode =
+            typeof payload.error ===
+                "string"
+                ? payload.error
+                : "REQUEST_FAILED";
+
+
+        return {
+
+            success:
+                false,
+
+            code:
+                errorCode,
+
+            message:
+                getErrorMessage(
+                    errorCode
+                )
+
+        };
+
+    }
+
+
+    return {
+
+        success:
+            true,
+
+        ...payload
+
+    };
+
+}
+
+
+/* ==========================================================================
+   Validação de senha
+========================================================================== */
+
+function validatePassword(
+    password
+) {
+
+    if (
+        typeof password !==
+        "string" ||
+        !password
+    ) {
+
+        return {
+
+            valid:
+                false,
+
+            code:
+                "INVALID_PASSWORD",
+
+            message:
+                "Informe sua senha."
+
+        };
+
+    }
+
+
+    if (
+        password.length <
+        MIN_PASSWORD_LENGTH
+    ) {
+
+        return {
+
+            valid:
+                false,
+
+            code:
+                "INVALID_PASSWORD",
+
+            message:
+                "A senha deve possuir pelo menos 8 caracteres."
+
+        };
+
+    }
+
+
+    if (
+        !isValidPassword(
+            password
+        )
+    ) {
+
+        return {
+
+            valid:
+                false,
+
+            code:
+                "INVALID_PASSWORD",
+
+            message:
+                "A senha deve conter pelo menos uma letra e um número."
+
+        };
+
+    }
+
+
+    return {
+
+        valid:
+            true
+
+    };
+
+}
+
+
+/* ==========================================================================
+   API pública de autenticação
+========================================================================== */
+
+window.VisiumAuth = {
+
+    /* ======================================================================
+       Login
+    ====================================================================== */
+
+    async login(
+        email,
+        password
+    ) {
+
+        const normalizedEmail =
+            normalizeEmail(
+                email
             );
 
 
         if (
-            !user ||
-            typeof user !== "object" ||
-            !user.id ||
-            !user.name ||
-            !user.email
+            !isValidEmail(
+                normalizedEmail
+            )
+        ) {
+
+            return {
+
+                success:
+                    false,
+
+                code:
+                    "INVALID_EMAIL",
+
+                message:
+                    "Informe um e-mail válido."
+
+            };
+
+        }
+
+
+        if (
+            !password
+        ) {
+
+            return {
+
+                success:
+                    false,
+
+                code:
+                    "INVALID_PASSWORD",
+
+                message:
+                    "Informe sua senha."
+
+            };
+
+        }
+
+
+        return requestApi(
+            "/auth/login",
+            {
+
+                method:
+                    "POST",
+
+                body:
+                    JSON.stringify({
+
+                        email:
+                            normalizedEmail,
+
+                        password:
+                            String(
+                                password
+                            )
+
+                    })
+
+            }
+        );
+
+    },
+
+
+    /* ======================================================================
+       Cadastro
+    ====================================================================== */
+
+    async register(
+        name,
+        email,
+        password,
+        termsAccepted = true
+    ) {
+
+        const normalizedName =
+            String(
+                name || ""
+            ).trim();
+
+
+        const normalizedEmail =
+            normalizeEmail(
+                email
+            );
+
+
+        if (
+            normalizedName.length <
+            2
+        ) {
+
+            return {
+
+                success:
+                    false,
+
+                code:
+                    "INVALID_NAME",
+
+                message:
+                    "Informe um nome válido."
+
+            };
+
+        }
+
+
+        if (
+            !isValidEmail(
+                normalizedEmail
+            )
+        ) {
+
+            return {
+
+                success:
+                    false,
+
+                code:
+                    "INVALID_EMAIL",
+
+                message:
+                    "Informe um e-mail válido."
+
+            };
+
+        }
+
+
+        const passwordValidation =
+            validatePassword(
+                password
+            );
+
+
+        if (
+            !passwordValidation.valid
+        ) {
+
+            return {
+
+                success:
+                    false,
+
+                code:
+                    passwordValidation.code,
+
+                message:
+                    passwordValidation.message
+
+            };
+
+        }
+
+
+        if (
+            termsAccepted !==
+            true
+        ) {
+
+            return {
+
+                success:
+                    false,
+
+                code:
+                    "TERMS_REQUIRED",
+
+                message:
+                    "Você precisa aceitar os Termos de Uso."
+
+            };
+
+        }
+
+
+        return requestApi(
+            "/auth/register",
+            {
+
+                method:
+                    "POST",
+
+                body:
+                    JSON.stringify({
+
+                        name:
+                            normalizedName,
+
+                        email:
+                            normalizedEmail,
+
+                        password:
+                            password
+
+                    })
+
+            }
+        );
+
+    },
+
+
+    /* ======================================================================
+       Logout
+    ====================================================================== */
+
+    async logout() {
+
+        const result =
+            await requestApi(
+                "/auth/logout",
+                {
+                    method:
+                        "POST"
+                }
+            );
+
+
+        window.location.assign(
+            LANDING_URL
+        );
+
+
+        return result;
+
+    },
+
+
+    /* ======================================================================
+       Usuário atual
+    ====================================================================== */
+
+    async getCurrentUser() {
+
+        const result =
+            await requestApi(
+                "/auth/me"
+            );
+
+
+        if (
+            !result.success
         ) {
 
             return null;
@@ -256,872 +653,268 @@ function getCurrentUser() {
         }
 
 
-        return {
+        return result.user ||
+            null;
 
-            id:
-                user.id,
+    },
 
-            name:
-                user.name,
 
-            email:
-                user.email,
+    /* ======================================================================
+       Verificação de autenticação
+    ====================================================================== */
 
-            createdAt:
-                user.createdAt || null
+    async isAuthenticated() {
 
-        };
+        const user =
+            await this.getCurrentUser();
 
-    } catch (error) {
 
-        console.error(
-            "Visium | Sessão inválida:",
-            error
+        return Boolean(
+            user
+        );
+
+    },
+
+
+    /* ======================================================================
+       Proteção de página
+    ====================================================================== */
+
+    async requireAuthentication() {
+
+        const user =
+            await this.getCurrentUser();
+
+
+        if (
+            user
+        ) {
+
+            return user;
+
+        }
+
+
+        window.location.replace(
+            LOGIN_URL
         );
 
 
         return null;
 
-    }
-
-}
+    },
 
 
-/* ==========================================================================
-   Estado da autenticação
-========================================================================== */
+    /* ======================================================================
+       Solicitação de recuperação de senha
+    ====================================================================== */
 
-function isAuthenticated() {
-
-    return Boolean(
-        getCurrentUser()
-    );
-
-}
-
-
-/* ==========================================================================
-   Login
-========================================================================== */
-
-function login(
-    email,
-    password
-) {
-
-    const normalizedEmail =
-        normalizeEmail(
-            email
-        );
-
-
-    const normalizedPassword =
-        String(
-            password || ""
-        );
-
-
-    const users =
-        getStoredUsers();
-
-
-    const user =
-        users.find(
-            account =>
-                normalizeEmail(
-                    account.email
-                ) ===
-                normalizedEmail
-        );
-
-
-    if (
-        !user ||
-        user.password !==
-        normalizedPassword
+    async requestPasswordReset(
+        email
     ) {
 
-        return {
-
-            success:
-                false,
-
-            code:
-                "INVALID_CREDENTIALS",
-
-            message:
-                "E-mail ou senha inválidos."
-
-        };
-
-    }
-
-
-    const sessionUser = {
-
-        id:
-            user.id,
-
-        name:
-            user.name,
-
-        email:
-            user.email,
-
-        createdAt:
-            user.createdAt || null
-
-    };
-
-
-    localStorage.setItem(
-
-        VISIUM_AUTH_STORAGE_KEY,
-
-        JSON.stringify(
-            sessionUser
-        )
-
-    );
-
-
-    return {
-
-        success:
-            true,
-
-        user:
-            sessionUser
-
-    };
-
-}
-
-
-/* ==========================================================================
-   Cadastro
-========================================================================== */
-
-function register(
-    name,
-    email,
-    password,
-    termsAccepted
-) {
-
-    const normalizedName =
-        String(
-            name || ""
-        )
-            .trim();
-
-
-    const normalizedEmail =
-        normalizeEmail(
-            email
-        );
-
-
-    const normalizedPassword =
-        String(
-            password || ""
-        );
-
-
-    /* ----------------------------------------------------------------------
-       Nome
-    ---------------------------------------------------------------------- */
-
-    if (
-        normalizedName.length <
-        2
-    ) {
-
-        return {
-
-            success:
-                false,
-
-            code:
-                "INVALID_NAME",
-
-            message:
-                "Informe um nome válido."
-
-        };
-
-    }
-
-
-    /* ----------------------------------------------------------------------
-       E-mail
-    ---------------------------------------------------------------------- */
-
-    if (
-        !isValidEmail(
-            normalizedEmail
-        )
-    ) {
-
-        return {
-
-            success:
-                false,
-
-            code:
-                "INVALID_EMAIL",
-
-            message:
-                "Informe um e-mail válido."
-
-        };
-
-    }
-
-
-    /* ----------------------------------------------------------------------
-       Senha
-    ---------------------------------------------------------------------- */
-
-    if (
-        normalizedPassword.length <
-        8
-    ) {
-
-        return {
-
-            success:
-                false,
-
-            code:
-                "INVALID_PASSWORD",
-
-            message:
-                "A senha deve possuir pelo menos 8 caracteres."
-
-        };
-
-    }
-
-
-    if (
-        !/[A-Za-zÀ-ÿ]/.test(
-            normalizedPassword
-        ) ||
-        !/\d/.test(
-            normalizedPassword
-        )
-    ) {
-
-        return {
-
-            success:
-                false,
-
-            code:
-                "INVALID_PASSWORD",
-
-            message:
-                "A senha deve conter pelo menos uma letra e um número."
-
-        };
-
-    }
-
-
-    /* ----------------------------------------------------------------------
-       Termos
-    ---------------------------------------------------------------------- */
-
-    if (
-        termsAccepted !== true
-    ) {
-
-        return {
-
-            success:
-                false,
-
-            code:
-                "TERMS_NOT_ACCEPTED",
-
-            message:
-                "Você precisa aceitar os Termos de Uso."
-
-        };
-
-    }
-
-
-    /* ----------------------------------------------------------------------
-       Verificação de duplicidade
-    ---------------------------------------------------------------------- */
-
-    const users =
-        getStoredUsers();
-
-
-    const existingUser =
-        users.find(
-            user =>
-                normalizeEmail(
-                    user.email
-                ) ===
-                normalizedEmail
-        );
-
-
-    if (
-        existingUser
-    ) {
-
-        return {
-
-            success:
-                false,
-
-            code:
-                "EMAIL_ALREADY_EXISTS",
-
-            message:
-                "Já existe uma conta cadastrada com este e-mail."
-
-        };
-
-    }
-
-
-    /* ----------------------------------------------------------------------
-       Criação
-    ---------------------------------------------------------------------- */
-
-    const newUser = {
-
-        id:
-            generateUserId(),
-
-        name:
-            normalizedName,
-
-        email:
-            normalizedEmail,
-
-        password:
-            normalizedPassword,
-
-        createdAt:
-            new Date()
-                .toISOString()
-
-    };
-
-
-    users.push(
-        newUser
-    );
-
-
-    saveUsers(
-        users
-    );
-
-
-    /* ----------------------------------------------------------------------
-       Criação da sessão
-    ---------------------------------------------------------------------- */
-
-    const sessionUser = {
-
-        id:
-            newUser.id,
-
-        name:
-            newUser.name,
-
-        email:
-            newUser.email,
-
-        createdAt:
-            newUser.createdAt
-
-    };
-
-
-    localStorage.setItem(
-
-        VISIUM_AUTH_STORAGE_KEY,
-
-        JSON.stringify(
-            sessionUser
-        )
-
-    );
-
-
-    return {
-
-        success:
-            true,
-
-        user:
-            sessionUser
-
-    };
-
-}
-
-/* ==========================================================================
-   Recuperação de senha
-========================================================================== */
-
-const PASSWORD_RESET_STORAGE_KEY =
-    "visium_password_reset";
-
-
-const PASSWORD_RESET_EXPIRATION_MS =
-    15 * 60 * 1000;
-
-
-function generatePasswordResetToken() {
-
-    if (
-        window.crypto &&
-        typeof window.crypto.randomUUID ===
-        "function"
-    ) {
-
-        return window.crypto.randomUUID();
-
-    }
-
-
-    const randomPart =
-        Math.random()
-            .toString(36)
-            .slice(2);
-
-
-    return `${Date.now()}-${randomPart}`;
-
-}
-
-
-function requestPasswordReset(
-    email
-) {
-
-    const normalizedEmail =
-        normalizeEmail(
-            email
-        );
-
-
-    if (
-        !isValidEmail(
-            normalizedEmail
-        )
-    ) {
-
-        return {
-
-            success:
-                false,
-
-            message:
-                "Informe um e-mail válido."
-
-        };
-
-    }
-
-
-    const users =
-        getStoredUsers();
-
-
-    const user =
-        users.find(
-            (item) =>
-                normalizeEmail(
-                    item.email
-                ) === normalizedEmail
-        );
-
-
-    /*
-     * Não revelamos se o e-mail existe.
-     *
-     * Porém, para o ambiente local do Visium,
-     * precisamos criar o token somente quando
-     * encontramos uma conta válida.
-     */
-
-    if (!user) {
-
-        return {
-
-            success:
-                false,
-
-            message:
-                "Não encontramos uma conta com este e-mail."
-
-        };
-
-    }
-
-
-    const token =
-        generatePasswordResetToken();
-
-
-    const resetData = {
-
-        token,
-
-        userId:
-            user.id,
-
-        email:
-            normalizedEmail,
-
-        expiresAt:
-            Date.now() +
-            PASSWORD_RESET_EXPIRATION_MS
-
-    };
-
-
-    localStorage.setItem(
-        PASSWORD_RESET_STORAGE_KEY,
-        JSON.stringify(
-            resetData
-        )
-    );
-
-
-    return {
-
-        success:
-            true,
-
-        token
-
-    };
-
-}
-
-
-function resetPassword(
-    token,
-    newPassword
-) {
-
-    const normalizedToken =
-        String(
-            token || ""
-        ).trim();
-
-
-    if (!normalizedToken) {
-
-        return {
-
-            success:
-                false,
-
-            message:
-                "Token de recuperação inválido."
-
-        };
-
-    }
-
-
-    if (
-        typeof newPassword !==
-        "string"
-    ) {
-
-        return {
-
-            success:
-                false,
-
-            message:
-                "Informe uma nova senha."
-
-        };
-
-    }
-
-
-    if (
-        newPassword.length <
-        8
-    ) {
-
-        return {
-
-            success:
-                false,
-
-            message:
-                "A senha deve possuir pelo menos 8 caracteres."
-
-        };
-
-    }
-
-
-    if (
-        !/[A-Za-z]/.test(
-            newPassword
-        ) ||
-        !/\d/.test(
-            newPassword
-        )
-    ) {
-
-        return {
-
-            success:
-                false,
-
-            message:
-                "A senha deve conter pelo menos uma letra e um número."
-
-        };
-
-    }
-
-
-    const storedReset =
-        localStorage.getItem(
-            PASSWORD_RESET_STORAGE_KEY
-        );
-
-
-    if (!storedReset) {
-
-        return {
-
-            success:
-                false,
-
-            message:
-                "A recuperação de senha não está disponível ou expirou."
-
-        };
-
-    }
-
-
-    let resetData;
-
-
-    try {
-
-        resetData =
-            JSON.parse(
-                storedReset
+        const normalizedEmail =
+            normalizeEmail(
+                email
             );
 
-    } catch (error) {
 
-        localStorage.removeItem(
-            PASSWORD_RESET_STORAGE_KEY
+        if (
+            !isValidEmail(
+                normalizedEmail
+            )
+        ) {
+
+            return {
+
+                success:
+                    false,
+
+                code:
+                    "INVALID_EMAIL",
+
+                message:
+                    "Informe um e-mail válido."
+
+            };
+
+        }
+
+
+        return requestApi(
+            "/auth/password-reset/request",
+            {
+
+                method:
+                    "POST",
+
+                body:
+                    JSON.stringify({
+
+                        email:
+                            normalizedEmail
+
+                    })
+
+            }
         );
 
-
-        return {
-
-            success:
-                false,
-
-            message:
-                "A recuperação de senha é inválida."
-
-        };
-
-    }
+    },
 
 
-    if (
-        resetData.token !==
-        normalizedToken
+    /* ======================================================================
+       Redefinição de senha
+    ====================================================================== */
+
+    async resetPassword(
+        token,
+        password
     ) {
 
-        return {
-
-            success:
-                false,
-
-            message:
-                "Token de recuperação inválido."
-
-        };
-
-    }
+        const normalizedToken =
+            String(
+                token || ""
+            ).trim();
 
 
-    if (
-        Date.now() >
-        Number(
-            resetData.expiresAt
-        )
-    ) {
+        if (
+            !normalizedToken
+        ) {
 
-        localStorage.removeItem(
-            PASSWORD_RESET_STORAGE_KEY
+            return {
+
+                success:
+                    false,
+
+                code:
+                    "INVALID_RESET_TOKEN",
+
+                message:
+                    getErrorMessage(
+                        "INVALID_RESET_TOKEN"
+                    )
+
+            };
+
+        }
+
+
+        const passwordValidation =
+            validatePassword(
+                password
+            );
+
+
+        if (
+            !passwordValidation.valid
+        ) {
+
+            return {
+
+                success:
+                    false,
+
+                code:
+                    passwordValidation.code,
+
+                message:
+                    passwordValidation.message
+
+            };
+
+        }
+
+
+        return requestApi(
+            "/auth/password-reset/reset",
+            {
+
+                method:
+                    "POST",
+
+                body:
+                    JSON.stringify({
+
+                        token:
+                            normalizedToken,
+
+                        password:
+                            password
+
+                    })
+
+            }
         );
 
-
-        return {
-
-            success:
-                false,
-
-            message:
-                "O link de recuperação expirou."
-
-        };
-
-    }
+    },
 
 
-    const users =
-        getStoredUsers();
+    /* ======================================================================
+       Atualização de perfil
+    ====================================================================== */
 
-
-    const userIndex =
-        users.findIndex(
-            (item) =>
-                item.id ===
-                resetData.userId
-        );
-
-
-    if (
-        userIndex ===
-        -1
+    async updateProfile(
+        name,
+        email
     ) {
 
-        localStorage.removeItem(
-            PASSWORD_RESET_STORAGE_KEY
+        const normalizedName =
+            String(
+                name || ""
+            ).trim();
+
+
+        const normalizedEmail =
+            normalizeEmail(
+                email
+            );
+
+
+        if (
+            normalizedName.length <
+            2 ||
+            !isValidEmail(
+                normalizedEmail
+            )
+        ) {
+
+            return {
+
+                success:
+                    false,
+
+                code:
+                    "INVALID_PROFILE",
+
+                message:
+                    "Informe um nome e e-mail válidos."
+
+            };
+
+        }
+
+
+        return requestApi(
+            "/profile",
+            {
+
+                method:
+                    "PUT",
+
+                body:
+                    JSON.stringify({
+
+                        name:
+                            normalizedName,
+
+                        email:
+                            normalizedEmail
+
+                    })
+
+            }
         );
 
-
-        return {
-
-            success:
-                false,
-
-            message:
-                "Usuário não encontrado."
-
-        };
-
     }
-
-
-    users[userIndex].password =
-        newPassword;
-
-
-    saveUsers(
-        users
-    );
-
-
-    /*
-     * O token é de uso único.
-     */
-
-    localStorage.removeItem(
-        PASSWORD_RESET_STORAGE_KEY
-    );
-
-
-    return {
-
-        success:
-            true,
-
-        message:
-            "Senha redefinida com sucesso."
-
-    };
-
-}
-
-/* ==========================================================================
-   Logout
-========================================================================== */
-
-function logout() {
-
-    localStorage.removeItem(
-        VISIUM_AUTH_STORAGE_KEY
-    );
-
-
-    window.location.href =
-        "/pages/public/landing/index.html";
-
-}
-
-
-/* ==========================================================================
-   Proteção de rota
-========================================================================== */
-
-function requireAuthentication() {
-
-    if (
-        isAuthenticated()
-    ) {
-
-        return true;
-
-    }
-
-
-    window.location.href =
-        "/pages/auth/login/login.html";
-
-
-    return false;
-
-}
-
-
-/* ==========================================================================
-   API pública
-========================================================================== */
-
-window.VisiumAuth = {
-
-    getCurrentUser,
-
-    isAuthenticated,
-
-    login,
-
-    register,
-
-    logout,
-
-    requireAuthentication,
-
-    requestPasswordReset,
-    resetPassword,
 
 };
-
-
-/* ==========================================================================
-   Inicialização
-========================================================================== */
-
-initializeUsers();

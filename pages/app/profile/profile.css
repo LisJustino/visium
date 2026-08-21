@@ -6,6 +6,8 @@
  * Estilos da página Meu Perfil.
  * ==========================================================================
  */
+
+
 /* ==========================================================================
    Shell
 ========================================================================== */
@@ -43,7 +45,7 @@
         1;
 
     min-height:
-        0;
+        calc(100vh - 72px);
 
     overflow-y:
         auto;
@@ -51,25 +53,11 @@
     overflow-x:
         hidden;
 
+    padding:
+        48px 32px 64px;
+
     background:
         var(--color-background);
-
-    padding:
-        48px 32px 64px;
-
-}
-
-/* ==========================================================================
-   Página
-========================================================================== */
-
-.profile-page {
-
-    min-height:
-        calc(100vh - 72px);
-
-    padding:
-        48px 32px 64px;
 
 }
 
@@ -113,6 +101,9 @@
     margin-bottom:
         8px;
 
+    color:
+        var(--color-primary);
+
     font-size:
         0.75rem;
 
@@ -121,9 +112,6 @@
 
     letter-spacing:
         0.12em;
-
-    color:
-        var(--color-primary);
 
 }
 
@@ -134,9 +122,11 @@
         0 0 12px;
 
     font-size:
-        clamp(2rem,
+        clamp(
+            2rem,
             4vw,
-            2.75rem);
+            2.75rem
+        );
 
     line-height:
         1.1;
@@ -146,11 +136,11 @@
 
 .profile-header p {
 
-    margin:
-        0;
-
     max-width:
         680px;
+
+    margin:
+        0;
 
     color:
         var(--color-text-muted);
@@ -170,20 +160,22 @@
     overflow:
         hidden;
 
-    background:
-        var(--color-surface);
-
     border:
         1px solid var(--color-border);
 
     border-radius:
         16px;
 
+    background:
+        var(--color-surface);
+
     box-shadow:
-        0 8px 30px rgba(0,
+        0 8px 30px rgba(
             0,
             0,
-            0.04);
+            0,
+            0.04
+        );
 
 }
 
@@ -266,6 +258,9 @@
     margin:
         0 0 6px;
 
+    color:
+        var(--color-text);
+
     font-size:
         1.35rem;
 
@@ -280,11 +275,17 @@
     margin:
         0;
 
+    overflow:
+        hidden;
+
     color:
         var(--color-text-muted);
 
-    overflow:
-        hidden;
+    font-size:
+        0.9rem;
+
+    line-height:
+        1.5;
 
     text-overflow:
         ellipsis;
@@ -296,21 +297,13 @@
 
 
 /* ==========================================================================
-   Seções
+   Seção
 ========================================================================== */
 
 .profile-section {
 
     padding:
         32px;
-
-}
-
-
-.profile-section--account {
-
-    border-top:
-        1px solid var(--color-border);
 
 }
 
@@ -329,10 +322,13 @@
         block;
 
     margin-bottom:
-        6px;
+        8px;
+
+    color:
+        var(--color-primary);
 
     font-size:
-        0.7rem;
+        0.72rem;
 
     font-weight:
         700;
@@ -340,19 +336,22 @@
     letter-spacing:
         0.1em;
 
-    color:
-        var(--color-text-muted);
-
 }
 
 
 .profile-section__header h2 {
 
     margin:
-        0 0 6px;
+        0 0 8px;
+
+    color:
+        var(--color-text);
 
     font-size:
         1.25rem;
+
+    line-height:
+        1.3;
 
 }
 
@@ -364,6 +363,9 @@
 
     color:
         var(--color-text-muted);
+
+    font-size:
+        0.9rem;
 
     line-height:
         1.6;
@@ -405,8 +407,11 @@
 
 .profile-field label {
 
+    color:
+        var(--color-text);
+
     font-size:
-        0.9rem;
+        0.85rem;
 
     font-weight:
         600;
@@ -423,13 +428,16 @@
         48px;
 
     padding:
-        12px 14px;
+        0 14px;
 
     border:
         1px solid var(--color-border);
 
     border-radius:
         8px;
+
+    outline:
+        none;
 
     background:
         var(--color-background);
@@ -440,12 +448,18 @@
     font:
         inherit;
 
-    outline:
-        none;
-
     transition:
         border-color 0.2s ease,
-        box-shadow 0.2s ease;
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+
+}
+
+
+.profile-field input::placeholder {
+
+    color:
+        var(--color-text-muted);
 
 }
 
@@ -455,11 +469,16 @@
     border-color:
         var(--color-primary);
 
+    background:
+        var(--color-surface);
+
     box-shadow:
-        0 0 0 3px rgba(0,
-            0,
-            0,
-            0.06);
+        0 0 0 3px rgba(
+            37,
+            99,
+            235,
+            0.10
+        );
 
 }
 
@@ -474,11 +493,25 @@
 
 .profile-field__error {
 
-    font-size:
-        0.8rem;
+    min-height:
+        18px;
 
     color:
         var(--color-danger);
+
+    font-size:
+        0.75rem;
+
+    line-height:
+        1.4;
+
+}
+
+
+.profile-field__error[hidden] {
+
+    display:
+        none;
 
 }
 
@@ -492,11 +525,25 @@
     padding:
         12px 14px;
 
+    border:
+        1px solid var(--color-danger);
+
     border-radius:
         8px;
 
+    background:
+        rgba(
+            220,
+            38,
+            38,
+            0.06
+        );
+
+    color:
+        var(--color-danger);
+
     font-size:
-        0.9rem;
+        0.82rem;
 
     line-height:
         1.5;
@@ -504,30 +551,29 @@
 }
 
 
-.profile-feedback.is-success {
+.profile-feedback[hidden] {
 
-    background:
-        rgba(34,
-            197,
-            94,
-            0.1);
-
-    color:
-        var(--color-success);
+    display:
+        none;
 
 }
 
 
-.profile-feedback.is-error {
+.profile-feedback.is-success {
+
+    border-color:
+        var(--color-success);
 
     background:
-        rgba(239,
-            68,
-            68,
-            0.1);
+        rgba(
+            22,
+            163,
+            74,
+            0.06
+        );
 
     color:
-        var(--color-danger);
+        var(--color-success);
 
 }
 
@@ -575,7 +621,8 @@
 
     transition:
         transform 0.15s ease,
-        opacity 0.15s ease;
+        opacity 0.15s ease,
+        background-color 0.15s ease;
 
 }
 
@@ -613,62 +660,10 @@
 }
 
 
-/* ==========================================================================
-   Informações da conta
-========================================================================== */
+.profile-button--primary:hover {
 
-.profile-account {
-
-    border:
-        1px solid var(--color-border);
-
-    border-radius:
-        10px;
-
-}
-
-
-.profile-account__item {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        space-between;
-
-    gap:
-        24px;
-
-    padding:
-        16px;
-
-}
-
-
-.profile-account__item span {
-
-    color:
-        var(--color-text-muted);
-
-    font-size:
-        0.9rem;
-
-}
-
-
-.profile-account__item strong {
-
-    font-size:
-        0.9rem;
-
-    font-weight:
-        600;
-
-    word-break:
-        break-word;
+    background:
+        var(--color-primary-dark);
 
 }
 
@@ -676,6 +671,21 @@
 /* ==========================================================================
    Responsividade
 ========================================================================== */
+
+@media (max-width: 900px) {
+
+    .app-main {
+
+        width:
+            100%;
+
+        margin-left:
+            0;
+
+    }
+
+}
+
 
 @media (max-width: 768px) {
 
@@ -721,20 +731,6 @@
     }
 
 
-    .profile-account__item {
-
-        align-items:
-            flex-start;
-
-        flex-direction:
-            column;
-
-        gap:
-            6px;
-
-    }
-
-
     .profile-form__actions {
 
         justify-content:
@@ -752,31 +748,6 @@
 
 }
 
-@media (max-width: 900px) {
-
-    .app-main {
-
-        width:
-            100%;
-
-        margin-left:
-            0;
-
-    }
-
-}
-
-
-@media (max-width: 768px) {
-
-    .profile-page {
-
-        padding:
-            32px 20px 48px;
-
-    }
-
-}
 
 @media (max-width: 480px) {
 
@@ -801,9 +772,40 @@
 
     .profile-identity p {
 
+        max-width:
+            100%;
+
         white-space:
             normal;
 
     }
 
+}
+
+/* ==========================================================================
+   Refinamento visual e fluxo
+========================================================================== */
+
+.profile-header__content {
+    display: grid;
+    gap: .35rem;
+}
+
+.profile-header h1,
+.profile-header p {
+    margin: 0;
+}
+
+.profile-card {
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, .045);
+}
+
+.profile-card__identity {
+    background:
+        linear-gradient(135deg, var(--color-primary-light), rgba(255, 255, 255, 0) 70%);
+}
+
+.profile-avatar {
+    box-shadow: 0 10px 22px rgba(37, 99, 235, .18);
 }

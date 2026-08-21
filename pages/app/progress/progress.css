@@ -34,7 +34,8 @@
     padding:
         2.5rem clamp(1.5rem,
             4vw,
-            4rem);
+            4rem)
+        calc(4rem + env(safe-area-inset-bottom));
 
     background:
         var(--color-gray-50);
@@ -299,7 +300,7 @@
 
 .progress-section {
 
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 
 }
 
@@ -493,7 +494,7 @@
     display: grid;
 
     grid-template-columns:
-        minmax(0, 1fr) auto;
+        minmax(0, 1fr) minmax(96px, auto);
 
     align-items: center;
 
@@ -524,6 +525,9 @@
 
     font-weight: 700;
 
+    overflow-wrap:
+        anywhere;
+
 }
 
 
@@ -540,6 +544,9 @@
 .progress-history-item__result {
 
     text-align: right;
+
+    min-width:
+        96px;
 
 }
 
@@ -566,6 +573,9 @@
         var(--color-gray-500);
 
     font-size: .68rem;
+
+    white-space:
+        nowrap;
 
 }
 
@@ -686,4 +696,40 @@
 
     }
 
+}
+
+/* ==========================================================================
+   Refinamento visual e fluxo
+========================================================================== */
+
+.progress-header {
+    display: grid;
+    gap: .35rem;
+    max-width: 760px;
+}
+
+.progress-header h1,
+.progress-header p {
+    margin: 0;
+}
+
+.progress-overview,
+.progress-stat-card,
+.content-progress-item,
+.progress-history-item {
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, .04);
+}
+
+.progress-stats {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.content-progress-item__title,
+.progress-history-item__title {
+    overflow-wrap: anywhere;
+}
+
+.progress-section {
+    margin-bottom: var(--space-8);
 }

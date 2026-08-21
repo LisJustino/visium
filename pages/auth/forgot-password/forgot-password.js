@@ -1,9 +1,9 @@
 /**
  * ==========================================================================
  * Visium
- * Arquivo: forgot-password.js
+ * Arquivo: reset-password.js
  *
- * Controle da página de recuperação de acesso.
+ * Controle da página de redefinição de senha.
  * ==========================================================================
  */
 
@@ -14,51 +14,63 @@
    Elementos
 ========================================================================== */
 
-const forgotPasswordForm =
+const resetPasswordForm =
     document.querySelector(
-        "#forgotPasswordForm"
+        "#resetPasswordForm"
     );
 
 
-const forgotPasswordEmail =
+const resetPasswordNew =
     document.querySelector(
-        "#forgotPasswordEmail"
+        "#resetPasswordNew"
     );
 
 
-const forgotPasswordEmailError =
+const resetPasswordConfirm =
     document.querySelector(
-        "#forgotPasswordEmailError"
+        "#resetPasswordConfirm"
     );
 
 
-const forgotPasswordFeedback =
+const resetPasswordNewError =
     document.querySelector(
-        "#forgotPasswordFeedback"
+        "#resetPasswordNewError"
     );
 
 
-const forgotPasswordSubmit =
+const resetPasswordConfirmError =
     document.querySelector(
-        "#forgotPasswordSubmit"
+        "#resetPasswordConfirmError"
     );
 
 
-const forgotPasswordSubmitText =
+const resetPasswordFeedback =
     document.querySelector(
-        "#forgotPasswordSubmitText"
+        "#resetPasswordFeedback"
     );
 
 
-const forgotPasswordSubmitLoading =
+const resetPasswordSubmit =
     document.querySelector(
-        "#forgotPasswordSubmitLoading"
+        "#resetPasswordSubmit"
     );
 
 
-const forgotPasswordLoginButton =
+const resetPasswordSubmitText =
     document.querySelector(
-        "#forgotPasswordLoginButton"
+        "#resetPasswordSubmitText"
+    );
+
+
+const resetPasswordSubmitLoading =
+    document.querySelector(
+        "#resetPasswordSubmitLoading"
+    );
+
+
+const resetPasswordLoginButton =
+    document.querySelector(
+        "#resetPasswordLoginButton"
     );
 
 
@@ -70,46 +82,32 @@ const LOGIN_URL =
     "/pages/auth/login/login.html";
 
 
-/* ==========================================================================
-   Validação
-========================================================================== */
-
-function normalizeEmail(
-    email
-) {
-
-    return String(
-        email || ""
-    )
-        .trim()
-        .toLowerCase();
-
-}
+const RESET_TOKEN_KEY =
+    "visium_password_reset_token";
 
 
-function isValidEmail(
-    email
-) {
-
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        .test(
-            email
-        );
-
-}
+const MIN_PASSWORD_LENGTH =
+    8;
 
 
 /* ==========================================================================
    Feedback
 ========================================================================== */
 
-function clearFieldErrors() {
+function clearErrors() {
 
-    forgotPasswordEmail.removeAttribute(
+    resetPasswordNew.removeAttribute(
         "aria-invalid"
     );
 
-    forgotPasswordEmailError.textContent =
+    resetPasswordConfirm.removeAttribute(
+        "aria-invalid"
+    );
+
+    resetPasswordNewError.textContent =
+        "";
+
+    resetPasswordConfirmError.textContent =
         "";
 
 }
@@ -117,29 +115,31 @@ function clearFieldErrors() {
 
 function clearFeedback() {
 
-    forgotPasswordFeedback.textContent =
+    resetPasswordFeedback.textContent =
         "";
 
-    forgotPasswordFeedback.classList.remove(
+    resetPasswordFeedback.classList.remove(
         "is-success"
     );
 
-    forgotPasswordFeedback.hidden =
+    resetPasswordFeedback.hidden =
         true;
 
 }
 
 
 function showFieldError(
+    field,
+    element,
     message
 ) {
 
-    forgotPasswordEmail.setAttribute(
+    field.setAttribute(
         "aria-invalid",
         "true"
     );
 
-    forgotPasswordEmailError.textContent =
+    element.textContent =
         message;
 
 }
@@ -150,82 +150,186 @@ function showFeedback(
     type = "error"
 ) {
 
-    forgotPasswordFeedback.textContent =
+    resetPasswordFeedback.textContent =
         message;
 
-    forgotPasswordFeedback.classList.toggle(
+    resetPasswordFeedback.classList.toggle(
         "is-success",
         type === "success"
     );
 
-    forgotPasswordFeedback.hidden =
+    resetPasswordFeedback.hidden =
         false;
 
 }
 
 
 /* ==========================================================================
-   Estado do formulário
+   Estado
 ========================================================================== */
 
 function setLoading(
     isLoading
 ) {
 
-    forgotPasswordSubmit.disabled =
+    resetPasswordSubmit.disabled =
         isLoading;
 
-    forgotPasswordSubmitText.hidden =
+    resetPasswordSubmitText.hidden =
         isLoading;
 
-    forgotPasswordSubmitLoading.hidden =
+    resetPasswordSubmitLoading.hidden =
         !isLoading;
 
 }
 
 
 /* ==========================================================================
-   Solicitação
+   Validação
 ========================================================================== */
 
-function handleForgotPassword(
+function validateForm() {
+
+    clearErrors();
+
+    clearFeedback();
+
+
+    const password =
+        resetPasswordNew.value;
+
+
+    const confirmation =
+        resetPasswordConfirm.value;
+
+
+    let isValid =
+        true;
+
+
+    if (!password) {
+
+        showFieldError(
+            resetPasswordNew,
+            resetPasswordNewError,
+            "Informe uma nova senha."
+        );
+
+        isValid =
+            false;
+
+    } else if (
+        password.length <
+        MIN_PASSWORD_LENGTH
+    ) {
+
+        showFieldError(
+            resetPasswordNew,
+            resetPasswordNewError,
+            "A senha deve possuir pelo menos 8 caracteres."
+        );
+
+        isValid =
+            false;
+
+    } else if (
+        !/[A-Za-zÀ-ÿ]/.test(
+            password
+        ) ||
+        !/\d/.test(
+            password
+        )
+    ) {
+
+        showFieldError(
+            resetPasswordNew,
+            resetPasswordNewError,
+            "A senha deve conter pelo menos uma letra e um número."
+        );
+
+        isValid =
+            false;
+
+    }
+
+
+    if (!confirmation) {
+
+        showFieldError(
+            resetPasswordConfirm,
+            resetPasswordConfirmError,
+            "Confirme sua nova senha."
+        );
+
+        isValid =
+            false;
+
+    } else if (
+        password !==
+        confirmation
+    ) {
+
+        showFieldError(
+            resetPasswordConfirm,
+            resetPasswordConfirmError,
+            "As senhas não coincidem."
+        );
+
+        isValid =
+            false;
+
+    }
+
+
+    return {
+
+        isValid,
+
+        password
+
+    };
+
+}
+
+
+/* ==========================================================================
+   Redefinição
+========================================================================== */
+
+async function handleResetPassword(
     event
 ) {
 
     event.preventDefault();
 
 
-    clearFieldErrors();
-
-    clearFeedback();
-
-
-    const email =
-        normalizeEmail(
-            forgotPasswordEmail.value
-        );
+    const validation =
+        validateForm();
 
 
-    if (!email) {
-
-        showFieldError(
-            "Informe seu e-mail."
-        );
+    if (
+        !validation.isValid
+    ) {
 
         return;
 
     }
 
 
-    if (
-        !isValidEmail(
-            email
-        )
-    ) {
-
-        showFieldError(
-            "Informe um e-mail válido."
+    const token =
+        sessionStorage.getItem(
+            RESET_TOKEN_KEY
         );
+
+
+    if (!token) {
+
+        showFeedback(
+            "O link de recuperação é inválido ou expirou."
+        );
+
+        resetPasswordSubmit.disabled =
+            true;
 
         return;
 
@@ -234,17 +338,16 @@ function handleForgotPassword(
 
     if (
         !window.VisiumAuth ||
-        typeof window.VisiumAuth.requestPasswordReset !==
+        typeof window.VisiumAuth.resetPassword !==
             "function"
     ) {
 
         console.error(
-            "Visium | Serviço de recuperação não carregado."
+            "Visium | Serviço de redefinição não carregado."
         );
 
-
         showFeedback(
-            "Não foi possível carregar o serviço de recuperação."
+            "Não foi possível carregar o serviço de redefinição."
         );
 
         return;
@@ -260,8 +363,9 @@ function handleForgotPassword(
     try {
 
         const result =
-            window.VisiumAuth.requestPasswordReset(
-                email
+            await window.VisiumAuth.resetPassword(
+                token,
+                validation.password
             );
 
 
@@ -272,7 +376,7 @@ function handleForgotPassword(
 
             showFeedback(
                 result?.message ||
-                "Não foi possível iniciar a recuperação."
+                "Não foi possível redefinir sua senha."
             );
 
             return;
@@ -281,48 +385,48 @@ function handleForgotPassword(
 
 
         /*
-         * O token será utilizado na próxima etapa
-         * do fluxo de redefinição.
+         * Token de sessão removido após uso.
          */
 
-        sessionStorage.setItem(
-            "visium_password_reset_token",
-            result.token
+        sessionStorage.removeItem(
+            RESET_TOKEN_KEY
         );
 
 
-        sessionStorage.setItem(
-            "visium_password_reset_email",
-            email
+        sessionStorage.removeItem(
+            "visium_password_reset_email"
         );
 
 
         showFeedback(
-            "Solicitação validada. Você será direcionado para criar uma nova senha.",
+            "Senha redefinida com sucesso. Você será direcionado para o login.",
             "success"
         );
+
+
+        resetPasswordForm.reset();
 
 
         window.setTimeout(
             () => {
 
                 window.location.href =
-                    "/pages/auth/forgot-password/reset-password.html";
+                    LOGIN_URL;
 
             },
-            500
+            1000
         );
 
     } catch (error) {
 
         console.error(
-            "Visium | Erro na recuperação de acesso:",
+            "Visium | Erro ao redefinir senha:",
             error
         );
 
 
         showFeedback(
-            "Não foi possível iniciar a recuperação. Tente novamente."
+            "Não foi possível redefinir sua senha. Tente novamente."
         );
 
     } finally {
@@ -343,10 +447,10 @@ function handleForgotPassword(
 function initializeNavigation() {
 
     if (
-        forgotPasswordLoginButton
+        resetPasswordLoginButton
     ) {
 
-        forgotPasswordLoginButton.addEventListener(
+        resetPasswordLoginButton.addEventListener(
             "click",
             () => {
 
@@ -365,16 +469,17 @@ function initializeNavigation() {
    Inicialização
 ========================================================================== */
 
-function initializeForgotPassword() {
+function initializeResetPassword() {
 
     if (
-        !forgotPasswordForm ||
-        !forgotPasswordEmail ||
-        !forgotPasswordSubmit
+        !resetPasswordForm ||
+        !resetPasswordNew ||
+        !resetPasswordConfirm ||
+        !resetPasswordSubmit
     ) {
 
         console.error(
-            "Visium | Estrutura da recuperação de acesso não encontrada."
+            "Visium | Estrutura da redefinição não encontrada."
         );
 
         return;
@@ -385,12 +490,35 @@ function initializeForgotPassword() {
     initializeNavigation();
 
 
-    forgotPasswordForm.addEventListener(
+    resetPasswordForm.addEventListener(
         "submit",
-        handleForgotPassword
+        handleResetPassword
     );
+
+
+    /*
+     * Verifica imediatamente se existe
+     * um token de recuperação.
+     */
+
+    const token =
+        sessionStorage.getItem(
+            RESET_TOKEN_KEY
+        );
+
+
+    if (!token) {
+
+        showFeedback(
+            "O link de recuperação é inválido ou expirou."
+        );
+
+        resetPasswordSubmit.disabled =
+            true;
+
+    }
 
 }
 
 
-initializeForgotPassword();
+initializeResetPassword();

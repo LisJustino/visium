@@ -116,18 +116,34 @@ const toggleRegisterPasswordConfirmation =
     );
 
 
-const registerTermsButton =
+const ruleLength =
     document.querySelector(
-        "#registerTermsButton"
+        "#ruleLength"
+    );
+
+
+const ruleLetter =
+    document.querySelector(
+        "#ruleLetter"
+    );
+
+
+const ruleNumber =
+    document.querySelector(
+        "#ruleNumber"
     );
 
 
 /* ==========================================================================
-   Regras
+   Configuração
 ========================================================================== */
 
 const MIN_PASSWORD_LENGTH =
     8;
+
+
+const DASHBOARD_URL =
+    "/pages/app/dashboard/dashboard.html";
 
 
 /* ==========================================================================
@@ -149,6 +165,13 @@ function clearFieldErrors() {
 
     fields.forEach(
         field => {
+
+            if (!field) {
+
+                return;
+
+            }
+
 
             field.removeAttribute(
                 "aria-invalid"
@@ -182,6 +205,16 @@ function showFieldError(
     message
 ) {
 
+    if (
+        !field ||
+        !errorElement
+    ) {
+
+        return;
+
+    }
+
+
     field.setAttribute(
         "aria-invalid",
         "true"
@@ -198,6 +231,13 @@ function showFeedback(
     message,
     type = "error"
 ) {
+
+    if (!registerFeedback) {
+
+        return;
+
+    }
+
 
     registerFeedback.textContent =
         message;
@@ -216,6 +256,13 @@ function showFeedback(
 
 
 function clearFeedback() {
+
+    if (!registerFeedback) {
+
+        return;
+
+    }
+
 
     registerFeedback.textContent =
         "";
@@ -313,46 +360,47 @@ function isValidPassword(
 
 function updatePasswordRules() {
 
+    if (!registerPassword) {
+
+        return;
+
+    }
+
+
     const rules =
         getPasswordRules(
             registerPassword.value
         );
 
 
-    const ruleLength =
-        document.querySelector(
-            "#ruleLength"
+    if (ruleLength) {
+
+        ruleLength.classList.toggle(
+            "is-valid",
+            rules.length
         );
 
+    }
 
-    const ruleLetter =
-        document.querySelector(
-            "#ruleLetter"
+
+    if (ruleLetter) {
+
+        ruleLetter.classList.toggle(
+            "is-valid",
+            rules.letter
         );
 
+    }
 
-    const ruleNumber =
-        document.querySelector(
-            "#ruleNumber"
+
+    if (ruleNumber) {
+
+        ruleNumber.classList.toggle(
+            "is-valid",
+            rules.number
         );
 
-
-    ruleLength.classList.toggle(
-        "is-valid",
-        rules.length
-    );
-
-
-    ruleLetter.classList.toggle(
-        "is-valid",
-        rules.letter
-    );
-
-
-    ruleNumber.classList.toggle(
-        "is-valid",
-        rules.number
-    );
+    }
 
 }
 
@@ -369,7 +417,8 @@ function validateForm() {
 
 
     const name =
-        registerName.value.trim();
+        registerName.value
+            .trim();
 
 
     const email =
@@ -483,7 +532,7 @@ function validateForm() {
         showFieldError(
             registerPassword,
             registerPasswordError,
-            "A senha não atende aos requisitos."
+            "A senha deve possuir pelo menos 8 caracteres, uma letra e um número."
         );
 
         isValid =
@@ -530,14 +579,11 @@ function validateForm() {
 
     if (!termsAccepted) {
 
-        registerTerms.setAttribute(
-            "aria-invalid",
-            "true"
+        showFieldError(
+            registerTerms,
+            registerTermsError,
+            "Você precisa aceitar os Termos de Uso."
         );
-
-
-        registerTermsError.textContent =
-            "Você precisa aceitar os Termos de Uso.";
 
         isValid =
             false;
@@ -555,8 +601,6 @@ function validateForm() {
 
         password,
 
-        passwordConfirmation,
-
         termsAccepted
 
     };
@@ -572,16 +616,28 @@ function setLoading(
     isLoading
 ) {
 
-    registerSubmit.disabled =
-        isLoading;
+    if (registerSubmit) {
+
+        registerSubmit.disabled =
+            isLoading;
+
+    }
 
 
-    registerSubmitText.hidden =
-        isLoading;
+    if (registerSubmitText) {
+
+        registerSubmitText.hidden =
+            isLoading;
+
+    }
 
 
-    registerSubmitLoading.hidden =
-        !isLoading;
+    if (registerSubmitLoading) {
+
+        registerSubmitLoading.hidden =
+            !isLoading;
+
+    }
 
 }
 
@@ -648,32 +704,6 @@ function initializePasswordToggle(
 
 
 /* ==========================================================================
-   Termos
-========================================================================== */
-
-function initializeTermsButton() {
-
-    if (!registerTermsButton) {
-
-        return;
-
-    }
-
-
-    registerTermsButton.addEventListener(
-        "click",
-        () => {
-
-            window.location.href =
-                "/pages/public/terms/terms.html";
-
-        }
-    );
-
-}
-
-
-/* ==========================================================================
    Cadastro
 ========================================================================== */
 
@@ -698,7 +728,9 @@ async function handleRegister(
 
 
     if (
-        !window.VisiumAuth
+        !window.VisiumAuth ||
+        typeof window.VisiumAuth.register !==
+        "function"
     ) {
 
         console.error(
@@ -722,19 +754,12 @@ async function handleRegister(
 
     try {
 
-        /*
-         * A criação definitiva da conta será feita pelo serviço
-         * central de autenticação.
-         */
-
         const result =
-            await Promise.resolve(
-                window.VisiumAuth.register(
-                    validation.name,
-                    validation.email,
-                    validation.password,
-                    validation.termsAccepted
-                )
+            await window.VisiumAuth.register(
+                validation.name,
+                validation.email,
+                validation.password,
+                validation.termsAccepted
             );
 
 
@@ -762,11 +787,12 @@ async function handleRegister(
         window.setTimeout(
             () => {
 
-                window.location.href =
-                    "/pages/app/dashboard/dashboard.html";
+                window.location.assign(
+                    DASHBOARD_URL
+                );
 
             },
-            400
+            500
         );
 
     } catch (error) {
@@ -796,10 +822,12 @@ async function handleRegister(
    Usuário já autenticado
 ========================================================================== */
 
-function redirectAuthenticatedUser() {
+async function redirectAuthenticatedUser() {
 
     if (
-        !window.VisiumAuth
+        !window.VisiumAuth ||
+        typeof window.VisiumAuth.isAuthenticated !==
+        "function"
     ) {
 
         return;
@@ -807,12 +835,25 @@ function redirectAuthenticatedUser() {
     }
 
 
-    if (
-        window.VisiumAuth.isAuthenticated()
-    ) {
+    try {
 
-        window.location.replace(
-            "/pages/app/dashboard/dashboard.html"
+        const authenticated =
+            await window.VisiumAuth.isAuthenticated();
+
+
+        if (authenticated) {
+
+            window.location.replace(
+                DASHBOARD_URL
+            );
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Visium | Erro ao verificar autenticação:",
+            error
         );
 
     }
@@ -826,66 +867,86 @@ function redirectAuthenticatedUser() {
 
 function initializeFormEvents() {
 
-    registerPassword.addEventListener(
-        "input",
-        updatePasswordRules
-    );
+    if (registerPassword) {
+
+        registerPassword.addEventListener(
+            "input",
+            updatePasswordRules
+        );
+
+    }
 
 
-    registerPasswordConfirmation.addEventListener(
-        "input",
-        () => {
+    if (
+        registerPasswordConfirmation &&
+        registerPassword
+    ) {
 
-            if (
-                registerPasswordConfirmation.value ===
-                registerPassword.value
-            ) {
+        registerPasswordConfirmation.addEventListener(
+            "input",
+            () => {
 
-                registerPasswordConfirmation.removeAttribute(
-                    "aria-invalid"
-                );
+                if (
+                    registerPasswordConfirmation.value &&
+                    registerPasswordConfirmation.value ===
+                    registerPassword.value
+                ) {
 
-                registerPasswordConfirmationError.textContent =
-                    "";
+                    registerPasswordConfirmation.removeAttribute(
+                        "aria-invalid"
+                    );
 
-            }
+                    registerPasswordConfirmationError.textContent =
+                        "";
 
-        }
-    );
-
-
-    registerEmail.addEventListener(
-        "blur",
-        () => {
-
-            registerEmail.value =
-                normalizeEmail(
-                    registerEmail.value
-                );
-
-        }
-    );
-
-
-    registerTerms.addEventListener(
-        "change",
-        () => {
-
-            if (
-                registerTerms.checked
-            ) {
-
-                registerTerms.removeAttribute(
-                    "aria-invalid"
-                );
-
-                registerTermsError.textContent =
-                    "";
+                }
 
             }
+        );
 
-        }
-    );
+    }
+
+
+    if (registerEmail) {
+
+        registerEmail.addEventListener(
+            "blur",
+            () => {
+
+                registerEmail.value =
+                    normalizeEmail(
+                        registerEmail.value
+                    );
+
+            }
+        );
+
+    }
+
+
+    if (registerTerms) {
+
+        registerTerms.addEventListener(
+            "change",
+            () => {
+
+                if (
+                    registerTerms.checked
+                ) {
+
+                    registerTerms.removeAttribute(
+                        "aria-invalid"
+                    );
+
+                    registerTermsError.textContent =
+                        "";
+
+                }
+
+            }
+        );
+
+    }
 
 }
 
@@ -902,7 +963,8 @@ function initializeRegister() {
         !registerEmail ||
         !registerPassword ||
         !registerPasswordConfirmation ||
-        !registerTerms
+        !registerTerms ||
+        !registerSubmit
     ) {
 
         console.error(
@@ -926,22 +988,19 @@ function initializeRegister() {
     );
 
 
-    initializeTermsButton();
-
-
     initializeFormEvents();
-
-
-    registerForm.addEventListener(
-        "submit",
-        handleRegister
-    );
 
 
     updatePasswordRules();
 
 
     redirectAuthenticatedUser();
+
+
+    registerForm.addEventListener(
+        "submit",
+        handleRegister
+    );
 
 }
 

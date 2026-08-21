@@ -11,6 +11,8 @@
 
     <title>Conteúdos | Visium</title>
 
+    <link rel="icon" type="image/jpeg" href="/assets/img/brand/logo.jpg">
+
 
     <!-- ================================================================
          Base
@@ -43,7 +45,7 @@
          Página
     ================================================================= -->
 
-    <link rel="stylesheet" href="/pages/app/contents/contents.css">
+    <link rel="stylesheet" href="/pages/app/contents/contents.css?v=20260821">
 
 </head>
 
@@ -112,65 +114,94 @@
 
                     <section class="contents-toolbar" aria-label="Ferramentas da biblioteca">
 
-                        <div class="contents-search">
+                        <div class="contents-toolbar__field">
 
-                            <label class="sr-only" for="contentSearch">
-                                Buscar conteúdo
-                            </label>
+                            <span class="contents-toolbar__label">
+                                Buscar na biblioteca
+                            </span>
 
-                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <div class="contents-search">
 
-                                <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8" />
+                                <label class="sr-only" for="contentSearch">
+                                    Buscar conteúdo
+                                </label>
 
-                                <path d="m16 16 4 4" fill="none" stroke="currentColor" stroke-width="1.8"
-                                    stroke-linecap="round" />
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
 
-                            </svg>
+                                    <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor"
+                                        stroke-width="1.8" />
+
+                                    <path d="m16 16 4 4" fill="none" stroke="currentColor" stroke-width="1.8"
+                                        stroke-linecap="round" />
+
+                                </svg>
 
 
-                            <input type="search" id="contentSearch" name="contentSearch"
-                                placeholder="Buscar conteúdo..." autocomplete="off">
+                                <input type="search" id="contentSearch" name="contentSearch"
+                                    placeholder="Buscar por tema, título ou palavra-chave..." autocomplete="off">
+
+                            </div>
 
                         </div>
 
 
-                        <div class="contents-filters" role="group" aria-label="Filtrar conteúdos">
+                        <div class="contents-toolbar__filters">
 
-                            <button type="button" class="contents-filter is-active" data-filter="all"
-                                aria-pressed="true">
-                                Todos
-                            </button>
+                            <span class="contents-toolbar__label">
+                                Filtrar por tema
+                            </span>
 
+                            <div class="contents-filters" role="group" aria-label="Filtrar conteúdos">
 
-                            <button type="button" class="contents-filter" data-filter="anatomia" aria-pressed="false">
-                                Anatomia
-                            </button>
+                                <button type="button" class="contents-filter is-active" data-filter="all"
+                                    aria-pressed="true">
+                                    Todos
+                                </button>
 
+                                <button type="button" class="contents-filter" data-filter="receitas" aria-pressed="false">
+                                    Receitas
+                                </button>
 
-                            <button type="button" class="contents-filter" data-filter="ametropias" aria-pressed="false">
-                                Ametropias
-                            </button>
+                                <button type="button" class="contents-filter" data-filter="optica" aria-pressed="false">
+                                    Óptica
+                                </button>
 
-
-                            <button type="button" class="contents-filter" data-filter="dp-dnp" aria-pressed="false">
-                                DP e DNP
-                            </button>
-
-
-                            <button type="button" class="contents-filter" data-filter="montagem" aria-pressed="false">
-                                Montagem
-                            </button>
+                                <button type="button" class="contents-filter" data-filter="anatomia" aria-pressed="false">
+                                    Anatomia
+                                </button>
 
 
-                            <button type="button" class="contents-filter" data-filter="lentes-contato"
-                                aria-pressed="false">
-                                Lentes de Contato
-                            </button>
+                                <button type="button" class="contents-filter" data-filter="ametropias" aria-pressed="false">
+                                    Ametropias
+                                </button>
 
 
-                            <button type="button" class="contents-filter" data-filter="patologias" aria-pressed="false">
-                                Patologias
-                            </button>
+                                <button type="button" class="contents-filter" data-filter="dp-dnp" aria-pressed="false">
+                                    DP e DNP
+                                </button>
+
+
+                                <button type="button" class="contents-filter" data-filter="montagem" aria-pressed="false">
+                                    Montagem
+                                </button>
+
+
+                                <button type="button" class="contents-filter" data-filter="armacoes" aria-pressed="false">
+                                    Armações
+                                </button>
+
+
+                                <button type="button" class="contents-filter" data-filter="lentes-contato"
+                                    aria-pressed="false">
+                                    Lentes de Contato
+                                </button>
+
+
+                                <button type="button" class="contents-filter" data-filter="patologias" aria-pressed="false">
+                                    Patologias
+                                </button>
+
+                            </div>
 
                         </div>
 
@@ -198,14 +229,155 @@
                             </div>
 
 
-                            <span class="contents-count" id="contentsCount">
-                                6 conteúdos
+                            <span class="contents-count" id="contentsCount" aria-live="polite">
+                                9 conteúdos
                             </span>
 
                         </div>
 
 
                         <div class="contents-grid" id="contentsGrid">
+
+                            <!-- =================================================
+     Lendo uma receita
+================================================== -->
+
+                            <article class="library-card" data-category="receitas" data-title="Lendo uma receita">
+
+                                <div class="library-card__top">
+
+                                    <div class="library-card__icon">
+
+                                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+
+                                            <rect x="5" y="4" width="14" height="16" rx="2" fill="none"
+                                                stroke="currentColor" stroke-width="1.8" />
+
+                                            <path d="M8 8h8M8 12h8M8 16h5" fill="none" stroke="currentColor"
+                                                stroke-width="1.8" stroke-linecap="round" />
+
+                                        </svg>
+
+                                    </div>
+
+                                    <span class="library-card__category">
+                                        RECEITAS
+                                    </span>
+
+                                </div>
+
+
+                                <div class="library-card__body">
+
+                                    <h3>
+                                        Lendo uma receita
+                                    </h3>
+
+                                    <p>
+                                        Aprenda a interpretar os principais campos,
+                                        sinais e abreviações presentes em uma receita
+                                        oftálmica.
+                                    </p>
+
+                                </div>
+
+
+                                <div class="library-card__footer">
+
+                                    <span class="library-card__status">
+                                        Conteúdo disponível
+                                    </span>
+
+
+                                    <a href="/pages/app/reader/reader.html?content=lendo-uma-receita"
+                                        class="library-card__action" aria-label="Estudar Lendo uma receita">
+
+                                        <span>
+                                            Estudar
+                                        </span>
+
+                                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+
+                                            <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor"
+                                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+
+                                        </svg>
+
+                                    </a>
+
+                                </div>
+
+                            </article>
+
+
+                            <!-- =================================================
+                                 Transposição
+                            ================================================== -->
+
+                            <article class="library-card" data-category="optica" data-title="Transposição">
+
+                                <div class="library-card__top">
+
+                                    <div class="library-card__icon">
+
+                                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+
+                                            <path d="M5 8h10M11 4l4 4-4 4M19 16H9M13 12l-4 4 4 4" fill="none"
+                                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+
+                                        </svg>
+
+                                    </div>
+
+
+                                    <span class="library-card__category">
+                                        ÓPTICA
+                                    </span>
+
+                                </div>
+
+
+                                <div class="library-card__body">
+
+                                    <h3>
+                                        Transposição
+                                    </h3>
+
+                                    <p>
+                                        Aprenda a converter uma receita oftálmica
+                                        sem alterar o poder dióptrico da lente.
+                                    </p>
+
+                                </div>
+
+
+                                <div class="library-card__footer">
+
+                                    <span class="library-card__status">
+                                        Conteúdo disponível
+                                    </span>
+
+
+                                    <a href="/pages/app/reader/reader.html?content=transposicao"
+                                        class="library-card__action" aria-label="Estudar Transposição">
+
+                                        <span>
+                                            Estudar
+                                        </span>
+
+                                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+
+                                            <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor"
+                                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+
+                                        </svg>
+
+                                    </a>
+
+                                </div>
+
+                            </article>
 
 
                             <!-- =================================================
@@ -497,6 +669,82 @@
 
 
                             <!-- =================================================
+                                 Armações
+                            ================================================== -->
+
+                            <article class="library-card" data-category="armacoes" data-title="Armações">
+
+                                <div class="library-card__top">
+
+                                    <div class="library-card__icon">
+
+                                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+
+                                            <circle cx="7.5" cy="14" r="3.5" fill="none" stroke="currentColor"
+                                                stroke-width="1.8" />
+
+                                            <circle cx="16.5" cy="14" r="3.5" fill="none" stroke="currentColor"
+                                                stroke-width="1.8" />
+
+                                            <path d="M11 14h2M4 13l-1.5-3M20 13l1.5-3" fill="none" stroke="currentColor"
+                                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+
+                                        </svg>
+
+                                    </div>
+
+
+                                    <span class="library-card__category">
+                                        ARMAÇÕES
+                                    </span>
+
+                                </div>
+
+
+                                <div class="library-card__body">
+
+                                    <h3>
+                                        Armações
+                                    </h3>
+
+                                    <p>
+                                        Estude tipos, materiais, estrutura,
+                                        medidas e critérios de indicação de
+                                        armações.
+                                    </p>
+
+                                </div>
+
+
+                                <div class="library-card__footer">
+
+                                    <span class="library-card__status">
+                                        Conteúdo disponível
+                                    </span>
+
+
+                                    <a href="/pages/app/reader/reader.html?content=armacoes"
+                                        class="library-card__action" aria-label="Estudar Armações">
+
+                                        <span>
+                                            Estudar
+                                        </span>
+
+                                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+
+                                            <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor"
+                                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+
+                                        </svg>
+
+                                    </a>
+
+                                </div>
+
+                            </article>
+
+
+                            <!-- =================================================
                                  Lentes de Contato
                             ================================================== -->
 
@@ -690,8 +938,9 @@
 
     </div>
 
-<script src="/components/sidebar/sidebar.js"></script>
-    <script src="/pages/app/contents/contents.js"></script>
+    <script src="/js/auth/auth.js?v=20260822"></script>
+    <script src="/components/sidebar/sidebar.js?v=20260821"></script>
+    <script src="/pages/app/contents/contents.js?v=20260821"></script>
 
 </body>
 

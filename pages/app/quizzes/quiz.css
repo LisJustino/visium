@@ -1013,3 +1013,31 @@
     }
 
 }
+
+/* ==========================================================================
+   Refinamento visual e fluxo
+========================================================================== */
+
+.quiz-header__content {
+    display: grid;
+    gap: .35rem;
+}
+
+.quiz-header h1,
+.quiz-header p {
+    margin: 0;
+}
+
+.quiz-card,
+.quiz-result {
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, .045);
+}
+
+.quiz-option {
+    min-height: 52px;
+}
+
+.quiz-result__details {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}

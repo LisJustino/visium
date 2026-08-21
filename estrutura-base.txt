@@ -1,0 +1,583 @@
+ 
+============================================================ 
+ARQUIVO: PROJECT_RULES.md 
+============================================================ 
+# Regras do Projeto - Visium
+
+## Objetivo
+
+Este documento reúne as regras de desenvolvimento adotadas para o projeto Visium.
+
+Todas as implementações devem seguir estas diretrizes para garantir qualidade, padronização e facilidade de manutenção.
+
+---
+
+# 1. Filosofia do Projeto
+
+O Visium será desenvolvido como um software profissional.
+
+As decisões devem priorizar:
+
+- Qualidade;
+- Simplicidade;
+- Escalabilidade;
+- Manutenibilidade;
+- Reutilização;
+- Consistência.
+
+Nunca implementar uma solução apenas porque é mais rápida.
+
+---
+
+# 2. Stack
+
+Frontend
+
+- HTML5
+- CSS3
+- JavaScript ES6+
+- Bootstrap 5
+- Bootstrap Icons
+
+Desenvolvimento
+
+- Visual Studio Code
+
+Versionamento
+
+- Git
+- GitHub
+
+---
+
+# 3. Ambiente
+
+O projeto será executado utilizando:
+
+```bash
+python -m http.server 8000
+```
+
+Não utilizar Live Server.
+
+---
+
+# 4. Arquitetura
+
+A arquitetura definida para o projeto deve ser preservada.
+
+Novas pastas somente quando realmente necessárias.
+
+Toda alteração estrutural deve ser avaliada antes da implementação.
+
+---
+
+# 5. Organização
+
+Cada pasta possui uma responsabilidade única.
+
+Não criar diretórios temporários como:
+
+- teste
+- backup
+- novo
+- diversos
+
+---
+
+# 6. Código
+
+Todo código deve seguir:
+
+- DRY (Don't Repeat Yourself)
+- KISS (Keep It Simple)
+- Separação de responsabilidades
+- Código limpo
+- Legibilidade
+
+---
+
+# 7. HTML
+
+Sempre utilizar:
+
+- HTML semântico;
+- Estrutura organizada;
+- Hierarquia correta;
+- Acessibilidade.
+
+Nunca utilizar:
+
+- CSS inline;
+- JavaScript inline.
+
+---
+
+# 8. CSS
+
+Os estilos globais permanecem na pasta `css`.
+
+Cada página possui seu próprio arquivo CSS.
+
+Evitar:
+
+- Repetição de regras;
+- Arquivos gigantes;
+- Estilos não utilizados.
+
+---
+
+# 9. JavaScript
+
+Cada página possui seu próprio JavaScript.
+
+Os scripts compartilhados ficam em `js`.
+
+Utilizar:
+
+- Funções pequenas;
+- Código reutilizável;
+- Nomes descritivos.
+
+---
+
+# 10. Componentes
+
+Todo componente reutilizável deverá possuir sua própria pasta.
+
+Exemplo:
+
+```
+components/
+└── header/
+```
+
+Quando implementado, poderá conter:
+
+- HTML
+- CSS
+- JavaScript
+
+---
+
+# 11. Comentários
+
+Comentários devem explicar decisões importantes.
+
+Nunca comentar o óbvio.
+
+---
+
+# 12. Arquivos
+
+Sempre enviar arquivos completos.
+
+Nunca trabalhar com trechos de código.
+
+Sempre que um arquivo impactar outro, ambos deverão ser atualizados.
+
+---
+
+# 13. Bootstrap
+
+Bootstrap será utilizado via CDN.
+
+CSS próprio somente quando necessário.
+
+---
+
+# 14. Responsividade
+
+Obrigatória desde a primeira implementação.
+
+O projeto deve funcionar corretamente em:
+
+- Smartphones;
+- Tablets;
+- Notebooks;
+- Monitores.
+
+---
+
+# 15. Acessibilidade
+
+Seguir boas práticas de acessibilidade.
+
+Sempre considerar:
+
+- Navegação por teclado;
+- Labels;
+- Textos alternativos;
+- Contraste adequado;
+- Estrutura semântica.
+
+---
+
+# 16. Componentização
+
+Sempre reutilizar componentes.
+
+Evitar duplicação de HTML.
+
+---
+
+# 17. Organização dos Conteúdos
+
+Os conteúdos seguirão a estrutura:
+
+```
+Categoria
+    └── Subcategoria
+            └── Conteúdo
+```
+
+---
+
+# 18. Versionamento
+
+Cada funcionalidade concluída deverá possuir:
+
+- Commit;
+- Revisão;
+- Histórico claro.
+
+Evitar commits genéricos.
+
+---
+
+# 19. Documentação
+
+Toda decisão importante deve ser documentada.
+
+A documentação faz parte do projeto.
+
+---
+
+# 20. Testes
+
+A pasta `tests` armazenará:
+
+- Checklists;
+- Cenários;
+- Evidências futuras.
+
+---
+
+# 21. Estrutura
+
+Todas as alterações em arquivos e pastas devem ser realizadas utilizando comandos do Windows CMD.
+
+---
+
+# 22. Desenvolvimento
+
+Sempre seguir o fluxo:
+
+Planejamento
+
+↓
+
+Implementação
+
+↓
+
+Validação
+
+↓
+
+Revisão
+
+↓
+
+Commit
+
+---
+
+# 23. Qualidade
+
+Antes de concluir uma entrega verificar:
+
+- Organização;
+- Responsividade;
+- Acessibilidade;
+- Reutilização;
+- Código limpo.
+
+---
+
+# 24. Evolução
+
+O projeto deverá crescer de forma incremental.
+
+Novas funcionalidades não devem quebrar implementações existentes.
+
+---
+
+# 25. Compromisso
+
+Cada entrega deverá deixar o projeto melhor do que estava anteriormente. 
+============================================================ 
+ARQUIVO: README.md 
+============================================================ 
+﻿# Visium
+
+## Sobre o projeto
+
+O **Visium** Ã© um portal de estudos sobre Ã³ptica desenvolvido com HTML, CSS e JavaScript puros.
+
+O projeto tem como objetivo fornecer uma plataforma moderna, organizada e responsiva para aprendizado, reunindo conteÃºdos tÃ©cnicos sobre Ã³ptica em um ambiente intuitivo e agradÃ¡vel.
+
+O desenvolvimento prioriza:
+
+- CÃ³digo limpo;
+- Arquitetura organizada;
+- Acessibilidade;
+- Responsividade;
+- ReutilizaÃ§Ã£o de componentes;
+- Facilidade de manutenÃ§Ã£o.
+
+---
+
+## Tecnologias
+
+- HTML5
+- CSS3
+- JavaScript (ES6+)
+- Bootstrap 5
+- Bootstrap Icons
+- Python HTTP Server (ambiente local)
+
+---
+
+## Executando o projeto
+
+Na raiz do projeto execute:
+
+```bash
+python -m http.server 8000
+```
+
+Depois acesse:
+
+```
+http://127.0.0.1:8000
+```
+
+> Esta versÃ£o Ã© um protÃ³tipo local. As contas, senhas, sessÃ£o e dados de
+> progresso sÃ£o armazenados no navegador e nÃ£o oferecem autenticaÃ§Ã£o segura
+> para produÃ§Ã£o. Um backend com hash de senhas, sessÃµes no servidor e
+> recuperaÃ§Ã£o por e-mail serÃ¡ necessÃ¡rio antes de publicar a plataforma.
+
+---
+
+## Estrutura do projeto
+
+```
+visium/
+â”‚
+â”œâ”€â”€ assets/
+â”œâ”€â”€ components/
+â”œâ”€â”€ css/
+â”œâ”€â”€ docs/
+â”œâ”€â”€ js/
+â”œâ”€â”€ pages/
+â”œâ”€â”€ pdf/
+â”œâ”€â”€ scripts/
+â”œâ”€â”€ tests/
+â”‚
+â”œâ”€â”€ CHANGELOG.md
+â”œâ”€â”€ PROJECT_RULES.md
+â”œâ”€â”€ README.md
+â””â”€â”€ pages/public/landing/index.html
+```
+
+---
+
+## Funcionalidades planejadas
+
+### Ãrea pÃºblica
+
+- Landing Page
+- Sobre
+- Portal de conteÃºdos
+- Pesquisa
+- Categorias
+- Subcategorias
+
+### AutenticaÃ§Ã£o
+
+- Login
+- Cadastro
+- RecuperaÃ§Ã£o de senha
+
+### Ãrea do usuÃ¡rio
+
+- Dashboard
+- Perfil
+- Favoritos
+- Continuar de onde parou
+
+### AdministraÃ§Ã£o
+
+- Cadastro de conteÃºdos
+- Gerenciamento de usuÃ¡rios
+- PrÃ©-visualizaÃ§Ã£o de conteÃºdos
+- Upload de materiais
+
+---
+
+## OrganizaÃ§Ã£o dos conteÃºdos
+
+Os conteÃºdos serÃ£o organizados em:
+
+```
+Categoria
+    â””â”€â”€ Subcategoria
+            â””â”€â”€ ConteÃºdo
+```
+
+---
+
+## Objetivos do projeto
+
+- Centralizar conteÃºdos sobre Ã³ptica.
+- Facilitar o aprendizado.
+- Criar uma plataforma simples e agradÃ¡vel.
+- Possibilitar crescimento contÃ­nuo do sistema.
+
+---
+
+## Estrutura de desenvolvimento
+
+O projeto segue um processo baseado em entregas incrementais.
+
+Cada entrega possui:
+
+- Planejamento
+- ImplementaÃ§Ã£o
+- ValidaÃ§Ã£o
+- RevisÃ£o
+- Commit
+
+---
+
+## Qualidade
+
+Durante o desenvolvimento sÃ£o priorizados:
+
+- HTML semÃ¢ntico;
+- Acessibilidade (WCAG AA);
+- Responsividade;
+- ComponentizaÃ§Ã£o;
+- CÃ³digo reutilizÃ¡vel;
+- ComentÃ¡rios Ãºteis;
+- PadronizaÃ§Ã£o.
+
+---
+
+## Roadmap
+
+- FundaÃ§Ã£o do projeto
+- Landing Page
+- Login
+- Cadastro
+- RecuperaÃ§Ã£o de senha
+- Dashboard
+- Perfil
+- ConteÃºdos
+- Favoritos
+- Pesquisa
+- AdministraÃ§Ã£o
+- Backend
+
+---
+
+## LicenÃ§a
+
+Este projeto utiliza a licenÃ§a MIT.
+
+## Autora
+
+Desenvolvido por **Elisa Justino**.
+
+- LinkedIn: <https://www.linkedin.com/in/elisa-justino/>
+- GitHub: <https://github.com/LisJustino>
+ 
+============================================================ 
+ARQUIVO: CHANGELOG.md 
+============================================================ 
+# Changelog
+
+Todas as alterações relevantes deste projeto serão documentadas neste arquivo.
+
+Este projeto segue o padrão **Keep a Changelog** e utiliza **Versionamento Semântico (SemVer)**.
+
+---
+
+## [0.0.1] - Em desenvolvimento
+
+### Adicionado
+
+- Estrutura inicial do projeto.
+- Organização das pastas.
+- Arquitetura base.
+- Estrutura para documentação.
+- Estrutura para componentes reutilizáveis.
+- Estrutura para testes.
+- Estrutura para páginas públicas, autenticação e área logada.
+
+### Documentação
+
+- README.md
+- PROJECT_RULES.md
+- CHANGELOG.md
+
+### Planejado
+
+- LICENSE
+- Revisão do `.gitignore`
+- Landing Page
+- Login
+- Cadastro
+- Recuperação de senha
+- Dashboard
+- Perfil
+- Portal de conteúdos
+- Favoritos
+- Administração 
+============================================================ 
+ARQUIVO: index.html 
+============================================================ 
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta http-equiv="refresh" content="0; url=/pages/public/landing/index.html">
+
+    <title>Visium</title>
+
+    <link rel="icon" type="image/jpeg" href="/assets/img/brand/logo.jpg">
+
+</head>
+
+<body>
+
+    <p>
+        Redirecionando para o Visium...
+        <a href="/pages/public/landing/index.html">Abrir a landing page</a>
+    </p>
+
+    <script>
+        window.location.replace(
+            "/pages/public/landing/index.html"
+        );
+    </script>
+
+</body>
+
+</html>

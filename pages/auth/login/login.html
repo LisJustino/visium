@@ -2,14 +2,14 @@
 <html lang="pt-BR">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="description" content="Entre na sua conta do Visium.">
 
     <title>Entrar | Visium</title>
+
+    <link rel="icon" type="image/jpeg" href="/assets/img/brand/logo.jpg">
 
     <link rel="stylesheet" href="/css/base/reset.css">
 
@@ -18,9 +18,7 @@
     <link rel="stylesheet" href="/css/abstracts/variables.css">
 
     <link rel="stylesheet" href="/pages/auth/login/login.css">
-
 </head>
-
 
 <body>
 
@@ -31,10 +29,9 @@
             <header class="login-header">
 
                 <!--
-                    Marca Visium
+                    Marca Visium.
                     A logo oficial é carregada como imagem.
                 -->
-
                 <a href="/pages/public/landing/index.html" class="login-brand"
                     aria-label="Voltar para o início do Visium">
 
@@ -46,16 +43,13 @@
 
                 </a>
 
-
                 <span class="login-eyebrow">
                     ÁREA DO ALUNO
                 </span>
 
-
                 <h1 id="loginTitle">
                     Bem-vindo de volta
                 </h1>
-
 
                 <p>
                     Entre na sua conta para continuar
@@ -64,11 +58,9 @@
 
             </header>
 
-
             <form class="login-form" id="loginForm" novalidate>
 
                 <div class="login-feedback" id="loginFeedback" role="alert" aria-live="polite" hidden></div>
-
 
                 <div class="login-field">
 
@@ -82,7 +74,6 @@
                     <span class="login-field__error" id="loginEmailError" aria-live="polite"></span>
 
                 </div>
-
 
                 <div class="login-field">
 
@@ -98,7 +89,6 @@
 
                     </div>
 
-
                     <div class="login-password">
 
                         <input type="password" id="loginPassword" name="password" autocomplete="current-password"
@@ -111,11 +101,9 @@
 
                     </div>
 
-
                     <span class="login-field__error" id="loginPasswordError" aria-live="polite"></span>
 
                 </div>
-
 
                 <button type="submit" class="login-button" id="loginSubmit">
 
@@ -131,15 +119,11 @@
 
             </form>
 
-
             <div class="login-divider" aria-hidden="true">
-
                 <span>
                     ou
                 </span>
-
             </div>
-
 
             <p class="login-register">
 
@@ -151,7 +135,6 @@
 
             </p>
 
-
             <a href="/pages/public/landing/index.html" class="login-back">
                 &larr; Voltar para a página inicial
             </a>
@@ -160,9 +143,7 @@
 
     </main>
 
-
-    <script src="/js/auth/auth.js"></script>
-
+    <script src="/js/auth/auth.js?v=20260822"></script>
     <script src="/pages/auth/login/login.js"></script>
 
 </body>
