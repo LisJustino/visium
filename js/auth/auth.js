@@ -621,10 +621,47 @@ window.VisiumAuth = {
                 }
             );
 
+        localStorage.removeItem(
+            "visium_user"
+        );
+
 
         window.location.assign(
             LANDING_URL
         );
+
+
+        return result;
+
+    },
+
+
+    async deleteAccount() {
+
+        const result =
+            await requestApi(
+                "/auth/account",
+                {
+                    method:
+                        "DELETE"
+                }
+            );
+
+
+        localStorage.removeItem(
+            "visium_user"
+        );
+
+
+        Object.keys(
+            localStorage
+        )
+            .filter(
+                (key) => key.startsWith("visium_")
+            )
+            .forEach(
+                (key) => localStorage.removeItem(key)
+            );
 
 
         return result;
@@ -648,13 +685,30 @@ window.VisiumAuth = {
             !result.success
         ) {
 
+            localStorage.removeItem(
+                "visium_user"
+            );
+
             return null;
 
         }
 
 
-        return result.user ||
+        const user =
+            result.user ||
             null;
+
+        if (user) {
+
+            localStorage.setItem(
+                "visium_user",
+                JSON.stringify(user)
+            );
+
+        }
+
+
+        return user;
 
     },
 

@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: visium
+    runtime: python
+    plan: free
+    buildCommand: ""
+    startCommand: python backend/server.py
+    envVars:
+      - key: HOST
+        value: 0.0.0.0
+      - key: PORT
+        value: 10000
+      - key: VISIUM_SECURE_COOKIES
+        value: "1"

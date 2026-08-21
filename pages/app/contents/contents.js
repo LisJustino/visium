@@ -165,6 +165,11 @@ function initializeContentsFilters() {
             )
         );
 
+    const contentsGrid =
+        document.querySelector(
+            "#contentsGrid"
+        );
+
 
     const countElement =
         document.querySelector(
@@ -185,6 +190,45 @@ function initializeContentsFilters() {
         return;
 
     }
+
+
+    const contentOrder =
+        window.VISIUM_CONTENT_ORDER || [];
+
+    const categoryToContentId = {
+        receitas: "interpretacao-de-receita",
+        optica: "transposicao",
+        "acuidade-visual": "acuidade-visual",
+        anatomia: "anatomia",
+        ametropias: "ametropias",
+        "dp-dnp": "dp-dnp",
+        "lentes-contato": "lentes-contato",
+        "surfacagem-multifocal-bifocal": "surfacagem-multifocal-bifocal",
+        montagem: "montagem",
+        armacoes: "armacoes",
+        patologias: "patologias"
+    };
+
+    cards
+        .sort(
+            (firstCard, secondCard) => {
+                const firstIndex =
+                    contentOrder.indexOf(
+                        categoryToContentId[firstCard.dataset.category]
+                    );
+
+                const secondIndex =
+                    contentOrder.indexOf(
+                        categoryToContentId[secondCard.dataset.category]
+                    );
+
+                return (firstIndex < 0 ? Number.MAX_SAFE_INTEGER : firstIndex) -
+                    (secondIndex < 0 ? Number.MAX_SAFE_INTEGER : secondIndex);
+            }
+        )
+        .forEach(
+            (card) => contentsGrid?.appendChild(card)
+        );
 
 
     const initialCategory =

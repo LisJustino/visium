@@ -26,53 +26,12 @@ const COMPONENTS = {
    Dados dos conteúdos
 ========================================================================== */
 
-const CONTENTS = [
-
-    {
-        id:
-            "ametropias",
-
-        title:
-            "Ametropias"
-    },
-
-
-    {
-        id:
-            "dp-dnp",
-
-        title:
-            "DP e DNP"
-    },
-
-
-    {
-        id:
-            "montagem",
-
-        title:
-            "Montagem"
-    },
-
-
-    {
-        id:
-            "armacoes",
-
-        title:
-            "Armações"
-    },
-
-
-    {
-        id:
-            "patologias",
-
-        title:
-            "Patologias"
-    }
-
-];
+const CONTENTS =
+    Array.isArray(
+        window.VISIUM_CONTENTS
+    )
+        ? window.VISIUM_CONTENTS
+        : [];
 
 
 /* ==========================================================================
@@ -112,11 +71,51 @@ async function requireAuthentication() {
    Identificação do usuário
 ========================================================================== */
 
+function getStoredUser() {
+
+    try {
+
+        const storedUser =
+            localStorage.getItem(
+                "visium_user"
+            );
+
+
+        if (!storedUser) {
+
+            return null;
+
+        }
+
+
+        return JSON.parse(
+            storedUser
+        );
+
+    } catch (error) {
+
+        console.warn(
+            "Visium | Usuário salvo em localStorage inválido.",
+            error
+        );
+
+        return null;
+
+    }
+
+}
+
+
 function getUserKey(
     user
 ) {
 
-    if (!user) {
+    const resolvedUser =
+        user ||
+        getStoredUser();
+
+
+    if (!resolvedUser) {
 
         return "anonymous";
 
@@ -124,10 +123,10 @@ function getUserKey(
 
 
     return String(
-        user.id ||
-        user.email ||
-        user.username ||
-        user.name ||
+        resolvedUser.id ||
+        resolvedUser.email ||
+        resolvedUser.username ||
+        resolvedUser.name ||
         "anonymous"
     )
         .trim()
@@ -161,7 +160,7 @@ function getQuizHistoryStorageKey() {
 
         getSafeStorageKey(
             getUserKey(
-                getCurrentUser()
+                getStoredUser()
             )
         )
 
@@ -416,19 +415,17 @@ function getQuizTitle(
 ) {
 
     const titles = {
-
-        "fundamentos-optica":
-            "Fundamentos de Óptica",
-
-        "ametropias":
-            "Ametropias",
-
-        "dp-dnp":
-            "DP e DNP",
-
-        "montagem":
-            "Montagem de Óculos"
-
+        "fundamentos-optica": "Fundamentos de Óptica",
+        "interpretacao-de-receita": "Interpretação de Receita",
+        "dp-dnp": "O que é DP, DNP e Altura",
+        "acuidade-visual": "Acuidade Visual",
+        "lentes-contato": "Lentes de Contato",
+        "surfacagem-multifocal-bifocal": "Surfaçagem de Multifocal e Bifocal",
+        "montagem": "Montagem",
+        "armacoes": "Armações",
+        "patologias": "Patologias",
+        "ametropias": "Ametropias",
+        "anatomia": "Anatomia"
     };
 
 

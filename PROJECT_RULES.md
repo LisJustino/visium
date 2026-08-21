@@ -48,10 +48,11 @@ Versionamento
 
 # 3. Ambiente
 
-O projeto será executado utilizando:
+O projeto será executado utilizando o servidor completo, que disponibiliza os
+arquivos estáticos e a API de autenticação:
 
 ```bash
-python -m http.server 8000
+python backend/server.py
 ```
 
 Não utilizar Live Server.

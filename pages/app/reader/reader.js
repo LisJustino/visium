@@ -720,6 +720,8 @@ async function loadExternalContent(
     key
 ) {
 
+    const sourceKey = key;
+
     if (
         !canLoadExternalContent(
             key
@@ -732,7 +734,7 @@ async function loadExternalContent(
 
 
     if (
-        window.VisiumContent?.[key]
+        window.VisiumContent?.[sourceKey]
     ) {
 
         return true;
@@ -750,7 +752,7 @@ async function loadExternalContent(
 
 
             script.src =
-                `/data/content/${key}.js`;
+                `/data/content/${sourceKey}.js`;
 
             script.async =
                 true;
@@ -759,11 +761,10 @@ async function loadExternalContent(
             script.onload =
                 () => {
 
-                    resolve(
-                        Boolean(
-                            window.VisiumContent?.[key]
-                        )
-                    );
+                    const sourceContent =
+                        window.VisiumContent?.[sourceKey];
+
+                    resolve(Boolean(sourceContent));
 
                 };
 
@@ -1746,23 +1747,17 @@ async function initializeReader() {
         getContentKey();
 
 
-    currentContent =
-        getCurrentContent();
-
-
-    if (
-        !currentContent &&
-        contentKey
-    ) {
+    if (contentKey) {
 
         await loadExternalContent(
             contentKey
         );
 
-        currentContent =
-            getCurrentContent();
-
     }
+
+
+    currentContent =
+        getCurrentContent();
 
 
     if (!currentContent) {

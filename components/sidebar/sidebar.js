@@ -30,7 +30,24 @@
         "#appSidebarContainer";
 
     const SIDEBAR_URL =
-        "/components/sidebar/sidebar.html?v=20260822";
+        "/components/sidebar/sidebar.html?v=20260826";
+
+    let sidebarInitializationPromise =
+        null;
+
+    const SUBMENU_CONTENT_ORDER = [
+        "interpretacao-de-receita",
+        "transposicao",
+        "dp-dnp",
+        "acuidade-visual",
+        "lentes-contato",
+        "surfacagem-multifocal-bifocal",
+        "montagem",
+        "armacoes",
+        "patologias",
+        "ametropias",
+        "anatomia"
+    ];
 
 
     /* ==========================================================================
@@ -111,6 +128,51 @@
                 )
             ).find(
                 (link) => {
+
+                        const href =
+                            link.getAttribute(
+                                "href"
+                            );
+
+                        if (href) {
+
+                            const url =
+                                new URL(
+                                    href,
+                                    window.location.origin
+                                );
+
+                            const targetPage =
+                                url.pathname
+                                    .split("/")
+                                    .filter(Boolean)
+                                    .pop()
+                                    ?.replace(
+                                        /\.html$/i,
+                                        ""
+                                    );
+
+                            if (
+                                targetPage === currentPage &&
+                                url.hash
+                            ) {
+
+                                return url.hash ===
+                                    window.location.hash;
+
+                            }
+
+                            if (
+                                targetPage === currentPage &&
+                                !url.hash &&
+                                window.location.hash
+                            ) {
+
+                                return false;
+
+                            }
+
+                        }
 
                     const pages =
                         (link.dataset.page || "")
@@ -349,6 +411,58 @@
             "aria-hidden",
             "true"
         );
+
+    }
+
+
+    function sortSubmenuLinks(sidebar) {
+
+        const submenu =
+            sidebar?.querySelector(
+                "#contentsSubmenu"
+            );
+
+        if (!submenu) {
+            return;
+        }
+
+        const links =
+            Array.from(
+                submenu.querySelectorAll(
+                    ".app-sidebar__sublink"
+                )
+            );
+
+        links
+            .sort(
+                (firstLink, secondLink) => {
+                    const firstContent =
+                        new URL(
+                            firstLink.href
+                        ).searchParams.get(
+                            "content"
+                        );
+
+                    const secondContent =
+                        new URL(
+                            secondLink.href
+                        ).searchParams.get(
+                            "content"
+                        );
+
+                    const firstIndex =
+                        SUBMENU_CONTENT_ORDER.indexOf(firstContent);
+
+                    const secondIndex =
+                        SUBMENU_CONTENT_ORDER.indexOf(secondContent);
+
+                    return (firstIndex < 0 ? Number.MAX_SAFE_INTEGER : firstIndex) -
+                        (secondIndex < 0 ? Number.MAX_SAFE_INTEGER : secondIndex);
+                }
+            )
+            .forEach(
+                (link) => submenu.appendChild(link)
+            );
 
     }
 
@@ -807,7 +921,7 @@
        Carregamento do Sidebar
     ========================================================================== */
 
-    async function initializeSidebar() {
+    async function initializeSidebarInternal() {
 
         const container =
             document.querySelector(
@@ -834,6 +948,10 @@
                 );
 
             if (sidebar) {
+
+                sortSubmenuLinks(
+                    sidebar
+                );
 
                 initializeExpandableMenus(
                     sidebar
@@ -908,6 +1026,10 @@
                Inicializações
             ================================================================== */
 
+            sortSubmenuLinks(
+                sidebar
+            );
+
             initializeExpandableMenus(
                 sidebar
             );
@@ -931,6 +1053,33 @@
                 "[Visium] Erro ao carregar Sidebar:",
                 error
             );
+
+        }
+
+    }
+
+
+    async function initializeSidebar() {
+
+        if (sidebarInitializationPromise) {
+
+            return sidebarInitializationPromise;
+
+        }
+
+
+        sidebarInitializationPromise =
+            initializeSidebarInternal();
+
+
+        try {
+
+            return await sidebarInitializationPromise;
+
+        } finally {
+
+            sidebarInitializationPromise =
+                null;
 
         }
 

@@ -22,6 +22,187 @@ const COMPONENTS = {
 };
 
 
+const pendingQuizOperations = [];
+
+let quizzesReady = false;
+
+
+function createQuestion(
+    text,
+    options,
+    correct,
+    explanation
+) {
+
+    return {
+        text,
+        options,
+        correct,
+        explanation
+    };
+
+}
+
+
+function addQuestions(
+    quizId,
+    questions
+) {
+
+    if (!quizzesReady) {
+        pendingQuizOperations.push(
+            () => addQuestions(quizId, questions)
+        );
+        return;
+    }
+
+    QUIZ_DATA[quizId].questions.push(
+        ...questions.map(
+            ([text, options, correct, explanation]) =>
+                createQuestion(
+                    text,
+                    options,
+                    correct,
+                    explanation
+                )
+        )
+    );
+
+}
+
+
+function defineQuiz(
+    quizId,
+    quiz
+) {
+
+    if (!quizzesReady) {
+        pendingQuizOperations.push(
+            () => defineQuiz(quizId, quiz)
+        );
+        return;
+    }
+
+    QUIZ_DATA[quizId] = quiz;
+
+}
+
+
+addQuestions(
+    "fundamentos-optica",
+    [
+        ["Qual estrutura controla a entrada de luz no olho?", ["Íris.", "Retina.", "Esclera.", "Cristalino."], 0, "A íris controla o diâmetro da pupila e regula a entrada de luz."],
+        ["Qual é a função principal da retina?", ["Sustentar a armação.", "Captar a luz e gerar sinais visuais.", "Medir a DNP.", "Produzir a lente."], 1, "A retina capta a luz e participa da transformação da informação luminosa em sinais visuais."]
+    ]
+);
+
+addQuestions(
+    "ametropias",
+    [
+        ["Na hipermetropia, o foco tende a se formar:", ["Antes da retina.", "Atrás da retina.", "Na pálpebra.", "No eixo da armação."], 1, "Na hipermetropia, sem correção, o foco tende a ficar atrás da retina."],
+        ["Qual alteração refrativa está associada a diferentes meridianos de curvatura?", ["Astigmatismo.", "Presbiopia.", "Emetropia.", "Acomodação normal."], 0, "O astigmatismo está relacionado a diferenças de curvatura entre meridianos."]
+    ]
+);
+
+addQuestions(
+    "dp-dnp",
+    [
+        ["Por que a DNP deve ser medida para cada olho?", ["Porque os lados do rosto podem ter pequenas diferenças.", "Para escolher a cor da lente.", "Para substituir o grau.", "Porque a DP não existe."], 0, "A medida monocular considera diferenças entre os lados e melhora a centralização."],
+        ["Antes de medir a altura de um multifocal, a armação deve estar:", ["Desmontada.", "Sem as hastes.", "Ajustada como será entregue.", "Escolhida apenas pela cor."], 2, "Ajustes posteriores na armação podem alterar o resultado da medição."]
+    ]
+);
+
+addQuestions(
+    "montagem",
+    [
+        ["Qual etapa deve ocorrer antes da montagem definitiva?", ["Conferência das características da lente.", "Remoção das hastes.", "Alteração do eixo sem receita.", "Dispensa da centralização."], 0, "A conferência verifica se a lente corresponde ao pedido antes da montagem."],
+        ["Por que a conferência final é importante?", ["Para verificar se o resultado corresponde ao esperado.", "Para mudar a prescrição.", "Para medir a córnea.", "Para escolher o material da lente depois da entrega."], 0, "A conferência final ajuda a identificar erros antes da entrega."]
+    ]
+);
+
+addQuestions(
+    "lendo-uma-receita",
+    [
+        ["O que significa a sigla ADD em uma receita?", ["Altura da armação.", "Adição para visão próxima.", "Eixo do cilindro.", "Olho esquerdo."], 1, "ADD indica a adição usada para a visão próxima."],
+        ["Na transposição, o que acontece com o eixo?", ["Ele permanece sempre igual.", "Ele é ajustado em 90 graus.", "Ele é retirado da receita.", "Ele vira a adição."], 1, "A transposição ajusta o eixo em 90 graus, além de trocar o sinal do cilindro."]
+    ]
+);
+
+addQuestions(
+    "anatomia",
+    [
+        ["Qual estrutura regula a quantidade de luz que entra no olho?", ["Íris e pupila.", "Retina e esclera.", "Cristalino e retina.", "Córnea e cílios."], 0, "A íris controla a pupila, regulando a entrada de luz."],
+        ["Qual estrutura ajuda a proteger a superfície ocular ao piscar?", ["Pálpebras.", "Retina.", "Cristalino.", "Nervo óptico."], 0, "As pálpebras distribuem a lágrima e protegem a superfície ocular."]
+    ]
+);
+
+addQuestions(
+    "armacoes",
+    [
+        ["Qual parte conecta as duas frentes da armação?", ["Ponte.", "Haste.", "Plaqueta.", "Aro temporal."], 0, "A ponte conecta os dois aros na frente da armação."],
+        ["Qual característica deve ser considerada na escolha da armação?", ["Somente a cor.", "Formato do rosto, grau e conforto.", "Apenas o tamanho da pupila.", "Somente o material da lente."], 1, "A indicação deve considerar adaptação, estética, grau, peso e uso pretendido."]
+    ]
+);
+
+addQuestions(
+    "lentes-contato",
+    [
+        ["Qual cuidado reduz o risco de contaminação das lentes?", ["Lavar e secar as mãos antes do manuseio.", "Usar água da torneira no estojo.", "Compartilhar as lentes.", "Dormir com elas sem orientação."], 0, "A higiene e a secagem das mãos são essenciais antes de manipular as lentes."],
+        ["Qual tabela é indicada para avaliação de visão próxima?", ["Jaeger.", "Snellen exclusivamente para longe.", "Tumbling exclusivamente para longe.", "Tabela de armações."], 0, "A tabela de Jaeger é usada na avaliação da acuidade visual para perto."]
+    ]
+);
+
+addQuestions(
+    "patologias",
+    [
+        ["Qual alteração pode ser observada em uma queixa visual?", ["Redução da acuidade visual.", "Mudança na cor da armação.", "Aumento da haste.", "Alteração da ponte."], 0, "O conteúdo cita redução da acuidade, alterações no campo e distorções da percepção."],
+        ["O conteúdo educacional sobre patologias deve ser usado para:", ["Autodiagnóstico.", "Substituir consulta.", "Apoiar estudos e reconhecer a necessidade de avaliação.", "Escolher tratamento sem avaliação."], 2, "O material apoia o estudo, mas não substitui diagnóstico ou acompanhamento profissional."]
+    ]
+);
+
+defineQuiz("interpretacao-de-receita", {
+    category: "Receitas",
+    title: "Interpretação de Receita",
+    description: "Teste sua leitura dos principais campos de uma receita oftálmica.",
+    questions: [
+        createQuestion("O que indica o campo ESF?", ["A potência esférica da lente.", "A orientação do eixo.", "A distância pupilar.", "A altura da armação."], 0, "ESF indica a potência esférica usada na correção."),
+        createQuestion("O que indica o eixo?", ["A orientação do cilindro em graus.", "A adição para perto.", "A distância entre as pupilas.", "O material da lente."], 0, "O eixo informa a orientação da correção cilíndrica."),
+        createQuestion("Qual sinal costuma corrigir a miopia?", ["Negativo.", "Positivo.", "Sem sinal.", "Somente o sinal do eixo."], 0, "A miopia é geralmente corrigida com potência negativa."),
+        createQuestion("Quando o cilindro aparece, qual campo deve acompanhá-lo?", ["Eixo.", "Cor.", "Altura.", "Ponte."], 0, "O eixo é necessário para orientar a correção cilíndrica."),
+        createQuestion("Como se calcula o esférico de perto quando há adição?", ["Somando a adição ao esférico de longe.", "Subtraindo o eixo.", "Dividindo o cilindro.", "Trocando OD por OE."], 0, "A adição é somada ao componente esférico de longe."),
+        createQuestion("O que significam OD e OE?", ["Olho direito e olho esquerdo.", "Óptica direita e óptica esquerda.", "Objetiva distante e objetiva externa.", "Ordem direita e ordem esquerda."], 0, "OD significa olho direito e OE significa olho esquerdo.")
+    ]
+});
+
+defineQuiz("acuidade-visual", {
+    category: "Visão",
+    title: "Acuidade Visual",
+    description: "Revise conceitos e procedimentos de avaliação da acuidade visual.",
+    questions: [
+        createQuestion("O que é acuidade visual?", ["Capacidade de perceber detalhes com nitidez.", "Medida da ponte.", "Tipo de armação.", "Potência do cilindro."], 0, "A acuidade visual descreve a capacidade funcional de identificar e discriminar detalhes."),
+        createQuestion("O que são optotipos?", ["Símbolos usados para medir a resolução visual.", "Peças da armação.", "Tipos de lágrimas.", "Medidas de DNP."], 0, "Optotipos são caracteres ou símbolos usados em tabelas de avaliação visual."),
+        createQuestion("Qual tabela usa letras para visão de longe?", ["Snellen.", "Jaeger.", "LEA apenas.", "Tumbling apenas."], 0, "A tabela de Snellen usa caracteres alfabéticos padronizados."),
+        createQuestion("Como o exame pode avaliar cada olho?", ["De forma monocular.", "Somente com os dois olhos fechados.", "Apenas pela cor da íris.", "Sem tabela."], 0, "A avaliação monocular observa um olho por vez."),
+        createQuestion("Qual tabela utiliza símbolos para crianças?", ["LEA.", "Jaeger.", "Snellen alfabética.", "Bicromática."], 0, "A tabela LEA usa símbolos para reduzir a influência da alfabetização."),
+        createQuestion("A tabela de Jaeger é associada principalmente à visão:", ["Próxima.", "Periférica exclusivamente.", "Cromática exclusivamente.", "Sem correção."], 0, "Jaeger é usada para avaliação da acuidade visual de perto.")
+    ]
+});
+
+defineQuiz("surfacagem-multifocal-bifocal", {
+    category: "Processos",
+    title: "Surfaçagem de Multifocal e Bifocal",
+    description: "Teste seus conhecimentos sobre surfaçagem, curvatura e lentes multifocais e bifocais.",
+    questions: [
+        createQuestion("O que é surfaçagem?", ["Trabalho da superfície da lente.", "Limpeza da armação.", "Medição da DNP.", "Avaliação da retina."], 0, "A surfaçagem trabalha a superfície para obter as características ópticas necessárias."),
+        createQuestion("A curvatura participa de qual aspecto?", ["Do comportamento óptico da lente.", "Da cor da haste.", "Da proteção da pálpebra.", "Da medida da pupila."], 0, "A curvatura é um elemento da superfície óptica da lente."),
+        createQuestion("O que caracteriza uma lente bifocal?", ["Zonas para diferentes distâncias de visão.", "Ausência de áreas ópticas.", "Uso exclusivo como lente de contato.", "Medição da armação."], 0, "A lente bifocal reúne áreas destinadas a diferentes distâncias."),
+        createQuestion("O que caracteriza uma lente multifocal?", ["Progressão de potências para diferentes distâncias.", "Uma única potência sem transição.", "Somente uma área para perto.", "Nenhuma correção óptica."], 0, "A lente multifocal apresenta progressão de potências."),
+        createQuestion("Por que a superfície deve seguir o projeto da lente?", ["Para obter o comportamento óptico esperado.", "Para escolher a cor do estojo.", "Para medir o rosto.", "Para alterar a prescrição."], 0, "A superfície precisa ser compatível com as características ópticas planejadas."),
+        createQuestion("O que deve ser conferido após a montagem?", ["O resultado final e o posicionamento das lentes.", "Somente a cor da embalagem.", "Apenas o nome do cliente.", "Somente o material da haste."], 0, "A conferência final verifica se o resultado corresponde ao esperado.")
+    ]
+});
+
+
 /* ==========================================================================
     Quizzes
 ========================================================================== */
@@ -230,10 +411,10 @@ const QUIZ_DATA = {
     "dp-dnp": {
 
         category:
-            "DP e DNP",
+            "Medição",
 
         title:
-            "DP e DNP",
+            "O que é DP, DNP e Altura",
 
         description:
             "Revise conceitos relacionados à distância pupilar e à distância naso-pupilar.",
@@ -703,7 +884,7 @@ const QUIZ_DATA = {
             "Lentes de Contato",
 
         title:
-            "Lentes de Contato e Acuidade Visual",
+            "Lentes de Contato",
 
         description:
             "Teste seus conhecimentos sobre adaptação, cuidados e avaliação da acuidade visual.",
@@ -879,6 +1060,13 @@ const QUIZ_DATA = {
 };
 
 
+quizzesReady = true;
+
+pendingQuizOperations.forEach(
+    (operation) => operation()
+);
+
+
 /* ==========================================================================
    Estado
 ========================================================================== */
@@ -931,11 +1119,51 @@ async function requireAuthentication() {
    Identificação do usuário
 ========================================================================== */
 
+function getStoredUser() {
+
+    try {
+
+        const storedUser =
+            localStorage.getItem(
+                "visium_user"
+            );
+
+
+        if (!storedUser) {
+
+            return null;
+
+        }
+
+
+        return JSON.parse(
+            storedUser
+        );
+
+    } catch (error) {
+
+        console.warn(
+            "Visium | Usuário salvo em localStorage inválido.",
+            error
+        );
+
+        return null;
+
+    }
+
+}
+
+
 function getUserKey(
     user
 ) {
 
-    if (!user) {
+    const resolvedUser =
+        user ||
+        getStoredUser();
+
+
+    if (!resolvedUser) {
 
         return "anonymous";
 
@@ -943,10 +1171,10 @@ function getUserKey(
 
 
     return String(
-        user.id ||
-        user.email ||
-        user.username ||
-        user.name ||
+        resolvedUser.id ||
+        resolvedUser.email ||
+        resolvedUser.username ||
+        resolvedUser.name ||
         "anonymous"
     )
         .trim()
@@ -976,7 +1204,7 @@ function getHistoryStorageKey() {
 
         getSafeStorageKey(
             getUserKey(
-                getCurrentUser()
+                getStoredUser()
             )
         )
 

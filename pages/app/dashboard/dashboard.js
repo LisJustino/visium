@@ -25,7 +25,7 @@ const COMPONENTS = {
 };
 
 
-const LOGIN_URL =
+const DASHBOARD_LOGIN_URL =
     "/pages/auth/login/login.html";
 
 
@@ -175,7 +175,7 @@ async function requireAuthentication() {
     if (!user) {
 
         window.location.replace(
-            LOGIN_URL
+            DASHBOARD_LOGIN_URL
         );
 
         return null;
@@ -214,6 +214,22 @@ function updateHeaderUser(
         headerUserName.textContent =
             user.name ||
             "Usuário";
+
+    }
+
+
+    const headerUserInitials =
+        document.querySelector(
+            "#headerUserInitials"
+        );
+
+
+    if (headerUserInitials) {
+
+        headerUserInitials.textContent =
+            getUserInitials(
+                user.name
+            );
 
     }
 
@@ -431,6 +447,123 @@ function getContentProgress(
    Saudação
 ========================================================================== */
 
+function getUserStorageKey(
+    user
+) {
+
+    const identity =
+        user?.id ||
+        user?.email ||
+        user?.username ||
+        user?.name ||
+        "anonymous";
+
+
+    return encodeURIComponent(
+        String(identity)
+            .trim()
+            .toLowerCase()
+    );
+
+}
+
+
+function getQuizHistory(
+    user
+) {
+
+    const storageKeys =
+        new Set();
+
+
+    const identityKey =
+        getUserStorageKey(
+            user
+        );
+
+
+    if (identityKey) {
+
+        storageKeys.add(
+            `visium_quiz_history_${identityKey}`
+        );
+
+    }
+
+
+    storageKeys.add(
+        "visium_quiz_history_anonymous"
+    );
+
+
+    const history =
+        [...storageKeys]
+            .flatMap(
+                (storageKey) => {
+
+                    const storedHistory =
+                        localStorage.getItem(
+                            storageKey
+                        );
+
+
+                    if (!storedHistory) {
+
+                        return [];
+
+                    }
+
+
+                    try {
+
+                        const parsedHistory =
+                            JSON.parse(
+                                storedHistory
+                            );
+
+
+                        if (!Array.isArray(parsedHistory)) {
+
+                            return [];
+
+                        }
+
+
+                        return parsedHistory.filter(
+                            (item) => item && Number.isFinite(Number(item.score))
+                        );
+
+                    } catch (error) {
+
+                        console.error(
+                            "Visium | Histórico de quizzes inválido:",
+                            error
+                        );
+
+                        return [];
+
+                    }
+
+                }
+            );
+
+
+    const uniqueHistory =
+        history.filter(
+            (item, index, array) =>
+                array.findIndex(
+                    (candidate) =>
+                        candidate &&
+                        candidate.attemptId === item.attemptId &&
+                        candidate.quizId === item.quizId
+                ) === index
+        );
+
+
+    return uniqueHistory;
+
+}
+
 function getFirstName(
     name
 ) {
@@ -445,6 +578,43 @@ function getFirstName(
     return String(name)
         .trim()
         .split(/\s+/)[0];
+
+}
+
+
+function getUserInitials(
+    name
+) {
+
+    const parts =
+        String(
+            name || ""
+        )
+            .trim()
+            .split(/\s+/)
+            .filter(Boolean);
+
+
+    if (!parts.length) {
+
+        return "US";
+
+    }
+
+
+    if (parts.length === 1) {
+
+        return parts[0]
+            .slice(0, 2)
+            .toUpperCase();
+
+    }
+
+
+    return (
+        parts[0][0] +
+        parts[parts.length - 1][0]
+    ).toUpperCase();
 
 }
 
@@ -486,10 +656,6 @@ function calculateContentStats() {
         0;
 
 
-    let totalProgress =
-        0;
-
-
     contents.forEach(
         (content) => {
 
@@ -511,37 +677,38 @@ function calculateContentStats() {
             }
 
 
-            totalProgress +=
-                progressData.progress;
-
         }
     );
 
 
-    const averageProgress =
-        contents.length
-            ? Math.round(
-                totalProgress /
-                contents.length
-            )
-            : 0;
-
-
     return {
 
-        startedCount,
-
-        averageProgress
+        startedCount
 
     };
 
 }
 
 
-function renderOverview() {
+function renderOverview(
+    user
+) {
 
     const stats =
         calculateContentStats();
+
+    const quizHistory =
+        getQuizHistory(user);
+
+    const averageScore =
+        quizHistory.length
+            ? Math.round(
+                quizHistory.reduce(
+                    (total, item) => total + Number(item.score),
+                    0
+                ) / quizHistory.length
+            )
+            : 0;
 
 
     if (dashboardContentCount) {
@@ -557,7 +724,9 @@ function renderOverview() {
     if (dashboardQuizCount) {
 
         dashboardQuizCount.textContent =
-            "0";
+            String(
+                quizHistory.length
+            );
 
     }
 
@@ -565,7 +734,7 @@ function renderOverview() {
     if (dashboardAverageScore) {
 
         dashboardAverageScore.textContent =
-            `${stats.averageProgress}%`;
+            `${averageScore}%`;
 
     }
 
@@ -902,11 +1071,33 @@ async function initializeDashboard() {
     }
 
 
-    const sidebarLoaded =
-        await loadComponent(
-            "#appSidebarContainer",
-            COMPONENTS.sidebar
-        );
+    let sidebarLoaded =
+        false;
+
+    if (
+        window.VisiumSidebar &&
+        typeof window.VisiumSidebar.initialize ===
+        "function"
+    ) {
+
+        await window.VisiumSidebar.initialize();
+
+        sidebarLoaded =
+            Boolean(
+                document.querySelector(
+                    "#appSidebar"
+                )
+            );
+
+    } else {
+
+        sidebarLoaded =
+            await loadComponent(
+                "#appSidebarContainer",
+                COMPONENTS.sidebar
+            );
+
+    }
 
 
     const headerLoaded =
@@ -944,10 +1135,9 @@ async function initializeDashboard() {
     );
 
 
-    initializeSidebar();
-
-
-    renderOverview();
+    renderOverview(
+        user
+    );
 
     renderContentList();
 

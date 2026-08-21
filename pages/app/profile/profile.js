@@ -22,7 +22,7 @@ const COMPONENTS = {
 };
 
 
-const LOGIN_URL =
+const PROFILE_LOGIN_URL =
     "/pages/auth/login/login.html";
 
 
@@ -87,6 +87,12 @@ const profileTitle =
 const profileEmail =
     document.querySelector(
         "#profileEmail"
+    );
+
+
+const deleteAccountButton =
+    document.querySelector(
+        "#deleteAccountButton"
     );
 
 
@@ -184,7 +190,7 @@ async function requireAuthentication() {
     if (!user) {
 
         window.location.replace(
-            LOGIN_URL
+            PROFILE_LOGIN_URL
         );
 
         return null;
@@ -293,6 +299,37 @@ function updateProfileView(
     if (profileAvatar) {
 
         profileAvatar.textContent =
+            getUserInitials(
+                name
+            );
+
+    }
+
+
+    const headerUserName =
+        document.querySelector(
+            "#headerUserName"
+        );
+
+
+    if (headerUserName) {
+
+        headerUserName.textContent =
+            name ||
+            "Usuário";
+
+    }
+
+
+    const headerUserInitials =
+        document.querySelector(
+            "#headerUserInitials"
+        );
+
+
+    if (headerUserInitials) {
+
+        headerUserInitials.textContent =
             getUserInitials(
                 name
             );
@@ -699,6 +736,75 @@ async function handleProfileSubmit(
 }
 
 
+async function handleDeleteAccount() {
+
+    const confirmed =
+        window.confirm(
+            "Excluir seu cadastro é permanente. Deseja continuar?"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    if (
+        !window.VisiumAuth ||
+        typeof window.VisiumAuth.deleteAccount !==
+        "function"
+    ) {
+
+        showFeedback(
+            "Não foi possível carregar o serviço da conta."
+        );
+
+        return;
+
+    }
+
+
+    deleteAccountButton.disabled =
+        true;
+
+    deleteAccountButton.textContent =
+        "Excluindo...";
+
+
+    const result =
+        await window.VisiumAuth.deleteAccount();
+
+
+    if (
+        !result ||
+        !result.success
+    ) {
+
+        deleteAccountButton.disabled =
+            false;
+
+        deleteAccountButton.textContent =
+            "Excluir cadastro";
+
+        showFeedback(
+            result?.message ||
+            "Não foi possível excluir seu cadastro."
+        );
+
+        return;
+
+    }
+
+
+    window.location.replace(
+        "/pages/public/landing/index.html"
+    );
+
+}
+
+
 /* ==========================================================================
    Formulário
 ========================================================================== */
@@ -751,6 +857,16 @@ function initializeProfileForm() {
 
         }
     );
+
+
+    if (deleteAccountButton) {
+
+        deleteAccountButton.addEventListener(
+            "click",
+            handleDeleteAccount
+        );
+
+    }
 
 }
 

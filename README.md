@@ -30,10 +30,11 @@ O desenvolvimento prioriza:
 
 ## Executando o projeto
 
-Na raiz do projeto execute:
+Na raiz do projeto execute o servidor completo, que fornece os arquivos
+estáticos e a API de autenticação:
 
 ```bash
-python -m http.server 8000
+python backend/server.py
 ```
 
 Depois acesse:

@@ -109,6 +109,16 @@
 
     box-shadow:
         var(--shadow-sm);
+
+    border-top: 3px solid var(--color-primary);
+}
+
+.dashboard-card:nth-child(2) {
+    border-top-color: var(--color-success);
+}
+
+.dashboard-card:nth-child(3) {
+    border-top-color: var(--color-warning);
 }
 
 .dashboard-card__label {
@@ -231,6 +241,9 @@
         border-color var(--transition-fast),
         box-shadow var(--transition-fast),
         transform var(--transition-fast);
+
+    background:
+        linear-gradient(160deg, var(--color-white), rgba(239, 246, 255, .5));
 }
 
 .dashboard-content-card:hover {

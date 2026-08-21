@@ -77,10 +77,10 @@ const QUIZZES = [
             "dp-dnp",
 
         category:
-            "DP e DNP",
+            "Medição",
 
         title:
-            "DP e DNP",
+            "O que é DP, DNP e Altura",
 
         description:
             "Revise conceitos relacionados à distância pupilar e à distância naso-pupilar.",
@@ -190,7 +190,7 @@ const QUIZZES = [
             "Lentes de Contato",
 
         title:
-            "Lentes de Contato e Acuidade Visual",
+            "Lentes de Contato",
 
         description:
             "Teste seus conhecimentos sobre adaptação, cuidados e avaliação da acuidade visual.",
@@ -223,9 +223,110 @@ const QUIZZES = [
         questions:
             4
 
+    },
+
+
+    {
+        id:
+            "interpretacao-de-receita",
+
+        category:
+            "Receitas",
+
+        title:
+            "Interpretação de Receita",
+
+        description:
+            "Teste sua leitura dos principais campos de uma receita oftálmica.",
+
+        difficulty:
+            "Básico",
+
+        questions:
+            6
+
+    },
+
+
+    {
+        id:
+            "acuidade-visual",
+
+        category:
+            "Visão",
+
+        title:
+            "Acuidade Visual",
+
+        description:
+            "Revise conceitos e procedimentos de avaliação da acuidade visual.",
+
+        difficulty:
+            "Básico",
+
+        questions:
+            6
+
+    },
+
+
+    {
+        id:
+            "surfacagem-multifocal-bifocal",
+
+        category:
+            "Processos",
+
+        title:
+            "Surfaçagem de Multifocal e Bifocal",
+
+        description:
+            "Teste seus conhecimentos sobre surfaçagem e lentes multifocais e bifocais.",
+
+        difficulty:
+            "Intermediário",
+
+        questions:
+            6
+
     }
 
 ];
+
+QUIZZES.forEach(
+    (quiz) => {
+        if (quiz.questions === 4) {
+            quiz.questions = 6;
+        }
+    }
+);
+
+const QUIZ_ORDER = [
+    "interpretacao-de-receita",
+    "fundamentos-optica",
+    "dp-dnp",
+    "acuidade-visual",
+    "lentes-contato",
+    "surfacagem-multifocal-bifocal",
+    "montagem",
+    "armacoes",
+    "patologias",
+    "ametropias",
+    "anatomia"
+];
+
+QUIZZES.sort(
+    (firstQuiz, secondQuiz) => {
+        const firstIndex =
+            QUIZ_ORDER.indexOf(firstQuiz.id);
+
+        const secondIndex =
+            QUIZ_ORDER.indexOf(secondQuiz.id);
+
+        return (firstIndex < 0 ? Number.MAX_SAFE_INTEGER : firstIndex) -
+            (secondIndex < 0 ? Number.MAX_SAFE_INTEGER : secondIndex);
+    }
+);
 
 
 /* ==========================================================================
@@ -325,11 +426,51 @@ async function requireAuthentication() {
    Identificação do usuário
 ========================================================================== */
 
+function getStoredUser() {
+
+    try {
+
+        const storedUser =
+            localStorage.getItem(
+                "visium_user"
+            );
+
+
+        if (!storedUser) {
+
+            return null;
+
+        }
+
+
+        return JSON.parse(
+            storedUser
+        );
+
+    } catch (error) {
+
+        console.warn(
+            "Visium | Usuário salvo em localStorage inválido.",
+            error
+        );
+
+        return null;
+
+    }
+
+}
+
+
 function getUserKey(
     user
 ) {
 
-    if (!user) {
+    const resolvedUser =
+        user ||
+        getStoredUser();
+
+
+    if (!resolvedUser) {
 
         return "anonymous";
 
@@ -337,10 +478,10 @@ function getUserKey(
 
 
     return String(
-        user.id ||
-        user.email ||
-        user.username ||
-        user.name ||
+        resolvedUser.id ||
+        resolvedUser.email ||
+        resolvedUser.username ||
+        resolvedUser.name ||
         "anonymous"
     )
         .trim()
@@ -375,7 +516,7 @@ function getAttemptStorageKey(
 
         getSafeStorageKey(
             getUserKey(
-                getCurrentUser()
+                getStoredUser()
             )
         ),
 
@@ -398,7 +539,7 @@ function getHistoryStorageKey() {
 
         getSafeStorageKey(
             getUserKey(
-                getCurrentUser()
+                getStoredUser()
             )
         )
 

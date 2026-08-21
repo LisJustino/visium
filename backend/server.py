@@ -668,6 +668,59 @@ class VisiumHandler(
                 }
             )
 
+    def do_DELETE(self) -> None:
+
+        if urlparse(self.path).path != "/api/auth/account":
+
+            json_response(
+                self,
+                HTTPStatus.NOT_FOUND,
+                {
+                    "error":
+                        "NOT_FOUND"
+                }
+            )
+
+            return
+
+        user = current_user(
+            self
+        )
+
+        if not user:
+
+            json_response(
+                self,
+                HTTPStatus.UNAUTHORIZED,
+                {
+                    "error":
+                        "AUTH_REQUIRED"
+                }
+            )
+
+            return
+
+        with database_connection() as connection:
+
+            connection.execute(
+                "DELETE FROM users WHERE id = ?",
+                (
+                    user["id"],
+                )
+            )
+
+        self.send_response(
+            HTTPStatus.NO_CONTENT
+        )
+
+        set_session_cookie(
+            self,
+            "",
+            0
+        )
+
+        self.end_headers()
+
     def register(self) -> None:
 
         payload = read_json(
