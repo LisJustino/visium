@@ -390,6 +390,9 @@ select {
     min-height:
         44px;
 
+    white-space:
+        nowrap;
+
     padding:
         0 var(--space-3);
 
@@ -663,7 +666,7 @@ select {
         relative;
 
     padding-top:
-        2.75rem;
+        3.5rem;
 
 }
 
@@ -679,7 +682,10 @@ select {
         absolute;
 
     top:
-        0;
+        .75rem;
+
+    z-index:
+        1;
 
 }
 
@@ -689,7 +695,19 @@ select {
 .forgot-password-header > .theme-toggle {
 
     right:
-        0;
+        auto;
+
+    left:
+        calc(50% + 14px);
+
+    min-height:
+        34px;
+
+    padding:
+        0 .7rem;
+
+    box-shadow:
+        none;
 
 }
 
@@ -699,12 +717,39 @@ select {
 .forgot-password-header > .app-header__tools {
 
     right:
-        112px;
+        calc(50% - 6px);
+
+    min-height:
+        34px;
 
 }
 
 
 @media (max-width: 576px) {
+
+    .login-header,
+    .register-header,
+    .forgot-password-header {
+
+        padding-top:
+            3.5rem;
+
+    }
+
+    .login-header > .theme-toggle,
+    .register-header > .theme-toggle,
+    .forgot-password-header > .theme-toggle {
+
+        left:
+            50%;
+
+        right:
+            auto;
+
+        transform:
+            translateX(-50%);
+
+    }
 
     .login-header > .app-header__tools,
     .register-header > .app-header__tools,
@@ -714,5 +759,31 @@ select {
             none;
 
     }
+
+}
+
+
+[data-theme="dark"] .login-button,
+[data-theme="dark"] .register-button,
+[data-theme="dark"] .forgot-password-button {
+
+    background:
+        #315fa8 !important;
+
+    color:
+        #f8fafc !important;
+
+}
+
+
+[data-theme="dark"] .login-button:hover,
+[data-theme="dark"] .register-button:hover,
+[data-theme="dark"] .forgot-password-button:hover:not(:disabled) {
+
+    background:
+        #4074c7 !important;
+
+    color:
+        #ffffff !important;
 
 }
