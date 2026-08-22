@@ -596,7 +596,10 @@ window.VisiumAuth = {
                             normalizedEmail,
 
                         password:
-                            password
+                            password,
+
+                        termsAccepted:
+                            termsAccepted
 
                     })
 

@@ -138,7 +138,7 @@ const ruleNumber =
    Configuração
 ========================================================================== */
 
-const MIN_PASSWORD_LENGTH =
+const REGISTER_MIN_PASSWORD_LENGTH =
     8;
 
 
@@ -318,7 +318,7 @@ function getPasswordRules(
 
         length:
             password.length >=
-            MIN_PASSWORD_LENGTH,
+            REGISTER_MIN_PASSWORD_LENGTH,
 
         letter:
             /[A-Za-zÀ-ÿ]/.test(

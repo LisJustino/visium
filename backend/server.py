@@ -877,10 +877,16 @@ class VisiumHandler(
             )
         )
 
+        terms_accepted = payload.get(
+            "termsAccepted",
+            False
+        )
+
         if (
             len(name) < 2
             or "@" not in email
             or len(password) < 8
+            or terms_accepted is not True
         ):
 
             json_response(
@@ -888,7 +894,9 @@ class VisiumHandler(
                 HTTPStatus.UNPROCESSABLE_ENTITY,
                 {
                     "error":
-                        "INVALID_CREDENTIALS"
+                        "TERMS_REQUIRED"
+                    if terms_accepted is not True
+                    else "INVALID_CREDENTIALS"
                 }
             )
 
