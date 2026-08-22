@@ -3443,14 +3443,19 @@
 }
 
 
-.landing-cta__symbol span {
+.landing-cta__symbol img {
 
-    color:
-        #bfdbfe;
+    width:
+        58px;
 
-    font-size: 1.8rem;
+    height:
+        58px;
 
-    font-weight: 800;
+    border-radius:
+        14px;
+
+    object-fit:
+        cover;
 
 }
 
@@ -4679,9 +4684,13 @@
     }
 
 
-    .landing-cta__symbol span {
+    .landing-cta__symbol img {
 
-        font-size: 1.5rem;
+        width:
+            54px;
+
+        height:
+            54px;
 
     }
 
