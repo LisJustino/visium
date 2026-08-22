@@ -10,10 +10,19 @@ import os
 import secrets
 import sqlite3
 import time
+import urllib.error
+import urllib.request
 from http import HTTPStatus
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlparse
+
+try:
+    import psycopg
+    from psycopg.rows import dict_row
+except ImportError:
+    psycopg = None
+    dict_row = None
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -31,36 +40,157 @@ PASSWORD_ITERATIONS = 600_000
 STATIC_CACHE_SECONDS = 60 * 60
 
 
-def database_connection() -> sqlite3.Connection:
+def send_password_reset_email(
+    email: str,
+    token: str
+) -> bool:
 
-    DATA_DIR.mkdir(
-        parents=True,
-        exist_ok=True
+    api_key = os.environ.get("RESEND_API_KEY")
+
+    if not api_key:
+        return False
+
+    base_url = os.environ.get(
+        "APP_BASE_URL",
+        os.environ.get(
+            "RENDER_EXTERNAL_URL",
+            "http://127.0.0.1:8000"
+        )
+    ).rstrip("/")
+
+    sender = os.environ.get(
+        "MAIL_FROM",
+        "onboarding@resend.dev"
     )
 
-    connection = sqlite3.connect(
-        DATABASE_PATH
+    reset_url = f"{base_url}/pages/auth/forgot-password/reset-password.html?token={token}"
+
+    payload = json.dumps({
+        "from": sender,
+        "to": [email],
+        "subject": "Recuperação de acesso | Visium",
+        "html": (
+            "<p>Recebemos uma solicitação para redefinir sua senha no Visium.</p>"
+            f'<p><a href="{reset_url}">Criar uma nova senha</a></p>'
+            "<p>Este link expira em 15 minutos. Se você não fez esta solicitação, ignore este e-mail.</p>"
+        )
+    }).encode("utf-8")
+
+    request = urllib.request.Request(
+        "https://api.resend.com/emails",
+        data=payload,
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json"
+        },
+        method="POST"
     )
 
-    connection.row_factory = sqlite3.Row
+    try:
+        with urllib.request.urlopen(request, timeout=10):
+            return True
+    except (urllib.error.URLError, TimeoutError):
+        return False
 
-    connection.execute(
-        "PRAGMA foreign_keys = ON"
-    )
 
-    return connection
+class DatabaseConnection:
+
+    def __init__(self):
+
+        database_url = os.environ.get("DATABASE_URL")
+
+        if database_url:
+
+            if psycopg is None:
+                raise RuntimeError(
+                    "A dependência psycopg não está instalada."
+                )
+
+            self.is_postgres = True
+            self.connection = psycopg.connect(
+                database_url,
+                row_factory=dict_row
+            )
+
+        else:
+
+            self.is_postgres = False
+            DATA_DIR.mkdir(
+                parents=True,
+                exist_ok=True
+            )
+
+            self.connection = sqlite3.connect(
+                DATABASE_PATH
+            )
+
+            self.connection.row_factory = sqlite3.Row
+            self.connection.execute(
+                "PRAGMA foreign_keys = ON"
+            )
+
+    def __enter__(self):
+
+        self.connection.__enter__()
+        return self
+
+    def __exit__(self, exception_type, exception, traceback):
+
+        try:
+            return self.connection.__exit__(
+                exception_type,
+                exception,
+                traceback
+            )
+        finally:
+            self.connection.close()
+
+    def execute(self, query, parameters=()):
+
+        if self.is_postgres:
+            query = query.replace("?", "%s")
+
+        return self.connection.execute(
+            query,
+            parameters
+        )
+
+    def executescript(self, script):
+
+        if self.is_postgres:
+
+            for statement in script.split(";"):
+                statement = statement.strip()
+
+                if statement:
+                    self.connection.execute(statement)
+
+            return
+
+        return self.connection.executescript(script)
+
+
+def database_connection() -> DatabaseConnection:
+
+    return DatabaseConnection()
 
 
 def initialize_database() -> None:
 
     with database_connection() as connection:
 
+        email_definition = (
+            "TEXT NOT NULL UNIQUE"
+            if connection.is_postgres
+            else "TEXT NOT NULL UNIQUE COLLATE NOCASE"
+        )
+
         connection.executescript(
-            """
+            f"""
             CREATE TABLE IF NOT EXISTS users (
                 id TEXT PRIMARY KEY,
                 name TEXT NOT NULL,
-                email TEXT NOT NULL UNIQUE COLLATE NOCASE,
+                email {email_definition},
                 password_hash TEXT NOT NULL,
                 created_at TEXT NOT NULL
             );
@@ -1061,14 +1191,17 @@ class VisiumHandler(
                 )
             )
 
+        send_password_reset_email(
+            email,
+            token
+        )
+
         json_response(
             self,
             HTTPStatus.OK,
             {
                 "success":
-                    True,
-                "token":
-                    token
+                    True
             }
         )
 

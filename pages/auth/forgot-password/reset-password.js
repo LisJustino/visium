@@ -368,6 +368,17 @@ function initializeResetPassword() {
 
     initializeNavigation();
 
+    const queryToken = new URLSearchParams(
+        window.location.search
+    ).get("token");
+
+    if (queryToken) {
+        sessionStorage.setItem(
+            RESET_TOKEN_KEY,
+            queryToken
+        );
+    }
+
     resetPasswordForm.addEventListener(
         "submit",
         handleResetPassword
