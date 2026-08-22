@@ -1143,6 +1143,17 @@ async function initializeDashboard() {
 
     renderProgress();
 
+    const appShell =
+        document.querySelector(
+            ".app-shell"
+        );
+
+    if (appShell) {
+        appShell.classList.remove(
+            "is-loading"
+        );
+    }
+
 }
 
 

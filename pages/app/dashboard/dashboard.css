@@ -1,4 +1,9 @@
 /**
+.app-shell.is-loading .app-main {
+    visibility: hidden;
+}
+
+
  * ==========================================================================
  * Visium
  * Arquivo: dashboard.css
