@@ -141,6 +141,10 @@ function getErrorMessage(
 
             return "Não foi possível conectar ao servidor.";
 
+        case "EMAIL_SERVICE_UNAVAILABLE":
+
+            return "O envio de e-mails está temporariamente indisponível. Tente novamente mais tarde.";
+
         default:
 
             return "Não foi possível concluir a operação.";

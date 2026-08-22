@@ -1219,10 +1219,21 @@ class VisiumHandler(
                 )
             )
 
-        send_password_reset_email(
+        if not send_password_reset_email(
             email,
             token
-        )
+        ):
+
+            json_response(
+                self,
+                HTTPStatus.SERVICE_UNAVAILABLE,
+                {
+                    "error":
+                        "EMAIL_SERVICE_UNAVAILABLE"
+                }
+            )
+
+            return
 
         json_response(
             self,
