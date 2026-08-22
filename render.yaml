@@ -12,3 +12,5 @@ services:
         value: 10000
       - key: VISIUM_SECURE_COOKIES
         value: "1"
+      - key: APP_BASE_URL
+        value: https://visium-fpd8.onrender.com
