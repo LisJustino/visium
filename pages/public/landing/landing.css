@@ -21,7 +21,7 @@
     overflow-x: hidden;
 
     background:
-        var(--color-white);
+        var(--color-background);
 
     color:
         var(--color-gray-900);
@@ -45,7 +45,10 @@
         1px solid var(--color-gray-200);
 
     background:
-        rgba(255, 255, 255, .96);
+        rgba(255, 255, 255, .9);
+
+    backdrop-filter:
+        blur(14px);
 
 }
 
@@ -279,7 +282,7 @@
 
     border: 0;
 
-    border-radius: 8px;
+    border-radius: var(--radius-md);
 
     background:
         var(--color-primary);
@@ -343,7 +346,7 @@
 
     border: 0;
 
-    border-radius: 8px;
+    border-radius: var(--radius-md);
 
     background:
         var(--color-primary);
@@ -3530,7 +3533,7 @@
     display: grid;
 
     grid-template-columns:
-        minmax(280px, 1.8fr) repeat(3, minmax(120px, 1fr));
+        minmax(280px, 1.8fr) repeat(4, minmax(120px, 1fr));
 
     gap: 3rem;
 
@@ -3787,7 +3790,7 @@
     .landing-footer__main {
 
         grid-template-columns:
-            minmax(240px, 1.6fr) repeat(3, minmax(100px, 1fr));
+            minmax(240px, 1.6fr) repeat(4, minmax(100px, 1fr));
 
         gap: 2rem;
 
@@ -4151,6 +4154,12 @@
         flex-shrink: 0;
 
         min-width: max-content;
+
+    }
+
+    .landing-header__actions .app-header__tools {
+
+        display: none;
 
     }
 
@@ -4991,5 +5000,291 @@
 
     outline-offset:
         3px;
+
+}
+
+[data-theme="dark"] .landing-hero {
+    background:
+        linear-gradient(135deg, var(--color-background), var(--color-surface) 55%, var(--color-surface-subtle));
+}
+
+[data-theme="dark"] .hero-visual__card,
+[data-theme="dark"] .hero-visual__floating-card {
+    border-color: var(--color-border-strong);
+    background: var(--color-surface-raised);
+    color: var(--color-text);
+}
+
+[data-theme="dark"] .landing-proposal,
+[data-theme="dark"] .landing-content,
+[data-theme="dark"] .landing-how,
+[data-theme="dark"] .landing-benefits,
+[data-theme="dark"] .landing-faq,
+[data-theme="dark"] .landing-cta {
+    background: var(--color-background) !important;
+    color: var(--color-text);
+}
+
+[data-theme="dark"] .proposal-card,
+[data-theme="dark"] .content-card,
+[data-theme="dark"] .how-step,
+[data-theme="dark"] .benefit-card,
+[data-theme="dark"] .faq-item {
+    border-color: var(--color-border) !important;
+    background: var(--color-surface-raised) !important;
+    color: var(--color-text);
+}
+
+[data-theme="dark"] .proposal-card h3,
+[data-theme="dark"] .content-card__body h3,
+[data-theme="dark"] .how-step__content h3,
+[data-theme="dark"] .benefit-card h3,
+[data-theme="dark"] .faq-item__question,
+[data-theme="dark"] .landing-section-title,
+[data-theme="dark"] .landing-cta__title {
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] .proposal-card p,
+[data-theme="dark"] .content-card__body p,
+[data-theme="dark"] .how-step__content p,
+[data-theme="dark"] .benefit-card p,
+[data-theme="dark"] .landing-proposal__description,
+[data-theme="dark"] .landing-content__description,
+[data-theme="dark"] .landing-how__description,
+[data-theme="dark"] .landing-benefits__description,
+[data-theme="dark"] .landing-faq__description,
+[data-theme="dark"] .faq-item__answer p,
+[data-theme="dark"] .landing-cta__description {
+    color: var(--color-text-muted) !important;
+}
+
+
+.landing-footer__whatsapp {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        .5rem;
+
+    min-height:
+        40px;
+
+    padding:
+        .5rem .75rem;
+
+    border:
+        1px solid rgba(134, 239, 172, .35);
+
+    border-radius:
+        var(--radius-md);
+
+    background:
+        rgba(22, 163, 74, .12);
+
+    color:
+        #86efac !important;
+
+}
+
+
+.landing-footer__whatsapp svg {
+
+    width:
+        20px;
+
+    height:
+        20px;
+
+    flex:
+        0 0 20px;
+
+}
+
+
+.landing-footer__whatsapp:hover {
+
+    border-color:
+        rgba(134, 239, 172, .7);
+
+    background:
+        rgba(22, 163, 74, .22);
+
+    color:
+        #bbf7d0 !important;
+
+}
+
+
+.landing-header__actions .app-header__tools {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        2px;
+
+    min-height:
+        34px;
+
+    padding:
+        2px;
+
+    border:
+        1px solid var(--color-border);
+
+    border-radius:
+        var(--radius-md);
+
+    background:
+        var(--color-surface-subtle);
+
+}
+
+
+.landing-header__actions .app-header__tools button {
+
+    min-width:
+        34px;
+
+    min-height:
+        30px;
+
+    padding:
+        0 .35rem;
+
+    border-radius:
+        var(--radius-sm);
+
+    color:
+        var(--color-text-muted);
+
+    font-size:
+        .7rem;
+
+    font-weight:
+        800;
+
+    line-height:
+        1;
+
+}
+
+
+.landing-header__actions .app-header__tools button:hover,
+.landing-header__actions .app-header__tools button:focus-visible {
+
+    background:
+        var(--color-surface-raised);
+
+    color:
+        var(--color-primary);
+
+}
+
+
+@media (max-width: 600px) {
+
+    .landing-header__actions .app-header__tools {
+
+        display:
+            none;
+
+    }
+
+}
+
+[data-theme="dark"] .landing-header__register,
+[data-theme="dark"] .landing-header__actions .login-register__link,
+[data-theme="dark"] .landing-button--primary,
+[data-theme="dark"] .landing-cta__button {
+    background: #315fa8 !important;
+    color: #f8fafc !important;
+}
+
+[data-theme="dark"] .landing-header__register:hover,
+[data-theme="dark"] .landing-header__actions .login-register__link:hover,
+[data-theme="dark"] .landing-button--primary:hover,
+[data-theme="dark"] .landing-cta__button:hover {
+    background: #4074c7 !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .landing-button--secondary {
+    border-color: var(--color-border-strong) !important;
+    background: var(--color-surface-subtle) !important;
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] .landing-button--secondary:hover {
+    border-color: var(--color-primary) !important;
+    background: var(--color-primary-light) !important;
+    color: var(--color-primary) !important;
+}
+
+
+.landing-footer__instagram {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        .5rem;
+
+    min-height:
+        40px;
+
+    padding:
+        .5rem .75rem;
+
+    border:
+        1px solid rgba(244, 114, 182, .35);
+
+    border-radius:
+        var(--radius-md);
+
+    background:
+        rgba(190, 24, 93, .12);
+
+    color:
+        #f9a8d4 !important;
+
+}
+
+
+.landing-footer__instagram svg {
+
+    width:
+        20px;
+
+    height:
+        20px;
+
+    flex:
+        0 0 20px;
+
+}
+
+
+.landing-footer__instagram:hover {
+
+    border-color:
+        rgba(249, 168, 212, .7);
+
+    background:
+        rgba(190, 24, 93, .22);
+
+    color:
+        #fbcfe8 !important;
 
 }

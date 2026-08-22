@@ -17,6 +17,9 @@ html {
     scroll-behavior:
         smooth;
 
+    scroll-padding-top:
+        calc(var(--header-height, 0px) + var(--space-4));
+
 }
 
 
@@ -26,6 +29,11 @@ body {
         100vh;
 
     background:
+        radial-gradient(
+            circle at 100% 0,
+            rgba(37, 99, 235, .06),
+            transparent 28rem
+        ),
         var(--color-background);
 
     color:
@@ -103,7 +111,7 @@ a:hover {
         center;
 
     gap:
-        var(--space-2);
+        .3rem;
 
     min-height:
         42px;
@@ -310,6 +318,400 @@ a:hover {
         width:
             min(calc(100% - 1.5rem),
                 var(--content-max-width));
+
+    }
+
+}
+
+
+button,
+input,
+textarea,
+select {
+
+    font-family:
+        inherit;
+
+}
+
+
+:focus-visible {
+
+    outline:
+        2px solid var(--color-primary);
+
+    outline-offset:
+        3px;
+
+}
+
+
+*[id] {
+
+    scroll-margin-top:
+        calc(var(--header-height, 0px) + var(--space-4));
+
+}
+
+
+@media (forced-colors: active) {
+
+    :focus-visible {
+
+        outline:
+            2px solid Highlight;
+
+    }
+
+    a,
+    button,
+    input,
+    textarea,
+    select {
+
+        forced-color-adjust:
+            auto;
+
+    }
+
+}
+
+
+.theme-toggle {
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        var(--space-2);
+
+    min-height:
+        44px;
+
+    padding:
+        0 var(--space-3);
+
+    border:
+        1px solid var(--color-border-strong);
+
+    border-radius:
+        var(--radius-full);
+
+    background:
+        var(--color-surface-raised) !important;
+
+    color:
+        var(--color-text);
+
+    font-size:
+        var(--font-size-xs);
+
+    font-weight:
+        700;
+
+    box-shadow:
+        var(--shadow-md);
+
+    cursor:
+        pointer;
+
+    transition:
+        background-color var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast),
+        transform var(--transition-fast);
+
+}
+
+
+.theme-toggle:hover {
+
+    border-color:
+        var(--color-primary);
+
+    background:
+        var(--color-primary-light);
+
+    color:
+        var(--color-primary);
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+[data-theme="dark"] .landing-page,
+[data-theme="dark"] .login-page,
+[data-theme="dark"] .register-page,
+[data-theme="dark"] .forgot-password-page,
+[data-theme="dark"] .terms-page,
+[data-theme="dark"] .app-page {
+
+    background:
+        var(--color-background);
+
+}
+
+
+[data-theme="dark"] .landing-header,
+[data-theme="dark"] .terms-header,
+[data-theme="dark"] .app-header {
+
+    border-color:
+        var(--color-border);
+
+    background:
+        rgba(17, 27, 46, .92);
+
+}
+
+
+[data-theme="dark"] .reader-progress,
+[data-theme="dark"] .reader-navigation,
+[data-theme="dark"] .reader-article,
+[data-theme="dark"] .dashboard-card,
+[data-theme="dark"] .dashboard-content-card,
+[data-theme="dark"] .dashboard-progress__card,
+[data-theme="dark"] .library-card,
+[data-theme="dark"] .progress-overview,
+[data-theme="dark"] .progress-stat-card,
+[data-theme="dark"] .content-progress-item,
+[data-theme="dark"] .progress-history-item,
+[data-theme="dark"] .quiz-card,
+[data-theme="dark"] .quizzes-summary__item,
+[data-theme="dark"] .login-card,
+[data-theme="dark"] .register-card,
+[data-theme="dark"] .forgot-password-card,
+[data-theme="dark"] .terms-content {
+
+    background:
+        var(--color-surface-raised) !important;
+
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    .theme-toggle {
+
+        transition:
+            none;
+
+    }
+
+}
+
+
+.theme-toggle__icon {
+
+    width:
+        14px;
+
+    height:
+        14px;
+
+    border:
+        2px solid currentColor;
+
+    border-radius:
+        var(--radius-full);
+
+    background:
+        linear-gradient(
+            90deg,
+            currentColor 50%,
+            transparent 50%
+        );
+
+}
+
+
+[data-theme="dark"] .app-sidebar {
+
+    border-color:
+        var(--color-border);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(27, 49, 87, .55),
+            transparent 220px
+        ),
+        var(--color-surface) !important;
+
+}
+
+
+[data-theme="dark"] .app-sidebar__footer {
+
+    border-color:
+        var(--color-border);
+
+    background:
+        rgba(17, 27, 46, .9) !important;
+
+}
+
+
+[data-theme="dark"] .dashboard-content-card,
+[data-theme="dark"] .library-card,
+[data-theme="dark"] .quizzes-summary__item {
+
+    background:
+        linear-gradient(
+            160deg,
+            var(--color-surface-raised),
+            var(--color-surface)
+        ) !important;
+
+}
+
+
+[data-theme="dark"] .reader-navigation-button:not(.reader-navigation-button--primary),
+[data-theme="dark"] .reader-navigation-button:disabled {
+
+    border-color:
+        var(--color-border-strong) !important;
+
+    background:
+        var(--color-surface-subtle) !important;
+
+    color:
+        var(--color-text-muted) !important;
+
+}
+
+
+.app-header__tools {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        2px;
+
+    min-height:
+        34px;
+
+    padding:
+        2px;
+
+    border:
+        1px solid var(--color-border);
+
+    border-radius:
+        var(--radius-md);
+
+    background:
+        var(--color-surface-subtle);
+
+}
+
+
+.app-header__tools button {
+
+    min-width:
+        34px;
+
+    min-height:
+        30px;
+
+    padding:
+        0 .35rem;
+
+    border-radius:
+        var(--radius-sm);
+
+    color:
+        var(--color-text-muted);
+
+    font-size:
+        .7rem;
+
+    font-weight:
+        800;
+
+    line-height:
+        1;
+
+}
+
+
+.app-header__tools button:hover,
+.app-header__tools button:focus-visible {
+
+    background:
+        var(--color-surface-raised);
+
+    color:
+        var(--color-primary);
+
+}
+
+
+.login-header,
+.register-header,
+.forgot-password-header {
+
+    position:
+        relative;
+
+    padding-top:
+        2.75rem;
+
+}
+
+
+.login-header > .theme-toggle,
+.register-header > .theme-toggle,
+.forgot-password-header > .theme-toggle,
+.login-header > .app-header__tools,
+.register-header > .app-header__tools,
+.forgot-password-header > .app-header__tools {
+
+    position:
+        absolute;
+
+    top:
+        0;
+
+}
+
+
+.login-header > .theme-toggle,
+.register-header > .theme-toggle,
+.forgot-password-header > .theme-toggle {
+
+    right:
+        0;
+
+}
+
+
+.login-header > .app-header__tools,
+.register-header > .app-header__tools,
+.forgot-password-header > .app-header__tools {
+
+    right:
+        112px;
+
+}
+
+
+@media (max-width: 576px) {
+
+    .login-header > .app-header__tools,
+    .register-header > .app-header__tools,
+    .forgot-password-header > .app-header__tools {
+
+        display:
+            none;
 
     }
 

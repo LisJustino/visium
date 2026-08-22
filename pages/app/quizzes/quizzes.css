@@ -299,6 +299,27 @@
 }
 
 
+[data-theme="dark"] .quizzes-summary__item,
+[data-theme="dark"] .quiz-card {
+
+    background:
+        var(--color-surface-raised) !important;
+
+    color:
+        var(--color-text);
+
+}
+
+
+[data-theme="dark"] .quizzes-summary__value,
+[data-theme="dark"] .quiz-card h3 {
+
+    color:
+        var(--color-text);
+
+}
+
+
 .quiz-card:hover {
 
     transform:

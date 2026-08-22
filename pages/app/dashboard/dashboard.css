@@ -113,6 +113,19 @@
     border-top: 3px solid var(--color-primary);
 }
 
+
+[data-theme="dark"] .dashboard-card,
+[data-theme="dark"] .dashboard-content-card,
+[data-theme="dark"] .dashboard-progress__card {
+
+    background:
+        var(--color-surface-raised) !important;
+
+    color:
+        var(--color-text);
+
+}
+
 .dashboard-card:nth-child(2) {
     border-top-color: var(--color-success);
 }

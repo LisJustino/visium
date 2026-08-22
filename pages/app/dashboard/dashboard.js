@@ -17,7 +17,7 @@
 const COMPONENTS = {
 
     header:
-        "/components/header/header.html",
+        "/components/header/header.html?v=20260824",
 
     sidebar:
         "/components/sidebar/sidebar.html"

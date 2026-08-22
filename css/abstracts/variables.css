@@ -16,6 +16,8 @@
     --color-primary: #2563eb;
     --color-primary-dark: #1d4ed8;
     --color-primary-light: #eff6ff;
+   --color-accent: #0f766e;
+   --color-accent-light: #f0fdfa;
 
     --color-white: #ffffff;
 
@@ -38,8 +40,10 @@
        Fundo
     ========================================================================= */
 
-    --color-background: #f8fafc;
+      --color-background: #f5f8fc;
     --color-surface: #ffffff;
+      --color-surface-raised: #ffffff;
+      --color-surface-subtle: #eef4fb;
 
     /* =========================================================================
        Texto
@@ -121,6 +125,12 @@
     --shadow-lg:
         0 10px 30px rgba(15, 23, 42, .10);
 
+      --shadow-card:
+         0 12px 32px rgba(15, 23, 42, .07);
+
+      --shadow-focus:
+         0 0 0 3px rgba(37, 99, 235, .14);
+
     /* =========================================================================
        Transições
     ========================================================================= */
@@ -153,5 +163,52 @@
     --z-header: 1100;
     --z-overlay: 1200;
     --z-modal: 1300;
+
+}
+
+
+:root[data-theme="dark"] {
+
+   color-scheme: dark;
+
+   --color-primary: #8ab4ff;
+   --color-primary-dark: #b5ceff;
+   --color-primary-light: #1b3157;
+   --color-accent: #5eead4;
+   --color-accent-light: #123d3b;
+
+   --color-white: #f8fafc;
+
+   --color-gray-50: #0b1220;
+   --color-gray-100: #111b2e;
+   --color-gray-200: #24324a;
+   --color-gray-300: #34445f;
+   --color-gray-400: #8190a8;
+   --color-gray-500: #aab7c9;
+   --color-gray-600: #c4cfdd;
+   --color-gray-700: #d6deea;
+   --color-gray-800: #e5ebf3;
+   --color-gray-900: #f8fafc;
+
+   --color-success: #86efac;
+   --color-warning: #fcd34d;
+   --color-danger: #fca5a5;
+
+   --color-background: #0b1220;
+   --color-surface: #111b2e;
+   --color-surface-raised: #162238;
+   --color-surface-subtle: #1b2a43;
+
+   --color-text: #e5ebf3;
+   --color-text-muted: #b8c4d4;
+   --color-text-light: #93a4bb;
+
+   --color-border: #2c3b54;
+   --color-border-strong: #465875;
+
+   --shadow-sm: 0 1px 2px rgba(0, 0, 0, .3);
+   --shadow-md: 0 4px 12px rgba(0, 0, 0, .35);
+   --shadow-lg: 0 10px 30px rgba(0, 0, 0, .45);
+   --shadow-card: 0 12px 32px rgba(0, 0, 0, .32);
 
 }

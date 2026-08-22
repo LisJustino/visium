@@ -759,12 +759,38 @@
         sidebar.dataset.behaviorAttached =
             "true";
 
+        let lastFocusedElement =
+            null;
+
+        function updateSidebarAccessibility(
+            isOpen
+        ) {
+
+            const isMobile =
+                window.innerWidth <=
+                900;
+
+            sidebar.setAttribute(
+                "aria-hidden",
+                String(
+                    isMobile && !isOpen
+                )
+            );
+
+            sidebar.inert =
+                isMobile && !isOpen;
+
+        }
+
 
         /* ======================================================================
            Abrir
         ====================================================================== */
 
         function openSidebar() {
+
+            lastFocusedElement =
+                document.activeElement;
 
             sidebar.classList.add(
                 "is-open"
@@ -783,6 +809,21 @@
                 "aria-expanded",
                 "true"
             );
+
+            updateSidebarAccessibility(
+                true
+            );
+
+            const firstFocusable =
+                sidebar.querySelector(
+                    "a, button, input, select, textarea, [tabindex]:not([tabindex=\"-1\"])"
+                );
+
+            if (firstFocusable) {
+
+                firstFocusable.focus();
+
+            }
 
         }
 
@@ -810,6 +851,23 @@
                 "aria-expanded",
                 "false"
             );
+
+            updateSidebarAccessibility(
+                false
+            );
+
+            if (
+                lastFocusedElement &&
+                typeof lastFocusedElement.focus ===
+                "function"
+            ) {
+
+                lastFocusedElement.focus();
+
+                lastFocusedElement =
+                    null;
+
+            }
 
         }
 
@@ -846,6 +904,10 @@
         overlay.addEventListener(
             "click",
             closeSidebar
+        );
+
+        updateSidebarAccessibility(
+            false
         );
 
 
@@ -908,6 +970,10 @@
                 ) {
 
                     closeSidebar();
+
+                    updateSidebarAccessibility(
+                        false
+                    );
 
                 }
 

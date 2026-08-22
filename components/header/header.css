@@ -33,8 +33,65 @@
     min-width: 0;
 }
 
+.app-header__left {
+    gap: var(--space-4);
+}
+
+.app-header__tools {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    min-height: 34px;
+    padding: 2px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-subtle);
+}
+
+.app-header__tools button {
+    min-width: 34px;
+    min-height: 30px;
+    padding: 0 .35rem;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    font-size: .7rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.app-header__tools button:hover,
+.app-header__tools button:focus-visible {
+    background: var(--color-surface-raised);
+    color: var(--color-primary);
+}
+
+.app-header__context {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    line-height: 1.2;
+}
+
+.app-header__context-brand {
+    color: var(--color-primary);
+    font-size: .62rem;
+    font-weight: 800;
+    letter-spacing: .14em;
+    line-height: 1;
+}
+
+.app-header__context-title {
+    margin-top: .28rem;
+    color: var(--color-text);
+    font-size: var(--font-size-sm);
+    font-weight: 750;
+    line-height: 1.2;
+}
+
 .app-header__right {
     margin-left: auto;
+    gap: var(--space-3);
 }
 
 .app-header__menu-button {
@@ -171,6 +228,32 @@
 
     .app-header__user {
         display: none;
+    }
+
+    .app-header__left {
+        gap: var(--space-3);
+    }
+
+    .app-header__context {
+        display: none;
+    }
+
+    .app-header__right {
+        gap: var(--space-2);
+    }
+
+    .app-header__context-title {
+        font-size: .8rem;
+    }
+
+    .app-header__tools {
+        display: none;
+    }
+
+    .app-header__tools button {
+        min-width: 30px;
+        padding: 0 .2rem;
+        font-size: .65rem;
     }
 
     .app-header__profile {

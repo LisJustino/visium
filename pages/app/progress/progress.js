@@ -17,7 +17,7 @@
 const COMPONENTS = {
 
     header:
-        "/components/header/header.html"
+        "/components/header/header.html?v=20260824"
 
 };
 
@@ -240,7 +240,7 @@ function getQuizHistory() {
         getQuizHistoryStorageKey();
 
 
-    const stored =
+    let stored =
         localStorage.getItem(
             storageKey
         );
@@ -248,7 +248,33 @@ function getQuizHistory() {
 
     if (!stored) {
 
-        return [];
+        const userKey =
+            getUserKey(
+                getStoredUser()
+            );
+
+        const legacyStored =
+            userKey !== "anonymous"
+                ? localStorage.getItem(
+                    "visium_quiz_history_anonymous"
+                )
+                : null;
+
+        if (legacyStored) {
+
+            localStorage.setItem(
+                storageKey,
+                legacyStored
+            );
+
+            stored =
+                legacyStored;
+
+        } else {
+
+            return [];
+
+        }
 
     }
 
@@ -908,6 +934,13 @@ async function initializeProgress() {
     }
 
 
+    refreshProgressView();
+
+}
+
+
+function refreshProgressView() {
+
     const history =
         getQuizHistory();
 
@@ -937,4 +970,38 @@ async function initializeProgress() {
 document.addEventListener(
     "DOMContentLoaded",
     initializeProgress
+);
+
+
+window.addEventListener(
+    "pageshow",
+    () => {
+
+        if (
+            window.VisiumProgress
+        ) {
+
+            refreshProgressView();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "visibilitychange",
+    () => {
+
+        if (
+            document.visibilityState ===
+            "visible" &&
+            window.VisiumProgress
+        ) {
+
+            refreshProgressView();
+
+        }
+
+    }
 );

@@ -17,7 +17,7 @@
 const COMPONENTS = {
 
     header:
-        "/components/header/header.html"
+        "/components/header/header.html?v=20260824"
 
 };
 
@@ -1196,25 +1196,6 @@ function getSafeStorageKey(
 }
 
 
-function getHistoryStorageKey() {
-
-    return [
-
-        "visium_quiz_history",
-
-        getSafeStorageKey(
-            getUserKey(
-                getStoredUser()
-            )
-        )
-
-    ].join(
-        "_"
-    );
-
-}
-
-
 /* ==========================================================================
    Query String
 ========================================================================== */
@@ -1257,7 +1238,7 @@ function getAttemptStorageKey() {
         "visium_quiz_attempt",
         getSafeStorageKey(
             getUserKey(
-                getCurrentUser()
+                getStoredUser()
             )
         ),
         getSafeStorageKey(
@@ -1276,7 +1257,7 @@ function getHistoryStorageKey() {
         "visium_quiz_history",
         getSafeStorageKey(
             getUserKey(
-                getCurrentUser()
+                getStoredUser()
             )
         )
     ].join(
@@ -2483,15 +2464,44 @@ function goToPreviousQuestion() {
 
 function getQuizHistory() {
 
-    const stored =
+    const historyStorageKey =
+        getHistoryStorageKey();
+
+    let stored =
         localStorage.getItem(
-            getHistoryStorageKey()
+            historyStorageKey
         );
 
 
     if (!stored) {
 
-        return [];
+        const userKey =
+            getUserKey(
+                getStoredUser()
+            );
+
+        const legacyStored =
+            userKey !== "anonymous"
+                ? localStorage.getItem(
+                    "visium_quiz_history_anonymous"
+                )
+                : null;
+
+        if (legacyStored) {
+
+            localStorage.setItem(
+                historyStorageKey,
+                legacyStored
+            );
+
+            stored =
+                legacyStored;
+
+        } else {
+
+            return [];
+
+        }
 
     }
 

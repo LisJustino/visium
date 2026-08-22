@@ -60,10 +60,10 @@
         var(--radius-xl);
 
     background:
-        var(--color-white);
+        var(--color-surface-raised);
 
     box-shadow:
-        var(--shadow-md);
+        var(--shadow-card);
 
 }
 

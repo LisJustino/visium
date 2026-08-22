@@ -885,6 +885,20 @@
 }
 
 
+[data-theme="dark"] .reader-navigation-button:disabled {
+
+    border-color:
+        var(--color-border-strong) !important;
+
+    background:
+        var(--color-surface-subtle) !important;
+
+    color:
+        var(--color-text-muted) !important;
+
+}
+
+
 .reader-navigation-button--primary {
 
     border-color: var(--color-primary);
