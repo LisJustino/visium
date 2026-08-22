@@ -514,6 +514,26 @@ class VisiumHandler(
             self.path
         ).path
 
+        if path == "/":
+
+            self.send_response(
+                HTTPStatus.FOUND
+            )
+
+            self.send_header(
+                "Location",
+                "/pages/public/landing/index.html"
+            )
+
+            self.send_header(
+                "Content-Length",
+                "0"
+            )
+
+            self.end_headers()
+
+            return
+
         if path == "/api/health":
 
             json_response(
