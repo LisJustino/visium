@@ -73,35 +73,7 @@ async function requireAuthentication() {
 
 function getStoredUser() {
 
-    try {
-
-        const storedUser =
-            localStorage.getItem(
-                "visium_user"
-            );
-
-
-        if (!storedUser) {
-
-            return null;
-
-        }
-
-
-        return JSON.parse(
-            storedUser
-        );
-
-    } catch (error) {
-
-        console.warn(
-            "Visium | Usuário salvo em localStorage inválido.",
-            error
-        );
-
-        return null;
-
-    }
+    return window.VisiumStorage?.getStoredUser?.() || null;
 
 }
 
@@ -110,27 +82,7 @@ function getUserKey(
     user
 ) {
 
-    const resolvedUser =
-        user ||
-        getStoredUser();
-
-
-    if (!resolvedUser) {
-
-        return "anonymous";
-
-    }
-
-
-    return String(
-        resolvedUser.id ||
-        resolvedUser.email ||
-        resolvedUser.username ||
-        resolvedUser.name ||
-        "anonymous"
-    )
-        .trim()
-        .toLowerCase();
+    return window.VisiumStorage?.getUserKey?.(user) || "anonymous";
 
 }
 
@@ -139,11 +91,7 @@ function getSafeStorageKey(
     value
 ) {
 
-    return encodeURIComponent(
-        String(
-            value
-        )
-    );
+    return window.VisiumStorage?.getSafeStorageKey?.(value) || encodeURIComponent(String(value));
 
 }
 

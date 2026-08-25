@@ -381,6 +381,121 @@ function validatePassword(
 }
 
 
+window.VisiumStorage = {
+
+    USER_KEY:
+        "visium_user",
+
+    getStoredUser() {
+
+        try {
+
+            const storedUser =
+                localStorage.getItem(
+                    this.USER_KEY
+                );
+
+            if (!storedUser) {
+
+                return null;
+
+            }
+
+            const parsedUser =
+                JSON.parse(
+                    storedUser
+                );
+
+            return (
+                parsedUser &&
+                typeof parsedUser === "object"
+            )
+                ? parsedUser
+                : null;
+
+        } catch (error) {
+
+            console.warn(
+                "Visium | Usuário salvo em localStorage inválido.",
+                error
+            );
+
+            this.clearUserStorage();
+
+            return null;
+
+        }
+
+    },
+
+    setStoredUser(user) {
+
+        if (!user) {
+
+            this.clearUserStorage();
+
+            return;
+
+        }
+
+        localStorage.setItem(
+            this.USER_KEY,
+            JSON.stringify(user)
+        );
+
+    },
+
+    clearUserStorage() {
+
+        localStorage.removeItem(
+            this.USER_KEY
+        );
+
+        Object.keys(
+            localStorage
+        )
+            .filter(
+                (key) => key.startsWith("visium_")
+            )
+            .forEach(
+                (key) => localStorage.removeItem(key)
+            );
+
+    },
+
+    getUserKey(user = this.getStoredUser()) {
+
+        if (!user) {
+
+            return "anonymous";
+
+        }
+
+        return String(
+            user.id ||
+            user.email ||
+            user.username ||
+            user.name ||
+            "anonymous"
+        )
+            .trim()
+            .toLowerCase();
+
+    },
+
+    getSafeStorageKey(value) {
+
+        return encodeURIComponent(
+            String(
+                value
+            )
+        );
+
+    }
+
+};
+
+
 /* ==========================================================================
    API pública de autenticação
 ========================================================================== */
@@ -628,9 +743,7 @@ window.VisiumAuth = {
                 }
             );
 
-        localStorage.removeItem(
-            "visium_user"
-        );
+        window.VisiumStorage.clearUserStorage();
 
 
         window.location.assign(
@@ -655,20 +768,7 @@ window.VisiumAuth = {
             );
 
 
-        localStorage.removeItem(
-            "visium_user"
-        );
-
-
-        Object.keys(
-            localStorage
-        )
-            .filter(
-                (key) => key.startsWith("visium_")
-            )
-            .forEach(
-                (key) => localStorage.removeItem(key)
-            );
+        window.VisiumStorage.clearUserStorage();
 
 
         return result;
@@ -692,9 +792,7 @@ window.VisiumAuth = {
             !result.success
         ) {
 
-            localStorage.removeItem(
-                "visium_user"
-            );
+            window.VisiumStorage.clearUserStorage();
 
             return null;
 
@@ -707,10 +805,7 @@ window.VisiumAuth = {
 
         if (user) {
 
-            localStorage.setItem(
-                "visium_user",
-                JSON.stringify(user)
-            );
+            window.VisiumStorage.setStoredUser(user);
 
         }
 

@@ -927,24 +927,49 @@
            Toggle
         ====================================================================== */
 
+        let toggleLocked = false;
+
+        const handleToggleInteraction = (event) => {
+
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            if (toggleLocked) {
+                return;
+            }
+
+            toggleLocked = true;
+
+            requestAnimationFrame(() => {
+                toggleLocked = false;
+            });
+
+            if (
+                sidebar.classList.contains(
+                    "is-open"
+                )
+            ) {
+
+                closeSidebar();
+
+                return;
+            }
+
+            openSidebar();
+
+        };
+
+
+        toggle.addEventListener(
+            "pointerdown",
+            handleToggleInteraction
+        );
+
         toggle.addEventListener(
             "click",
-            () => {
-
-                if (
-                    sidebar.classList.contains(
-                        "is-open"
-                    )
-                ) {
-
-                    closeSidebar();
-
-                    return;
-                }
-
-                openSidebar();
-
-            }
+            handleToggleInteraction
         );
 
 
@@ -952,9 +977,25 @@
            Overlay
         ====================================================================== */
 
+        const handleOverlayInteraction = (event) => {
+
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            closeSidebar();
+
+        };
+
+        overlay.addEventListener(
+            "pointerdown",
+            handleOverlayInteraction
+        );
+
         overlay.addEventListener(
             "click",
-            closeSidebar
+            handleOverlayInteraction
         );
 
         updateSidebarAccessibility(

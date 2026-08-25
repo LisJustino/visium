@@ -105,6 +105,7 @@
     background: var(--color-white);
     color: var(--color-gray-700);
     cursor: pointer;
+    touch-action: manipulation;
     transition:
         background-color var(--transition-fast),
         border-color var(--transition-fast),

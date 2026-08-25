@@ -469,11 +469,8 @@ def set_session_cookie(
     cookie[SESSION_COOKIE] = token
 
     cookie[SESSION_COOKIE]["path"] = "/"
-
     cookie[SESSION_COOKIE]["httponly"] = True
-
     cookie[SESSION_COOKIE]["samesite"] = "Lax"
-
     cookie[SESSION_COOKIE]["max-age"] = str(
         max_age
     )
@@ -483,6 +480,12 @@ def set_session_cookie(
     ) == "1":
 
         cookie[SESSION_COOKIE]["secure"] = True
+
+    if os.environ.get(
+        "VISIUM_COOKIE_DOMAIN"
+    ):
+
+        cookie[SESSION_COOKIE]["domain"] = os.environ["VISIUM_COOKIE_DOMAIN"]
 
     handler.send_header(
         "Set-Cookie",
