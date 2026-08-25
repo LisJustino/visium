@@ -141,6 +141,10 @@ function getErrorMessage(
 
             return "Não foi possível conectar ao servidor.";
 
+        case "TOO_MANY_ATTEMPTS":
+
+            return "Muitas tentativas. Aguarde alguns minutos e tente novamente.";
+
         case "EMAIL_SERVICE_UNAVAILABLE":
 
             return "O envio de e-mails está temporariamente indisponível. Tente novamente mais tarde.";

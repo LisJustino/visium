@@ -9,6 +9,7 @@ import json
 import os
 import secrets
 import sqlite3
+import threading
 import time
 import urllib.error
 import urllib.request
@@ -38,6 +39,45 @@ SESSION_TTL_SECONDS = 60 * 60 * 24 * 7
 PASSWORD_ITERATIONS = 600_000
 
 STATIC_CACHE_SECONDS = 60 * 60
+
+AUTH_RATE_LIMIT_WINDOW_SECONDS = 15 * 60
+AUTH_RATE_LIMIT_MAX_FAILURES = 5
+
+AUTH_FAILURES = {}
+AUTH_FAILURES_LOCK = threading.Lock()
+
+
+def is_auth_rate_limited(key: str) -> bool:
+
+    now = time.time()
+
+    with AUTH_FAILURES_LOCK:
+
+        attempts = [
+            timestamp
+            for timestamp in AUTH_FAILURES.get(key, [])
+            if now - timestamp < AUTH_RATE_LIMIT_WINDOW_SECONDS
+        ]
+
+        AUTH_FAILURES[key] = attempts
+
+        return len(attempts) >= AUTH_RATE_LIMIT_MAX_FAILURES
+
+
+def record_auth_failure(key: str) -> None:
+
+    now = time.time()
+
+    with AUTH_FAILURES_LOCK:
+
+        AUTH_FAILURES.setdefault(key, []).append(now)
+
+
+def clear_auth_failures(key: str) -> None:
+
+    with AUTH_FAILURES_LOCK:
+
+        AUTH_FAILURES.pop(key, None)
 
 
 def send_password_reset_email(
@@ -517,6 +557,19 @@ class VisiumHandler(
             self.path
         ).path
 
+        if path == "/backend/data" or path.startswith("/backend/data/"):
+
+            json_response(
+                self,
+                HTTPStatus.NOT_FOUND,
+                {
+                    "error":
+                        "NOT_FOUND"
+                }
+            )
+
+            return
+
         if path == "/":
 
             self.send_response(
@@ -992,6 +1045,26 @@ class VisiumHandler(
             )
         )
 
+        ip_key = f"ip:{self.client_address[0]}"
+        email_key = f"email:{email}"
+
+        if (
+            is_auth_rate_limited(ip_key)
+            or
+            is_auth_rate_limited(email_key)
+        ):
+
+            json_response(
+                self,
+                HTTPStatus.TOO_MANY_REQUESTS,
+                {
+                    "error":
+                        "TOO_MANY_ATTEMPTS"
+                }
+            )
+
+            return
+
         with database_connection() as connection:
 
             user = connection.execute(
@@ -1014,6 +1087,9 @@ class VisiumHandler(
             )
         ):
 
+            record_auth_failure(ip_key)
+            record_auth_failure(email_key)
+
             json_response(
                 self,
                 HTTPStatus.UNAUTHORIZED,
@@ -1024,6 +1100,9 @@ class VisiumHandler(
             )
 
             return
+
+        clear_auth_failures(ip_key)
+        clear_auth_failures(email_key)
 
         self.create_session(
             user
@@ -1043,6 +1122,16 @@ class VisiumHandler(
         )
 
         with database_connection() as connection:
+
+            connection.execute(
+                """
+                DELETE FROM sessions
+                WHERE user_id = ?
+                """,
+                (
+                    user["id"],
+                )
+            )
 
             connection.execute(
                 """
@@ -1343,6 +1432,16 @@ class VisiumHandler(
 
             connection.execute(
                 """
+                DELETE FROM sessions
+                WHERE user_id = ?
+                """,
+                (
+                    reset["user_id"],
+                )
+            )
+
+            connection.execute(
+                """
                 UPDATE password_reset_tokens
                 SET used_at = ?
                 WHERE token_hash = ?
@@ -1437,6 +1536,30 @@ class VisiumHandler(
             "Referrer-Policy",
             "strict-origin-when-cross-origin"
         )
+
+        self.send_header(
+            "Content-Security-Policy",
+            "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+        )
+
+        self.send_header(
+            "Permissions-Policy",
+            "camera=(), microphone=(), geolocation=()"
+        )
+
+        self.send_header(
+            "X-Frame-Options",
+            "DENY"
+        )
+
+        if os.environ.get(
+            "VISIUM_SECURE_COOKIES"
+        ) == "1":
+
+            self.send_header(
+                "Strict-Transport-Security",
+                "max-age=31536000; includeSubDomains"
+            )
 
         super().end_headers()
 

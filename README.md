@@ -43,10 +43,17 @@ Depois acesse:
 http://127.0.0.1:8000
 ```
 
-> Esta versÃ£o Ã© um protÃ³tipo local. As contas, senhas, sessÃ£o e dados de
-> progresso sÃ£o armazenados no navegador e nÃ£o oferecem autenticaÃ§Ã£o segura
-> para produÃ§Ã£o. Um backend com hash de senhas, sessÃµes no servidor e
-> recuperaÃ§Ã£o por e-mail serÃ¡ necessÃ¡rio antes de publicar a plataforma.
+Em desenvolvimento local, o servidor usa SQLite em `backend/data/`.
+Em produÃ§Ã£o, defina `DATABASE_URL` para usar o PostgreSQL persistente
+configurado no Render. O backend utiliza hash PBKDF2, sessÃµes HttpOnly,
+limite de tentativas de login e recuperaÃ§Ã£o de senha por e-mail.
+
+Para executar os testes automatizados:
+
+```bash
+python -m unittest discover -s tests -p "test_*.py" -v
+node tests/test_content.js
+```
 
 ---
 

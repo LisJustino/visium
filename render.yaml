@@ -1,3 +1,9 @@
+databases:
+  - name: visium-db
+    plan: free
+    databaseName: visium
+    user: visium
+
 services:
   - type: web
     name: visium
@@ -14,3 +20,7 @@ services:
         value: "1"
       - key: APP_BASE_URL
         value: https://visium-fpd8.onrender.com
+      - key: DATABASE_URL
+        fromDatabase:
+          name: visium-db
+          property: connectionString

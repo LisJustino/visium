@@ -21,6 +21,9 @@ const COMPONENTS = {
 
 };
 
+const CONTENT_ASSET_VERSION =
+    "20260825";
+
 
 const CONTENTS = {
 
@@ -752,7 +755,7 @@ async function loadExternalContent(
 
 
             script.src =
-                `/data/content/${sourceKey}.js`;
+                `/data/content/${sourceKey}.js?v=${CONTENT_ASSET_VERSION}`;
 
             script.async =
                 true;
