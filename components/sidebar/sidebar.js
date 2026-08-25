@@ -39,6 +39,7 @@
         "interpretacao-de-receita",
         "transposicao",
         "dp-dnp",
+        "acuidade-visual",
         "lentes-contato",
         "surfacagem-multifocal-bifocal",
         "montagem",

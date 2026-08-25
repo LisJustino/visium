@@ -22,7 +22,7 @@ const COMPONENTS = {
 };
 
 const CONTENT_ASSET_VERSION =
-    "20260825";
+    "20260842";
 
 
 const CONTENTS = {
@@ -1746,18 +1746,8 @@ async function initializeReader() {
     }
 
 
-    let contentKey =
+    const contentKey =
         getContentKey();
-
-    if (contentKey === "acuidade-visual") {
-
-        window.location.replace(
-            "/pages/app/reader/reader.html?content=lentes-contato"
-        );
-
-        return;
-
-    }
 
 
     if (contentKey) {

@@ -1182,3 +1182,9 @@ window.VisiumContent["lentes-contato"] = {
     ]
 
 };
+
+window.VisiumContent["lentes-contato"].sections =
+    window.VisiumContent["lentes-contato"].sections.slice(
+        0,
+        -2
+    );

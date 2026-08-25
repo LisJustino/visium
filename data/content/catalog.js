@@ -11,6 +11,7 @@ window.VISIUM_CONTENT_ORDER = [
     "interpretacao-de-receita",
     "transposicao",
     "dp-dnp",
+    "acuidade-visual",
     "lentes-contato",
     "surfacagem-multifocal-bifocal",
     "montagem",
@@ -38,6 +39,12 @@ window.VISIUM_CONTENTS = [
         title: "O que é DP, DNP e Altura",
         description: "Medidas importantes para a montagem óptica.",
         url: "/pages/app/reader/reader.html?content=dp-dnp"
+    },
+    {
+        id: "acuidade-visual",
+        title: "Acuidade Visual",
+        description: "Avaliação da acuidade visual e principais tipos de optotipos.",
+        url: "/pages/app/reader/reader.html?content=acuidade-visual"
     },
     {
         id: "lentes-contato",
