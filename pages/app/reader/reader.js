@@ -22,7 +22,7 @@ const COMPONENTS = {
 };
 
 const CONTENT_ASSET_VERSION =
-    "20260845";
+    "20260847";
 
 
 const CONTENTS = {
@@ -723,7 +723,10 @@ async function loadExternalContent(
     key
 ) {
 
-    const sourceKey = key;
+    const sourceKey =
+        key === "interpretacao-de-receita"
+            ? "lendo-uma-receita"
+            : key;
 
     if (
         !canLoadExternalContent(
@@ -739,6 +742,13 @@ async function loadExternalContent(
     if (
         window.VisiumContent?.[sourceKey]
     ) {
+
+        if (sourceKey !== key) {
+
+            window.VisiumContent[key] =
+                window.VisiumContent[sourceKey];
+
+        }
 
         return true;
 
@@ -766,6 +776,16 @@ async function loadExternalContent(
 
                     const sourceContent =
                         window.VisiumContent?.[sourceKey];
+
+                    if (
+                        sourceContent &&
+                        sourceKey !== key
+                    ) {
+
+                        window.VisiumContent[key] =
+                            sourceContent;
+
+                    }
 
                     resolve(Boolean(sourceContent));
 

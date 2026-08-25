@@ -27,10 +27,10 @@ const VISIUM_LENDO_UMA_RECEITA_CONTENT = {
         "lendo-uma-receita",
 
     category:
-        "Óptica",
+        "RECEITAS",
 
     title:
-        "Lendo uma Receita",
+        "Interpretação de Receita",
 
     description:
         "Aprenda a interpretar os principais campos, sinais e abreviações presentes em uma receita oftálmica.",
