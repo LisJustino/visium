@@ -161,7 +161,7 @@ a:hover {
         var(--color-primary);
 
     color:
-        var(--color-white);
+        var(--color-on-primary);
 
 }
 
@@ -172,7 +172,7 @@ a:hover {
         var(--color-primary-dark);
 
     color:
-        var(--color-white);
+        var(--color-on-primary);
 
 }
 
@@ -183,10 +183,10 @@ a:hover {
         var(--color-border-strong);
 
     background:
-        var(--color-white);
+        var(--color-surface-raised);
 
     color:
-        var(--color-gray-700);
+        var(--color-text);
 
 }
 
@@ -777,7 +777,7 @@ select {
         #315fa8 !important;
 
     color:
-        #f8fafc !important;
+        var(--color-on-primary) !important;
 
 }
 
@@ -790,6 +790,6 @@ select {
         #4074c7 !important;
 
     color:
-        #ffffff !important;
+        var(--color-on-primary) !important;
 
 }

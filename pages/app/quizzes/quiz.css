@@ -400,10 +400,10 @@
     border-radius: 11px;
 
     background:
-        var(--color-white);
+        var(--color-surface-raised);
 
     color:
-        var(--color-gray-700);
+        var(--color-text);
 
     font-family: inherit;
 
@@ -526,7 +526,7 @@
         var(--color-primary);
 
     color:
-        var(--color-white);
+        var(--color-on-primary);
 
 }
 
@@ -540,7 +540,7 @@
         #15803d;
 
     color:
-        var(--color-white);
+        var(--color-on-primary);
 
 }
 

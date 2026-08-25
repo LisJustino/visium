@@ -794,9 +794,9 @@
 
     border-radius: 8px;
 
-    background: var(--color-white);
+    background: var(--color-surface-raised);
 
-    color: var(--color-gray-700);
+    color: var(--color-text);
 
     font-family:
         ui-monospace,
@@ -905,7 +905,7 @@
 
     background: var(--color-primary);
 
-    color: var(--color-white);
+    color: var(--color-on-primary);
 
 }
 
@@ -914,7 +914,7 @@
 
     background: var(--color-primary-dark);
 
-    color: var(--color-white);
+    color: var(--color-on-primary);
 
 }
 

@@ -352,7 +352,7 @@
         var(--color-primary);
 
     color:
-        var(--color-white);
+        var(--color-on-primary);
 
     font-family: inherit;
 
@@ -381,7 +381,7 @@
         var(--color-primary-dark);
 
     color:
-        var(--color-white);
+        var(--color-on-primary);
 
     transform:
         translateY(-1px);

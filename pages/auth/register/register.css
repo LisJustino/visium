@@ -480,7 +480,7 @@
 
     content: "✓";
 
-    color: var(--color-white);
+    color: var(--color-on-primary);
 
     font-size: .72rem;
 
@@ -644,7 +644,7 @@
 
     background: var(--color-primary);
 
-    color: var(--color-white);
+    color: var(--color-on-primary);
 
     font: inherit;
 

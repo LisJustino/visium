@@ -590,7 +590,7 @@
         var(--color-primary);
 
     color:
-        var(--color-white);
+        var(--color-on-primary);
 
     font:
         inherit;
