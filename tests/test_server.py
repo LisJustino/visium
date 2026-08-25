@@ -28,6 +28,28 @@ class ServerSecurityTests(unittest.TestCase):
         server.clear_auth_failures(key)
         self.assertFalse(server.is_auth_rate_limited(key))
 
+    def test_database_error_groups_include_postgres_when_available(self):
+        self.assertIn(
+            server.sqlite3.IntegrityError,
+            server.database_integrity_errors()
+        )
+        self.assertIn(
+            server.sqlite3.OperationalError,
+            server.database_operational_errors()
+        )
+
+        if server.psycopg is None:
+            return
+
+        self.assertIn(
+            server.psycopg.IntegrityError,
+            server.database_integrity_errors()
+        )
+        self.assertIn(
+            server.psycopg.OperationalError,
+            server.database_operational_errors()
+        )
+
     def test_secure_headers_include_hsts(self):
         handler = object.__new__(server.VisiumHandler)
         handler.path = "/"

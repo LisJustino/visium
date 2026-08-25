@@ -9,6 +9,7 @@ import json
 import os
 import secrets
 import sqlite3
+import sys
 import threading
 import time
 import urllib.error
@@ -45,6 +46,50 @@ AUTH_RATE_LIMIT_MAX_FAILURES = 5
 
 AUTH_FAILURES = {}
 AUTH_FAILURES_LOCK = threading.Lock()
+
+
+def database_integrity_errors() -> tuple[type[BaseException], ...]:
+
+    errors: tuple[type[BaseException], ...] = (
+        sqlite3.IntegrityError,
+    )
+
+    if psycopg is not None:
+
+        errors = (
+            *errors,
+            psycopg.IntegrityError
+        )
+
+    return errors
+
+
+def database_operational_errors() -> tuple[type[BaseException], ...]:
+
+    errors: tuple[type[BaseException], ...] = (
+        sqlite3.OperationalError,
+    )
+
+    if psycopg is not None:
+
+        errors = (
+            *errors,
+            psycopg.OperationalError,
+            psycopg.InterfaceError
+        )
+
+    return errors
+
+
+def log_server_error(
+    context: str,
+    error: BaseException
+) -> None:
+
+    print(
+        f"Visium | {context}: {type(error).__name__}: {error}",
+        file=sys.stderr
+    )
 
 
 def is_auth_rate_limited(key: str) -> bool:
@@ -731,7 +776,7 @@ class VisiumHandler(
                 }
             )
 
-        except sqlite3.IntegrityError:
+        except database_integrity_errors():
 
             json_response(
                 self,
@@ -742,7 +787,12 @@ class VisiumHandler(
                 }
             )
 
-        except sqlite3.OperationalError:
+        except database_operational_errors() as error:
+
+            log_server_error(
+                "Banco de dados indisponível",
+                error
+            )
 
             json_response(
                 self,
@@ -878,7 +928,7 @@ class VisiumHandler(
                 }
             )
 
-        except sqlite3.IntegrityError:
+        except database_integrity_errors():
 
             json_response(
                 self,
