@@ -655,7 +655,7 @@
         var(--color-primary);
 
     color:
-        #ffffff;
+        var(--color-on-primary);
 
 }
 
@@ -879,9 +879,9 @@
 .profile-button--danger {
     flex: 0 0 auto;
     background: var(--color-danger);
-    color: #ffffff;
+    color: var(--color-on-danger);
 }
 
 .profile-button--danger:hover {
-    background: #b91c1c;
+    background: var(--color-danger-dark);
 }

@@ -16,6 +16,7 @@
     --color-primary: #2563eb;
     --color-primary-dark: #1d4ed8;
     --color-primary-light: #eff6ff;
+   --color-on-primary: #ffffff;
    --color-accent: #0f766e;
    --color-accent-light: #f0fdfa;
 
@@ -35,6 +36,8 @@
     --color-success: #15803d;
     --color-warning: #b45309;
     --color-danger: #b42318;
+   --color-danger-dark: #991b1b;
+   --color-on-danger: #ffffff;
 
     /* =========================================================================
        Fundo
@@ -174,6 +177,7 @@
    --color-primary: #8ab4ff;
    --color-primary-dark: #b5ceff;
    --color-primary-light: #1b3157;
+   --color-on-primary: #0b1220;
    --color-accent: #5eead4;
    --color-accent-light: #123d3b;
 
@@ -193,6 +197,8 @@
    --color-success: #86efac;
    --color-warning: #fcd34d;
    --color-danger: #fca5a5;
+   --color-danger-dark: #fecaca;
+   --color-on-danger: #0b1220;
 
    --color-background: #0b1220;
    --color-surface: #111b2e;
