@@ -391,10 +391,10 @@ function getQuizTitle(
     const titles = {
         "fundamentos-optica": "Fundamentos de Óptica",
         "interpretacao-de-receita": "Interpretação de Receita",
-        "dp-dnp": "O que é DP, DNP e Altura",
+        "dp-dnp": "DP, DNP e Altura",
         "acuidade-visual": "Acuidade Visual",
         "lentes-contato": "Lentes de Contato",
-        "surfacagem-multifocal-bifocal": "Surfaçagem de Multifocal e Bifocal",
+        "surfacagem-multifocal-bifocal": "Surfaçagem Multifocal e Bifocal",
         "montagem": "Montagem",
         "armacoes": "Armações",
         "patologias": "Patologias",

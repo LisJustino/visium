@@ -6,7 +6,7 @@ window.VisiumContent["dp-dnp"] = {
 
     id: "dp-dnp",
 
-    title: "O que é DP, DNP e Altura",
+    title: "DP, DNP e Altura",
 
     category: "MEDIÇÃO",
 

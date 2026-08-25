@@ -80,7 +80,7 @@ const QUIZZES = [
             "Medição",
 
         title:
-            "O que é DP, DNP e Altura",
+            "DP, DNP e Altura",
 
         description:
             "Revise conceitos relacionados à distância pupilar e à distância naso-pupilar.",
@@ -278,7 +278,7 @@ const QUIZZES = [
             "Processos",
 
         title:
-            "Surfaçagem de Multifocal e Bifocal",
+            "Surfaçagem Multifocal e Bifocal",
 
         description:
             "Teste seus conhecimentos sobre surfaçagem e lentes multifocais e bifocais.",

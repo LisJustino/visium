@@ -2,7 +2,7 @@ window.VisiumContent = window.VisiumContent || {};
 
 window.VisiumContent["surfacagem-multifocal-bifocal"] = {
     id: "surfacagem-multifocal-bifocal",
-    title: "Surfaçagem de Multifocal e Bifocal",
+    title: "Surfaçagem Multifocal e Bifocal",
     category: "PROCESSOS",
     description: "Conceitos de surfaçagem e lentes multifocais e bifocais.",
     sections: [

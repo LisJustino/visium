@@ -190,7 +190,7 @@ defineQuiz("acuidade-visual", {
 
 defineQuiz("surfacagem-multifocal-bifocal", {
     category: "Processos",
-    title: "Surfaçagem de Multifocal e Bifocal",
+    title: "Surfaçagem Multifocal e Bifocal",
     description: "Teste seus conhecimentos sobre surfaçagem, curvatura e lentes multifocais e bifocais.",
     questions: [
         createQuestion("O que é surfaçagem?", ["Trabalho da superfície da lente.", "Limpeza da armação.", "Medição da DNP.", "Avaliação da retina."], 0, "A surfaçagem trabalha a superfície para obter as características ópticas necessárias."),

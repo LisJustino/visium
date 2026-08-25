@@ -36,7 +36,7 @@ window.VISIUM_CONTENTS = [
     },
     {
         id: "dp-dnp",
-        title: "O que é DP, DNP e Altura",
+        title: "DP, DNP e Altura",
         description: "Medidas importantes para a montagem óptica.",
         url: "/pages/app/reader/reader.html?content=dp-dnp"
     },
@@ -54,7 +54,7 @@ window.VISIUM_CONTENTS = [
     },
     {
         id: "surfacagem-multifocal-bifocal",
-        title: "Surfaçagem de Multifocal e Bifocal",
+        title: "Surfaçagem Multifocal e Bifocal",
         description: "Conceitos de surfaçagem e lentes multifocais e bifocais.",
         url: "/pages/app/reader/reader.html?content=surfacagem-multifocal-bifocal"
     },
