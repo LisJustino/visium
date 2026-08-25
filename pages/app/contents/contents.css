@@ -136,7 +136,7 @@
         var(--radius-xl);
 
     background:
-        var(--color-white);
+        var(--color-surface);
 
     box-shadow:
         var(--shadow-sm);

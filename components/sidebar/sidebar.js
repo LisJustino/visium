@@ -752,6 +752,57 @@
 
 
         if (!toggle || !overlay) {
+
+            if (
+                sidebar.dataset.behaviorWaiting !==
+                "true"
+            ) {
+
+                sidebar.dataset.behaviorWaiting =
+                    "true";
+
+                const observer =
+                    new MutationObserver(
+                        () => {
+
+                            const currentToggle =
+                                document.querySelector(
+                                    "#sidebarToggle"
+                                );
+
+                            const currentOverlay =
+                                document.querySelector(
+                                    "#sidebarOverlay"
+                                );
+
+                            if (
+                                currentToggle &&
+                                currentOverlay
+                            ) {
+
+                                observer.disconnect();
+
+                                delete sidebar.dataset.behaviorWaiting;
+
+                                initializeSidebarBehavior(
+                                    sidebar
+                                );
+
+                            }
+
+                        }
+                    );
+
+                observer.observe(
+                    document.body,
+                    {
+                        childList: true,
+                        subtree: true
+                    }
+                );
+
+            }
+
             return;
         }
 

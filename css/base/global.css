@@ -332,6 +332,12 @@ select {
     font-family:
         inherit;
 
+    color:
+        var(--color-text);
+
+    -webkit-text-fill-color:
+        var(--color-text);
+
 }
 
 
