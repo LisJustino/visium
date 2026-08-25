@@ -4,7 +4,7 @@
  * Arquivo: montagem.js
  *
  * Conteúdo educacional:
- * Montagens de Multifocais e Bifocais
+ * Montagem de lentes oftálmicas
  * ==========================================================================
  */
 
@@ -19,144 +19,54 @@ window.VisiumContent.montagem = {
     category: "MONTAGEM",
 
     description:
-        "Estudo das superfícies bifocais e multifocais, surfaçagem, curvatura e lentes bifocais.",
+        "Etapas da montagem de lentes oftálmicas, da conferência da receita à inspeção final.",
 
     sections: [
 
         {
-            id: "superficies",
+            id: "conferencia",
 
-            title: "Superfícies Bifocais e Multifocais",
+            title: "Conferência da montagem",
 
             content: `
-                <h2>Superfícies Bifocais e Multifocais</h2>
+                <h2>Conferência da montagem</h2>
 
                 <p>
-                    As superfícies bifocais e multifocais fazem parte dos
-                    processos relacionados à fabricação e montagem de lentes
-                    destinadas a diferentes necessidades de visão.
+                    A montagem começa com a conferência da receita, da armação
+                    e das medidas do usuário. Essa etapa evita que uma medida
+                    incorreta avance para o corte da lente.
                 </p>
 
                 <p>
-                    Neste conteúdo serão apresentados conceitos relacionados
-                    à surfaçagem, curvatura e às principais características
-                    das lentes bifocais.
-                </p>
-            `
-        },
-
-
-        {
-            id: "surfacagem",
-
-            title: "O que é surfaçagem?",
-
-            content: `
-                <h2>O que é surfaçagem?</h2>
-
-                <p>
-                    A surfaçagem é o processo utilizado para trabalhar a
-                    superfície da lente, permitindo obter as características
-                    ópticas necessárias para sua utilização.
-                </p>
-
-                <figure class="reader-image">
-                    <img
-                        src="/assets/img/content/montagem/surfacagem.jpeg"
-                        alt="Processo de surfaçagem de lentes"
-                        loading="lazy"
-                    >
-                    <figcaption>
-                        Processo de surfaçagem.
-                    </figcaption>
-                </figure>
-            `
-        },
-
-
-        {
-            id: "como-e-feito",
-
-            title: "Como é feito?",
-
-            content: `
-                <h2>Como é feito?</h2>
-
-                <p>
-                    O processo de surfaçagem trabalha a superfície da lente
-                    de acordo com as características ópticas desejadas.
+                    Confira olho direito e esquerdo, esfera, cilindro, eixo,
+                    adição, DP ou DNP e altura de montagem quando necessário.
                 </p>
             `
         },
 
 
         {
-            id: "por-que-surfacar",
+            id: "medidas",
 
-            title: "Por que surfaçar?",
-
-            content: `
-                <h2>Por que surfaçar?</h2>
-
-                <p>
-                    A surfaçagem permite trabalhar a lente para que ela
-                    apresente a curvatura e as características necessárias
-                    para sua aplicação óptica.
-                </p>
-            `
-        },
-
-
-        {
-            id: "curvatura",
-
-            title: "Curvatura",
+            title: "Medidas e centralização",
 
             content: `
-                <h2>Curvatura</h2>
+                <h2>Medidas e centralização</h2>
 
                 <p>
-                    A curvatura é um dos elementos relacionados à superfície
-                    óptica da lente e ao resultado obtido durante o processo
-                    de fabricação.
-                </p>
-
-                <figure class="reader-image">
-                    <img
-                        src="/assets/img/content/montagem/lentes.jpeg"
-                        alt="Lentes utilizadas no processo óptico"
-                        loading="lazy"
-                    >
-                    <figcaption>
-                        Lentes e suas superfícies ópticas.
-                    </figcaption>
-                </figure>
-            `
-        },
-
-
-        {
-            id: "lentes-bifocais",
-
-            title: "Lentes Bifocais",
-
-            content: `
-                <h2>Lentes Bifocais</h2>
-
-                <p>
-                    As lentes bifocais possuem diferentes áreas destinadas
-                    à correção visual, permitindo atender diferentes
-                    necessidades de visão em uma mesma lente.
+                    A centralização posiciona o centro óptico e, nas lentes
+                    progressivas, as referências de montagem em relação aos
+                    olhos e à armação.
                 </p>
 
                 <figure class="reader-image">
                     <img
                         src="/assets/img/content/montagem/armacao.jpeg"
-                        alt="Lente bifocal em armação"
+                        alt="Armação usada na montagem de lentes"
                         loading="lazy"
                     >
                     <figcaption>
-                        Lente bifocal aplicada à montagem.
+                        A armação deve estar ajustada antes da centralização.
                     </figcaption>
                 </figure>
             `
@@ -164,58 +74,93 @@ window.VisiumContent.montagem = {
 
 
         {
-            id: "flat-top",
+            id: "blocagem",
 
-            title: "Bifocal Flat Top",
+            title: "Blocagem e corte",
 
             content: `
-                <h2>Bifocal Flat Top</h2>
+                <h2>Blocagem e corte</h2>
 
                 <p>
-                    O bifocal Flat Top é um dos modelos apresentados no
-                    material de estudo sobre lentes bifocais.
+                    Depois de marcar as referências, a lente é bloqueada e
+                    cortada de acordo com o formato interno da armação. O
+                    recorte precisa respeitar o eixo, a altura e a espessura.
                 </p>
             `
         },
 
 
         {
-            id: "executive",
+            id: "montagem",
 
-            title: "Bifocal Executive",
+            title: "Encaixe na armação",
 
             content: `
-                <h2>Bifocal Executive</h2>
+                <h2>Encaixe na armação</h2>
 
                 <p>
-                    O bifocal Executive é outro modelo de lente bifocal
-                    apresentado no material.
+                    No encaixe, observe se a lente assenta sem tensão, se o
+                    bisel acompanha o aro e se não há folgas ou deformações.
+                    A armação não deve ser forçada para receber a lente.
+                </p>
+            `
+        },
+
+
+        {
+            id: "conferencia-final",
+
+            title: "Conferência final",
+
+            content: `
+                <h2>Conferência final</h2>
+
+                <p>
+                    Finalizada a montagem, confira a limpeza, a estabilidade
+                    das lentes, a simetria da armação e a correspondência
+                    entre a receita e os poderes medidos no lensômetro.
                 </p>
 
                 <figure class="reader-image">
                     <img
-                        src="/assets/img/content/montagem/bifocal-executive.jpeg"
-                        alt="Lente bifocal Executive"
+                        src="/assets/img/content/montagem/lensometro.jpg"
+                        alt="Lensômetro usado na conferência das lentes"
                         loading="lazy"
                     >
                     <figcaption>
-                        Bifocal Executive.
+                        Conferência dos poderes com lensômetro.
                     </figcaption>
                 </figure>
+            `
+        },
+
+
+        {
+            id: "ajustes",
+
+            title: "Ajustes e entrega",
+
+            content: `
+                <h2>Ajustes e entrega</h2>
+
+                <p>
+                    Faça os ajustes finais de plaquetas, hastes e apoio nasal.
+                    A armação deve ficar nivelada, confortável e alinhada ao
+                    rosto antes da entrega ao cliente.
+                </p>
 
                 <figure class="reader-image">
                     <img
-                        src="/assets/img/content/montagem/bifocal-executive-02.jpeg"
-                        alt="Detalhe da lente bifocal Executive"
+                        src="/assets/img/content/montagem/lentes.jpeg"
+                        alt="Lentes prontas para montagem óptica"
                         loading="lazy"
                     >
                     <figcaption>
-                        Detalhe da lente bifocal Executive.
+                        Lentes prontas para a etapa de montagem.
                     </figcaption>
                 </figure>
             `
         }
-
     ]
 
 };
