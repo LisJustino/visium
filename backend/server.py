@@ -161,10 +161,14 @@ class DatabaseConnection:
             )
 
             self.connection = sqlite3.connect(
-                DATABASE_PATH
+                DATABASE_PATH,
+                timeout=10
             )
 
             self.connection.row_factory = sqlite3.Row
+            self.connection.execute(
+                "PRAGMA busy_timeout = 10000"
+            )
             self.connection.execute(
                 "PRAGMA foreign_keys = ON"
             )
@@ -735,6 +739,17 @@ class VisiumHandler(
                 {
                     "error":
                         "EMAIL_ALREADY_EXISTS"
+                }
+            )
+
+        except sqlite3.OperationalError:
+
+            json_response(
+                self,
+                HTTPStatus.SERVICE_UNAVAILABLE,
+                {
+                    "error":
+                        "DATABASE_UNAVAILABLE"
                 }
             )
 

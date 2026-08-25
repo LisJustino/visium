@@ -141,6 +141,10 @@ function getErrorMessage(
 
             return "Não foi possível conectar ao servidor.";
 
+        case "DATABASE_UNAVAILABLE":
+
+            return "O servidor está ocupado. Aguarde alguns segundos e tente novamente.";
+
         case "TOO_MANY_ATTEMPTS":
 
             return "Muitas tentativas. Aguarde alguns minutos e tente novamente.";
