@@ -341,6 +341,14 @@ select {
 }
 
 
+button {
+
+    -webkit-text-fill-color:
+        currentColor;
+
+}
+
+
 :focus-visible {
 
     outline:
