@@ -1746,8 +1746,18 @@ async function initializeReader() {
     }
 
 
-    const contentKey =
+    let contentKey =
         getContentKey();
+
+    if (contentKey === "acuidade-visual") {
+
+        window.location.replace(
+            "/pages/app/reader/reader.html?content=lentes-contato"
+        );
+
+        return;
+
+    }
 
 
     if (contentKey) {

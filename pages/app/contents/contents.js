@@ -198,7 +198,6 @@ function initializeContentsFilters() {
     const categoryToContentId = {
         receitas: "interpretacao-de-receita",
         optica: "transposicao",
-        "acuidade-visual": "acuidade-visual",
         anatomia: "anatomia",
         ametropias: "ametropias",
         "dp-dnp": "dp-dnp",
