@@ -26,6 +26,125 @@ const pendingQuizOperations = [];
 
 let quizzesReady = false;
 
+const QUIZ_DATA_VERSION =
+    "20260825-answer-balance";
+
+
+function getBalancedCorrectIndex(
+    quizIndex,
+    questionIndex,
+    optionsLength
+) {
+
+    if (
+        !Number.isInteger(optionsLength) ||
+        optionsLength <= 1
+    ) {
+
+        return 0;
+
+    }
+
+
+    return (
+        quizIndex +
+        questionIndex
+    ) % optionsLength;
+
+}
+
+
+function rebalanceQuestionAnswer(
+    question,
+    targetCorrectIndex
+) {
+
+    if (
+        !question ||
+        !Array.isArray(question.options) ||
+        !Number.isInteger(question.correct) ||
+        question.correct < 0 ||
+        question.correct >= question.options.length ||
+        targetCorrectIndex === question.correct
+    ) {
+
+        return;
+
+    }
+
+
+    const currentCorrectIndex =
+        question.correct;
+
+    const options =
+        [
+            ...question.options
+        ];
+
+
+    [
+        options[targetCorrectIndex],
+        options[currentCorrectIndex]
+    ] = [
+        options[currentCorrectIndex],
+        options[targetCorrectIndex]
+    ];
+
+
+    question.options =
+        options;
+
+    question.correct =
+        targetCorrectIndex;
+
+}
+
+
+function rebalanceQuizAnswers() {
+
+    Object.values(
+        QUIZ_DATA
+    ).forEach(
+        (
+            quiz,
+            quizIndex
+        ) => {
+
+            if (
+                !quiz ||
+                !Array.isArray(quiz.questions)
+            ) {
+
+                return;
+
+            }
+
+
+            quiz.questions.forEach(
+                (
+                    question,
+                    questionIndex
+                ) => {
+
+                    rebalanceQuestionAnswer(
+                        question,
+                        getBalancedCorrectIndex(
+                            quizIndex,
+                            questionIndex,
+                            Array.isArray(question.options)
+                                ? question.options.length
+                                : 0
+                        )
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
+
 
 function createQuestion(
     text,
@@ -1066,6 +1185,158 @@ pendingQuizOperations.forEach(
     (operation) => operation()
 );
 
+function applyContentAlignedQuizQuestions() {
+
+    const contentAlignedQuestions = {
+
+        "fundamentos-optica": [
+            ["Qual estrutura transparente fica na parte frontal do olho e ajuda a focalizar a luz?", ["Córnea.", "Retina.", "Humor vítreo.", "Esclera."], 0, "A córnea permite a entrada da luz e participa de grande parte da focalização."],
+            ["Qual estrutura capta a luz e transforma a informação visual em impulsos nervosos?", ["Retina.", "Íris.", "Pálpebra.", "Conjuntiva."], 0, "A retina contém fotorreceptores e envia informações visuais ao cérebro."],
+            ["Qual estrutura ajusta o foco para objetos próximos e distantes?", ["Cristalino.", "Esclera.", "Pupila.", "Cílios."], 0, "O cristalino muda sua forma no processo de acomodação."],
+            ["O que a íris controla no processo visual?", ["A quantidade de luz que entra pela pupila.", "A marcação da lente no lensômetro.", "A distância entre as pupilas.", "O comprimento da haste."], 0, "A íris altera o tamanho da pupila conforme a iluminação."],
+            ["Qual função das pálpebras é destacada no conteúdo?", ["Distribuir a lágrima e proteger a superfície ocular.", "Definir o eixo do astigmatismo.", "Produzir o grau esférico.", "Formar as imagens na retina."], 0, "As pálpebras ajudam na proteção, hidratação e limpeza da superfície ocular."],
+            ["Qual é a função da esclera?", ["Proteger e dar sustentação ao globo ocular.", "Regular a entrada de luz.", "Avaliar a visão de perto.", "Corrigir miopia."], 0, "A esclera é a parte branca e resistente que sustenta e protege o olho."]
+        ],
+
+        "ametropias": [
+            ["O que é uma ametropia?", ["Um erro refrativo em que a luz não focaliza corretamente na retina.", "Uma infecção das glândulas da pálpebra.", "Uma medida da armação gravada na haste.", "Um tipo de tabela optométrica."], 0, "Ametropias são alterações refrativas que prejudicam o foco correto na retina."],
+            ["Na miopia sem correção, onde a imagem tende a se formar?", ["Antes da retina.", "Atrás da retina.", "No cristalino sem passar pela córnea.", "Na parte externa da pálpebra."], 0, "Na miopia, o foco se forma antes da retina."],
+            ["Qual lente é usada em geral para corrigir a miopia?", ["Lente negativa ou divergente.", "Lente positiva ou convergente.", "Lente sem potência.", "Apenas lente bifocal sem grau."], 0, "A lente negativa ajuda a deslocar o foco para a retina."],
+            ["Na hipermetropia, o foco tende a se formar:", ["Atrás da retina.", "Antes da retina.", "No eixo da armação.", "Na superfície da lente já montada."], 0, "Na hipermetropia, o foco tende a ficar teoricamente atrás da retina."],
+            ["O astigmatismo está relacionado principalmente a:", ["Irregularidade na curvatura da córnea ou do cristalino.", "Obstrução de glândulas palpebrais.", "Medida da ponte da armação.", "Uso exclusivo da Tabela de Jaeger."], 0, "O astigmatismo ocorre por curvaturas diferentes que formam focos distintos."],
+            ["A presbiopia, ou vista cansada, ocorre pela redução da:", ["Capacidade de acomodação visual.", "Distância pupilar.", "Espessura da armação.", "Produção de optotipos."], 0, "A presbiopia está ligada à perda progressiva da acomodação, comum a partir dos 40 anos."]
+        ],
+
+        "dp-dnp": [
+            ["O que significa DP?", ["Distância entre o centro da pupila direita e o centro da pupila esquerda.", "Distância entre a córnea e o cristalino.", "Dioptria de perto.", "Diâmetro da ponte da armação."], 0, "DP é a distância pupilar medida entre as duas pupilas."],
+            ["O que significa DNP?", ["Distância do centro do nariz até o centro de cada pupila.", "Distância entre a retina e a lente.", "Diâmetro nasal da plaqueta.", "Dados necessários da prescrição."], 0, "DNP é a distância naso-pupilar, medida separadamente em cada olho."],
+            ["Por que medir a DNP de cada olho separadamente?", ["Porque o rosto pode apresentar pequenas assimetrias.", "Porque a DP não pode ser medida em milímetros.", "Porque substitui a receita oftálmica.", "Porque define o material da lente."], 0, "A medida monocular ajuda a alinhar o centro óptico com cada pupila."],
+            ["Qual é o objetivo de alinhar o centro óptico da lente com a pupila?", ["Direcionar a luz corretamente e melhorar conforto e nitidez.", "Escolher a cor da armação.", "Evitar a leitura da OS.", "Alterar o grau da receita."], 0, "O alinhamento correto favorece visão mais nítida, confortável e precisa."],
+            ["Antes de medir altura em lentes multifocais, a armação deve estar:", ["Ajustada no rosto como será usada.", "Sem hastes e sem plaquetas.", "Apenas escolhida pela cor.", "Com a lente já cortada definitivamente."], 0, "A altura depende do posicionamento real da armação no rosto."],
+            ["Uma medição incorreta de DP ou DNP pode causar:", ["Desconforto, dor de cabeça ou visão embaçada.", "Aumento automático da durabilidade da lente.", "Melhora da adaptação sem ajuste.", "Troca do tipo de conjuntiva."], 0, "A centralização inadequada prejudica conforto e desempenho visual."]
+        ],
+
+        "montagem": [
+            ["Qual documento reúne as informações necessárias para executar a montagem?", ["Ordem de Serviço (OS).", "Tabela de Jaeger.", "Teste bicromático.", "Cartão de garantia da armação."], 0, "A OS contém identificação, receita e especificações técnicas do serviço."],
+            ["Durante a lensometria, o lensômetro é usado para:", ["Conferir o grau das lentes e realizar a marcação.", "Medir a pressão intraocular.", "Avaliar a lágrima antes da lente de contato.", "Escolher o formato do rosto."], 0, "O lensômetro confere valores esféricos, cilíndricos e eixo antes da montagem."],
+            ["No lensômetro, a letra S representa:", ["Valor esférico.", "Secreção ocular.", "Sistema de secagem.", "Suporte nasal."], 0, "No conteúdo de montagem, S indica o valor esférico da lente."],
+            ["Em lentes cilíndricas, o que deve ser encontrado antes da marcação?", ["O eixo correto.", "A cor da haste.", "O tipo de cílio.", "O valor da ponte da armação."], 0, "A lente deve ser girada até encontrar o eixo correto."],
+            ["Nas lentes multifocais, os círculos gravados ajudam a identificar:", ["O tipo de lente, o posicionamento e o valor da adição.", "A presença de conjuntivite.", "A largura horizontal da armação.", "A direção da abertura da Tabela Tumbling."], 0, "As marcações de multifocais orientam posicionamento e identificação da ADD."],
+            ["Qual equipamento realiza o corte das lentes no formato da armação?", ["Facetadora.", "Lensômetro.", "Tabela optométrica.", "Lâmpada de fenda."], 0, "A facetadora usina a lente conforme o formato da armação."]
+        ],
+
+        "lendo-uma-receita": [
+            ["O que o campo ESF indica em uma receita?", ["A potência esférica da lente.", "A orientação do cilindro em graus.", "A medida da ponte.", "O tipo de material da armação."], 0, "ESF indica a potência principal para correção de miopia ou hipermetropia."],
+            ["O sinal negativo no valor esférico costuma indicar correção de:", ["Miopia.", "Hipermetropia.", "Calázio.", "Pterígio."], 0, "No conteúdo, o sinal negativo está ligado à correção da miopia."],
+            ["O cilindro representa a correção de qual ametropia?", ["Astigmatismo.", "Presbiopia apenas.", "Miopia sem qualquer eixo.", "Olho seco."], 0, "O CIL representa a correção cilíndrica usada no astigmatismo."],
+            ["Quando existe cilindro na receita, qual informação deve acompanhá-lo?", ["Eixo em graus.", "Cor da lente.", "Comprimento da haste.", "Tabela usada no exame."], 0, "O eixo orienta a correção cilíndrica e varia de 0° a 180°."],
+            ["Para obter o esférico de perto quando há ADD, deve-se:", ["Somar a adição ao esférico de longe.", "Subtrair o eixo do cilindro.", "Trocar OD por OE.", "Dividir a DNP pela ponte."], 0, "A adição é somada ao componente esférico de longe."],
+            ["O que significam OD e OE?", ["Olho direito e olho esquerdo.", "Óptica diária e óptica externa.", "Ordem de serviço e eixo.", "Olho distante e olho esférico."], 0, "OD e OE identificam os olhos separadamente na receita."]
+        ],
+
+        "anatomia": [
+            ["Onde ficam os cílios e qual é sua função principal?", ["Na borda das pálpebras, protegendo contra poeira e agentes externos.", "Na retina, formando cores.", "No cristalino, mudando o foco.", "Na ponte da armação, apoiando a lente."], 0, "Os cílios funcionam como barreira protetora e são sensíveis ao toque."],
+            ["Qual estrutura produz lágrimas importantes para hidratação e proteção?", ["Glândulas lacrimais.", "Esclera.", "Pupila.", "Humor vítreo."], 0, "As glândulas lacrimais produzem lágrimas que lubrificam e protegem."],
+            ["A conjuntiva recobre principalmente:", ["A parte branca do olho e a região interna das pálpebras.", "O centro da lente multifocal.", "A haste da armação.", "O campo de adição da receita."], 0, "A conjuntiva ajuda a proteger e lubrificar a superfície ocular."],
+            ["O humor aquoso ajuda a manter:", ["A nutrição de estruturas anteriores e a pressão intraocular.", "A distância naso-pupilar.", "O tamanho da haste.", "A direção dos optotipos."], 0, "O humor aquoso nutre estruturas e participa do equilíbrio da pressão intraocular."],
+            ["O humor vítreo ocupa a parte interna do olho entre:", ["O cristalino e a retina.", "A ponte e a haste.", "A córnea e a lente dos óculos.", "O cílio e a sobrancelha."], 0, "O humor vítreo é uma substância gelatinosa entre cristalino e retina."],
+            ["Quais células da retina são citadas como fotorreceptores?", ["Bastonetes e cones.", "Plaquetas e hastes.", "Cílios e sobrancelhas.", "Eixos e cilindros."], 0, "Bastonetes atuam mais em baixa iluminação; cones participam das cores e detalhes."]
+        ],
+
+        "armacoes": [
+            ["O que é uma armação de óculos?", ["Estrutura que sustenta lentes corretivas ou solares.", "Equipamento usado para medir o grau da lente.", "Tabela usada para visão de perto.", "Membrana que recobre a esclera."], 0, "A armação sustenta as lentes e deve unir estética, conforto e adaptação."],
+            ["No aro fechado, a lente fica:", ["Totalmente envolvida pela armação.", "Presa apenas por fio de nylon na parte inferior.", "Fixada diretamente só pelas hastes.", "Sem nenhum apoio frontal."], 0, "O aro fechado envolve toda a lente e é comum no uso diário."],
+            ["Qual material é descrito como premium, muito leve e resistente?", ["Titânio.", "Acetato.", "Nylon.", "Papel descartável."], 0, "O titânio é indicado para quem é sensível ao peso e para uso prolongado."],
+            ["Na medida 52 □ 18 - 140, o número 52 indica:", ["Calibre da lente, ou largura horizontal da lente.", "Ponte entre as lentes.", "Comprimento da haste.", "Altura da lente progressiva."], 0, "O conteúdo define 52 mm como calibre/largura horizontal da lente."],
+            ["Para miopia alta, qual orientação aparece no conteúdo?", ["Preferir aro fechado e lentes menores.", "Usar sempre armação sem aro.", "Escolher somente pela cor.", "Evitar qualquer ajuste no rosto."], 0, "Lentes menores ajudam a reduzir a percepção de espessura em miopia alta."],
+            ["Para lentes progressivas, a armação deve evitar:", ["Altura de lente muito pequena.", "Qualquer ponte nasal.", "Aro fechado em todos os casos.", "Medidas gravadas na haste."], 0, "Progressivas precisam de altura suficiente para favorecer adaptação."]
+        ],
+
+        "lentes-contato": [
+            ["Onde as lentes de contato são usadas?", ["Diretamente na superfície corneana.", "Apenas na haste da armação.", "Sobre a pálpebra fechada.", "Dentro do lensômetro."], 0, "O conteúdo define lentes de contato como dispositivos usados na superfície corneana."],
+            ["Quais categorias principais de lentes são apresentadas?", ["Rígidas gás permeáveis e gelatinosas.", "Aro fechado e meio aro.", "Snellen e Jaeger.", "Córnea e esclera."], 0, "O material apresenta RGP e lentes gelatinosas como categorias principais."],
+            ["Qual é o objetivo da anamnese antes da adaptação?", ["Coletar informações oculares e sistêmicas e identificar contraindicações.", "Substituir todos os exames profissionais.", "Definir a cor da armação.", "Eliminar a necessidade de higiene."], 0, "A anamnese orienta segurança, conforto e escolha adequada da lente."],
+            ["Por que a transmissibilidade ao oxigênio é importante?", ["Porque a córnea depende do oxigênio do ambiente externo.", "Porque muda a ponte da armação.", "Porque define a Tabela de Jaeger.", "Porque substitui a limpeza diária."], 0, "A córnea é avascular e precisa de adequada oxigenação."],
+            ["Qual solução exige neutralização antes da inserção das lentes?", ["Peróxido de hidrogênio.", "Água da torneira.", "Soro fisiológico comum.", "Sabonete neutro puro."], 0, "O peróxido faz desinfecção profunda e exige neutralização conforme o fabricante."],
+            ["Qual conduta não é recomendada no uso de lentes de contato?", ["Utilizar lentes durante banho, piscina, mar ou chuveiro.", "Lavar e secar as mãos antes do manuseio.", "Trocar a solução diariamente.", "Manter o estojo aberto para secagem."], 0, "Água em banho, piscina, mar ou chuveiro aumenta risco de contaminação."]
+        ],
+
+        "patologias": [
+            ["Qual é a finalidade do conteúdo de patologias na plataforma?", ["Auxiliar a reconhecer sinais que precisam de encaminhamento ao especialista.", "Ensinar automedicação para cada sintoma.", "Substituir consulta com oftalmologista.", "Definir grau de óculos sem avaliação."], 0, "O conteúdo é educacional e reforça encaminhamento ao especialista."],
+            ["O hordéolo é descrito como:", ["Inflamação na pálpebra causada por infecção nas glândulas sebáceas.", "Opacificação do cristalino pelo envelhecimento.", "Alteração da curvatura da córnea.", "Perda de visão periférica por pressão ocular."], 0, "O hordéolo pode ser externo ou interno e envolve infecção em glândulas da pálpebra."],
+            ["O calázio ocorre principalmente por:", ["Obstrução das glândulas responsáveis pela produção de óleo.", "Aumento súbito da DNP.", "Uso de tabela de longe.", "Troca do valor de ADD."], 0, "O calázio é uma inflamação não infecciosa ligada à obstrução glandular."],
+            ["A catarata acontece quando:", ["O cristalino perde sua transparência.", "A ponte da armação fica curta.", "A lente de contato fica rígida.", "A pupila mede menos que a DNP."], 0, "A catarata dificulta a passagem da luz por opacificação do cristalino."],
+            ["O glaucoma está associado no conteúdo a:", ["Aumento da pressão intraocular e dano ao nervo óptico.", "Apenas coceira alérgica sem risco visual.", "Formato oval da córnea sem pressão ocular.", "Medida 52 □ 18 - 140."], 0, "O glaucoma pode comprometer a visão por dano ao nervo óptico."],
+            ["O ceratocone afeta qual estrutura?", ["Córnea.", "Cristalino.", "Haste.", "Tabela de Snellen."], 0, "O ceratocone deixa a córnea mais fina e irregular, causando visão distorcida."]
+        ],
+
+        "interpretacao-de-receita": [
+            ["Quais campos comuns aparecem em uma receita oftálmica segundo o conteúdo?", ["Esférico, cilíndrico, eixo, adição e observações.", "Ponte, haste, charneira e terminal.", "Snellen, Tumbling, LEA e Jaeger.", "Hordéolo, calázio, catarata e glaucoma."], 0, "A estrutura da receita reúne os dados necessários para correção visual."],
+            ["Em que unidade os valores da receita normalmente são expressos?", ["Dioptrias, em intervalos de 0,25.", "Milímetros de haste.", "Porcentagem de oxigenação apenas.", "Graus de abertura da pupila."], 0, "O conteúdo informa que as medidas normalmente são em dioptrias, com intervalos de 0,25."],
+            ["Quando há diferença de grau entre os olhos, essa condição é chamada:", ["Anisometropia.", "Ambliopia.", "Pterígio.", "Surfaçagem."], 0, "O módulo cita anisometropia para diferença de grau entre os olhos."],
+            ["O eixo do cilindro varia de:", ["0° a 180°.", "0° a 90° apenas.", "18 mm a 140 mm.", "20/20 a 20/200."], 0, "O eixo informa a orientação da correção cilíndrica em graus, de 0° a 180°."],
+            ["Na adição, o que permanece inalterado ao calcular o perto?", ["Cilindro e eixo.", "Ponte e haste.", "Cílios e pálpebras.", "Tabela e distância do exame."], 0, "O conteúdo diz que cilindro e eixo permanecem inalterados."],
+            ["Antes de encaminhar a montagem, deve-se conferir:", ["Identificação, olho correspondente, sinais, valores, eixo e adição.", "Apenas a cor da armação.", "Somente o nome da tabela usada.", "Somente a marca do estojo."], 0, "A conferência evita erro de olho, sinal, valores, eixo e adição."]
+        ],
+
+        "acuidade-visual": [
+            ["O que é acuidade visual?", ["Capacidade funcional de identificar, discriminar e perceber detalhes com nitidez.", "Medida da distância da ponte.", "Processo de corte das lentes.", "Inflamação das glândulas sebáceas."], 0, "A AV avalia a capacidade de perceber detalhes em diferentes distâncias."],
+            ["Como a acuidade visual é avaliada no conteúdo?", ["Por tabelas optométricas padronizadas.", "Pela medida 52 □ 18 - 140.", "Pela escolha do material da armação.", "Pela limpeza do estojo de lentes."], 0, "A avaliação usa tabelas optométricas como Snellen e outros optotipos."],
+            ["Qual distância padronizada é citada para o exame?", ["6 metros ou 20 pés.", "18 mm.", "140 mm.", "0,25 dioptria."], 0, "O procedimento cita posicionamento a 6 metros, equivalente a 20 pés."],
+            ["O exame é realizado de forma monocular quando:", ["Um olho é ocluído por vez.", "Os dois olhos ficam fechados.", "A lente é cortada na facetadora.", "A armação é desmontada."], 0, "A avaliação monocular observa um olho por vez."],
+            ["A Tabela Tumbling utiliza:", ["A optotipia E em diferentes orientações.", "Textos para visão próxima.", "Somente letras alfabéticas padronizadas.", "Círculos gravados de lentes multifocais."], 0, "Na Tumbling, o paciente indica a direção da abertura do E."],
+            ["A Tabela de Jaeger é utilizada principalmente para:", ["Avaliação da acuidade visual de perto.", "Corte de lentes em facetadora.", "Identificação da DNP.", "Diagnóstico de catarata."], 0, "Jaeger é uma tabela de visão próxima."]
+        ],
+
+        "surfacagem-multifocal-bifocal": [
+            ["O que é surfaçagem?", ["Processo de trabalho da superfície da lente para obter características ópticas.", "Leitura dos menores optotipos visíveis.", "Inflamação não infecciosa da pálpebra.", "Medida entre as pupilas."], 0, "Surfaçagem trabalha a superfície da lente conforme a prescrição."],
+            ["A definição da superfície influencia principalmente:", ["As zonas de visão e a adaptação do usuário.", "A cor da íris.", "O comprimento dos cílios.", "A senha de acesso à plataforma."], 0, "Superfícies bifocais e multifocais influenciam zonas de visão e adaptação."],
+            ["A curvatura da superfície deve ser compatível com:", ["O projeto da lente e a finalidade da correção.", "A cor do estojo.", "A idade do cadastro.", "O formato da sobrancelha."], 0, "A curvatura participa do comportamento óptico da lente."],
+            ["O que caracteriza uma lente bifocal?", ["Zonas destinadas a diferentes distâncias de visão.", "Uma única potência sem área para perto.", "Uso apenas sem prescrição.", "Ausência de desenho para perto."], 0, "Bifocais reúnem zonas de visão em uma mesma lente."],
+            ["Nas lentes bifocais, o desenho da área para perto varia conforme:", ["O modelo escolhido.", "A cor da armação.", "A direção do optotipo E.", "O tipo de conjuntivite."], 0, "O conteúdo destaca que o desenho da área de perto muda conforme o modelo."],
+            ["O que caracteriza uma lente multifocal?", ["Progressão de potências para diferentes distâncias de visão.", "Apenas visão de longe sem transição.", "Corte sem projeto óptico.", "Uso exclusivo como lente de contato."], 0, "Multifocais apresentam progressão de potências."]
+        ]
+
+    };
+
+
+    Object.entries(
+        contentAlignedQuestions
+    ).forEach(
+        (
+            [
+                quizId,
+                questions
+            ]
+        ) => {
+
+            if (!QUIZ_DATA[quizId]) {
+
+                return;
+
+            }
+
+
+            QUIZ_DATA[quizId].questions =
+                questions.map(
+                    ([text, options, correct, explanation]) =>
+                        createQuestion(
+                            text,
+                            options,
+                            correct,
+                            explanation
+                        )
+                );
+
+        }
+    );
+
+}
+
+applyContentAlignedQuizQuestions();
+
+rebalanceQuizAnswers();
+
 
 /* ==========================================================================
    Estado
@@ -1606,7 +1877,7 @@ function createAttemptState() {
     return {
 
         version:
-            1,
+            QUIZ_DATA_VERSION,
 
         attemptId:
             createAttemptId(),
@@ -1646,7 +1917,7 @@ function saveAttempt() {
     const attempt = {
 
         version:
-            1,
+            QUIZ_DATA_VERSION,
 
         attemptId,
 
@@ -1703,8 +1974,14 @@ function loadAttempt() {
         if (
             !parsed ||
             parsed.quizId !==
-            currentQuizId
+            currentQuizId ||
+            parsed.version !==
+            QUIZ_DATA_VERSION
         ) {
+
+            localStorage.removeItem(
+                getAttemptStorageKey()
+            );
 
             return false;
 
