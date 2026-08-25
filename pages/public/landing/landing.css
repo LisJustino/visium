@@ -288,7 +288,7 @@
         var(--color-primary);
 
     color:
-        var(--color-white);
+        var(--color-on-primary);
 
     font-family: inherit;
 
@@ -317,7 +317,7 @@
         var(--color-primary-dark);
 
     color:
-        var(--color-white);
+        var(--color-on-primary);
 
     transform:
         translateY(-1px);
@@ -5215,7 +5215,7 @@
 [data-theme="dark"] .landing-button--primary,
 [data-theme="dark"] .landing-cta__button {
     background: #315fa8 !important;
-    color: #f8fafc !important;
+    color: var(--color-on-primary) !important;
 }
 
 [data-theme="dark"] .landing-header__register:hover,
@@ -5223,7 +5223,7 @@
 [data-theme="dark"] .landing-button--primary:hover,
 [data-theme="dark"] .landing-cta__button:hover {
     background: #4074c7 !important;
-    color: #ffffff !important;
+    color: var(--color-on-primary) !important;
 }
 
 [data-theme="dark"] .landing-button--secondary {
