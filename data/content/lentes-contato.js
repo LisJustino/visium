@@ -18,13 +18,13 @@ window.VisiumContent["lentes-contato"] = {
         "lentes-contato",
 
     title:
-        "Lentes de Contato e Acuidade Visual",
+        "Lentes de Contato",
 
     category:
         "LENTES DE CONTATO",
 
     description:
-        "Estudo sobre lentes de contato, adaptação, cuidados, aplicação, remoção e avaliação da acuidade visual.",
+        "Estudo sobre lentes de contato, adaptação, cuidados, aplicação e remoção.",
 
     sections: [
 

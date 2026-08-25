@@ -22,7 +22,7 @@ const COMPONENTS = {
 };
 
 const CONTENT_ASSET_VERSION =
-    "20260842";
+    "20260843";
 
 
 const CONTENTS = {
